@@ -41,22 +41,11 @@ echo "$WIFI_STATE" | grep -q CONNECTED || {
 # Check the separately signed, allowlisted application update channel.
 [ -x "$RUNTIME/device-update.sh" ] && "$RUNTIME/device-update.sh" >/dev/null 2>&1 || true
 
-# One-time, bounded framework diagnostics for the initial Kindlet launch test.
-if [ ! -f "$STATE/kindlet-log-captured" ]; then
-    {
-        echo '=== /var/log inventory ==='
-        find /var/log -maxdepth 2 -type f -print 2>/dev/null
-        echo '=== messages tail ==='
-        tail -300 /var/log/messages 2>/dev/null
-    } > "$STATE/kindlet-framework.log" 2>&1
-    date > "$STATE/kindlet-log-captured"
-fi
-
-if [ ! -f "$STATE/kindlet-errors-captured" ]; then
-    grep -i -B 12 -A 25 'kindlet\|rupert\|main class\|runtimeexception\|noclass\|classnotfound\|securityexception' \
-        /var/log/messages 2>/dev/null | tail -2000 > "$STATE/kindlet-errors.log"
-    date > "$STATE/kindlet-errors-captured"
-fi
+# Keep a bounded rolling snapshot while the first launcher is being proven.
+# It makes loader failures visible over USB without requiring SSH or typing.
+tail -1200 /var/log/messages 2>/dev/null > "$STATE/kindlet-live.log"
+grep -i -B 20 -A 40 'kindlet\|rupert\|main class\|runtimeexception\|noclass\|classnotfound\|securityexception\|exception' \
+    /var/log/messages 2>/dev/null | tail -2400 > "$STATE/kindlet-errors.log"
 
 fetch() {
     "$CURL" --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
