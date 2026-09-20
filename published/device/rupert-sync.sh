@@ -52,6 +52,12 @@ if [ ! -f "$STATE/kindlet-log-captured" ]; then
     date > "$STATE/kindlet-log-captured"
 fi
 
+if [ ! -f "$STATE/kindlet-errors-captured" ]; then
+    grep -i -B 12 -A 25 'kindlet\|rupert\|main class\|runtimeexception\|noclass\|classnotfound\|securityexception' \
+        /var/log/messages 2>/dev/null | tail -2000 > "$STATE/kindlet-errors.log"
+    date > "$STATE/kindlet-errors-captured"
+fi
+
 fetch() {
     "$CURL" --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
         --connect-timeout 20 --max-time 90 --cacert "$CA" -o "$1" "$2"
