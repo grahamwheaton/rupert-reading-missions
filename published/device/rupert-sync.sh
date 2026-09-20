@@ -41,6 +41,17 @@ echo "$WIFI_STATE" | grep -q CONNECTED || {
 # Check the separately signed, allowlisted application update channel.
 [ -x "$RUNTIME/device-update.sh" ] && "$RUNTIME/device-update.sh" >/dev/null 2>&1 || true
 
+# One-time, bounded framework diagnostics for the initial Kindlet launch test.
+if [ ! -f "$STATE/kindlet-log-captured" ]; then
+    {
+        echo '=== /var/log inventory ==='
+        find /var/log -maxdepth 2 -type f -print 2>/dev/null
+        echo '=== messages tail ==='
+        tail -300 /var/log/messages 2>/dev/null
+    } > "$STATE/kindlet-framework.log" 2>&1
+    date > "$STATE/kindlet-log-captured"
+fi
+
 fetch() {
     "$CURL" --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
         --connect-timeout 20 --max-time 90 --cacert "$CA" -o "$1" "$2"
@@ -64,7 +75,8 @@ rm -f "$STAMP"
     exit 0
 }
 
-[ "$(cat "$STATE/last-remote-id" 2>/dev/null)" = "$REMOTE_ID" ] && exit 0
+[ "$(cat "$STATE/last-remote-id" 2>/dev/null)" = "$REMOTE_ID" ] \
+    && [ -f "$DOCUMENT" ] && [ -f "$STATE/launcher.properties" ] && exit 0
 
 if ! fetch "$BOOK" "$BASE_URL/today.mobi" >> "$LOG" 2>&1; then
     log 'mission download failed'
