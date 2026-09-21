@@ -1,14 +1,7 @@
 #!/bin/sh
 
-LOG=/mnt/us/rupert-mission/lipc-probe.log
-
-{
-    echo "=== Rupert reader service probe: $(date) ==="
-    echo '=== LIPC services and properties ==='
-    /usr/bin/lipc-probe -a -v 2>&1
-    echo '=== D-Bus registered names ==='
-    /usr/bin/dbus-send --system --print-reply --dest=org.freedesktop.DBus \
-        / org.freedesktop.DBus.ListNames 2>&1
-} > "$LOG"
-
-exit 0
+# Firmware 4.1.4 has no appmgrd. Its framework exposes a native `read`
+# command, which opens LAST_BOOK_READ from the reader preferences. The daily
+# mission uses a stable filename and is therefore always that book after the
+# first successful manual read.
+exec /usr/bin/lipc-set-prop -i com.lab126.framework read 1
