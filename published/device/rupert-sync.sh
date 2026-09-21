@@ -9,14 +9,41 @@ LOG="$STATE/sync.log"
 LOCK=/tmp/rupert-mission-sync.lock
 CURL="$RUNTIME/curl"
 CA="$RUNTIME/cacert.pem"
-
-mkdir "$LOCK" 2>/dev/null || exit 0
-trap 'rmdir "$LOCK" 2>/dev/null' EXIT
-mkdir -p "$STATE" "$ARCHIVE"
+WAKE_PID="$STATE/wake-listener.pid"
 
 log() {
     echo "$(date) $*" >> "$LOG"
 }
+
+# Run a background check whenever the user wakes the Kindle. The normal cron
+# entry remains as a fallback while the device is already awake.
+if [ "$1" = "--wake-listener" ]; then
+    echo $$ > "$WAKE_PID"
+    trap 'rm -f "$WAKE_PID"' EXIT
+    /usr/bin/lipc-wait-event -m com.lab126.powerd outOfScreenSaver,resuming | while read EVENT; do
+        case "$EVENT" in
+            outOfScreenSaver*|resuming*)
+                log 'Kindle wake received; starting mission sync'
+                "$0" --scheduled >/dev/null 2>&1 &
+                ;;
+        esac
+    done
+    exit 0
+fi
+
+mkdir -p "$STATE" "$ARCHIVE"
+LISTENER_RUNNING=false
+if [ -f "$WAKE_PID" ]; then
+    PID=$(cat "$WAKE_PID" 2>/dev/null)
+    [ -n "$PID" ] && kill -0 "$PID" 2>/dev/null && LISTENER_RUNNING=true
+fi
+if [ "$LISTENER_RUNNING" != true ]; then
+    rm -f "$WAKE_PID"
+    "$0" --wake-listener >/dev/null 2>&1 &
+fi
+
+mkdir "$LOCK" 2>/dev/null || exit 0
+trap 'rmdir "$LOCK" 2>/dev/null' EXIT
 
 if [ ! -x "$CURL" ] || [ ! -f "$CA" ]; then
     log 'secure downloader is missing'
