@@ -11,6 +11,16 @@ on:
       - 'tools/build-mission.py'
       - '.github/workflows/build-mission.yml'
   workflow_dispatch:
+    inputs:
+      source:
+        description: 'Mission directory to build (blank: the newest dated one)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Convert and validate only; publish nothing'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write
@@ -32,9 +42,13 @@ jobs:
           ebook-convert --version
 
       - name: Build and publish the newest mission
-        run: python3 tools/build-mission.py
+        run: |
+          python3 tools/build-mission.py \
+            ${{ inputs.source && format('--source {0}', inputs.source) || '' }} \
+            ${{ inputs.dry_run && '--dry-run' || '' }}
 
       - name: Commit if the published mission changed
+        if: ${{ !inputs.dry_run }}
         run: |
           if [ -z "$(git status --porcelain published/)" ]; then
             echo "published/ unchanged; nothing to commit"

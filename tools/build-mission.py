@@ -11,6 +11,7 @@ Mission sources are text only. Illustrations must be inline SVG or base64
 can write UTF-8 but not binary.
 """
 
+import argparse
 import datetime
 import hashlib
 import json
@@ -19,6 +20,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 MISSIONS = ROOT / "missions"
@@ -101,11 +103,47 @@ def validate(book):
     return size
 
 
+def dry_run(source):
+    """Convert and validate without touching published/. Proves the toolchain."""
+    with tempfile.TemporaryDirectory() as workspace:
+        book = pathlib.Path(workspace) / "dry-run.mobi"
+        convert(source, book)
+        size = validate(book)
+        print(f"dry run OK: {source.name} converts to a {size} byte MOBI 6 book")
+
+
 def main():
-    mission_id, source = latest_mission()
-    if not mission_id:
-        print("no mission sources found; nothing to do")
-        return
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--source",
+        help="mission directory to build (default: the newest dated one)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="convert and validate only; publish nothing",
+    )
+    args = parser.parse_args()
+
+    if args.source:
+        source = pathlib.Path(args.source)
+        if not (source / "mission.html").is_file():
+            sys.exit(f"no mission.html in {source}")
+        if args.dry_run:
+            dry_run(source)
+            return
+        match = DATED_DIR.match(source.name)
+        if not match:
+            sys.exit(f"{source.name} has no YYYY-MM-DD prefix; use --dry-run")
+        mission_id = match.group(1)
+    else:
+        mission_id, source = latest_mission()
+        if not mission_id:
+            print("no mission sources found; nothing to do")
+            return
+        if args.dry_run:
+            dry_run(source)
+            return
 
     current = PUBLISHED / "date.txt"
     if current.is_file() and current.read_text(encoding="utf-8").strip() == mission_id:
