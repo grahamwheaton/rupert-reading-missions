@@ -1,0 +1,51 @@
+name: Build Big Read
+
+# The weekly interactive story. Unlike a mission it is not converted to a book:
+# the Kindle renders it so it can offer choices, so this validates the story and
+# packs it with its pictures. A story that breaks a rule is not published, and
+# Rupert keeps last week's.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'bigreads/**'
+      - 'tools/build-bigread.py'
+      - '.github/workflows/build-bigread.yml'
+  workflow_dispatch:
+    inputs:
+      check:
+        description: 'Story directory to validate only, publishing nothing'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-bigread
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate and publish the newest Big Read
+        run: |
+          python3 tools/build-bigread.py --map \
+            ${{ inputs.check && format('--check {0}', inputs.check) || '' }}
+
+      - name: Commit if the published Big Read changed
+        if: ${{ !inputs.check }}
+        run: |
+          if [ -z "$(git status --porcelain published/)" ]; then
+            echo "published/ unchanged; nothing to commit"
+            exit 0
+          fi
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add published/
+          git commit -m "Publish $(cat published/bigread.txt) Big Read"
+          git push

@@ -1,0 +1,57 @@
+{
+  "_comment": "Shape only. A real Big Read has 20 to 60 nodes and at least 3 endings; see bigreads/README.md. Copy this folder to bigreads/<YYYY-MM-DD>-<slug>/ and replace everything.",
+
+  "title": "The Cave of Echoes",
+  "subtitle": "A caving adventure with Tom",
+  "cover": "cover.png",
+  "start": "cave-mouth",
+
+  "nodes": {
+    "cave-mouth": {
+      "text": "Tom stopped at the mouth of the cave. Cold air came out of it, and somewhere inside, water was dripping.\n\nTwo tunnels went into the dark. One was low and narrow. The other was tall enough to walk into.",
+      "image": "cave-mouth.png",
+      "choices": [
+        { "text": "Crawl into the low tunnel", "next": "low-tunnel" },
+        { "text": "Walk into the tall tunnel", "next": "tall-tunnel" }
+      ]
+    },
+
+    "low-tunnel": {
+      "text": "Tom got down on his knees. The tunnel was cold and tight, and his head torch lit up the rock a hand's width from his face.\n\nAfter a minute, he heard the water getting louder.",
+      "choices": [
+        { "text": "Keep crawling towards the water", "next": "the-cavern" },
+        { "text": "Back out and try the tall tunnel", "next": "tall-tunnel" }
+      ]
+    },
+
+    "tall-tunnel": {
+      "text": "The tall tunnel was easy walking. Tom counted his steps so he would know the way out.\n\nAt step forty, the tunnel opened into a space so big his torch could not find the far wall.",
+      "choices": [
+        { "text": "Shout and listen to the echo", "next": "the-cavern" },
+        { "text": "Follow the wall to the left", "next": "the-ledge" }
+      ]
+    },
+
+    "the-cavern": {
+      "_comment": "Branches rejoin here: both tunnels arrive at the cavern. This is how a story stays a sensible size.",
+      "text": "The cavern was enormous. Tom's torch picked out a river running along the bottom of it, black and quiet.\n\nA rope bridge crossed the water. It looked old.",
+      "image": "cavern.png",
+      "choices": [
+        { "text": "Cross the rope bridge", "next": "the-river" },
+        { "text": "Follow the river on foot", "next": "the-ledge" }
+      ]
+    },
+
+    "the-river": {
+      "text": "Tom went across one slow step at a time, holding both ropes.\n\nOn the far side he found marks cut into the rock. Someone had been here long before him, and had wanted to be remembered.",
+      "image": "river.png",
+      "ending": "You found the old carvings!"
+    },
+
+    "the-ledge": {
+      "text": "The ledge took Tom up and away from the water, until he saw daylight ahead.\n\nHe came out on the hillside above the cave, with the whole valley below him and his dad waving from the path.",
+      "image": "ledge.png",
+      "ending": "You found the way out!"
+    }
+  }
+}
