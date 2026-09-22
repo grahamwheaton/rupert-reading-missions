@@ -22,6 +22,15 @@ half way. Write `cover.png.base64` containing the base64 of the PNG, and the
 build decodes it. `story.json` still refers to the picture by its real name,
 `cover.png`. A genuine binary file still works if you can push one.
 
+**Wrap the base64 at 76 characters per line.** One enormous line loses
+characters in transit: the second attempt at a cover arrived one byte short of
+a complete PNG, having lost three characters somewhere in a 4,167-character
+line. The build checks the length and says so when that happens.
+
+Keep pictures small and they are less likely to be mangled at all. Bold line
+art at one bit per pixel is about 3 KB for a full 600x800 cover, which is both
+the right look for e-ink and a short enough file to survive the trip.
+
 The date prefix is the Big Read's ID, and the newest one wins, exactly as
 missions work. GitHub Actions validates the story, packs it with its pictures
 and publishes it; the Kindle downloads it on its next check.

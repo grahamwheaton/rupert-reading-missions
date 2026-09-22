@@ -67,8 +67,16 @@ def image_bytes(source, name):
     """
     encoded = source / (name + ".base64")
     if encoded.is_file():
+        # Line breaks are fine and in fact safer: a single enormous line is
+        # easily mangled in transit.
+        text = "".join(encoded.read_text(encoding="utf-8").split())
+        if len(text) % 4:
+            raise ValueError(
+                f"'{name}.base64' is {len(text)} characters, which is not a whole number of "
+                "4-character groups, so characters were lost on the way here. Write it again, "
+                "wrapped at 76 characters per line")
         try:
-            return base64.b64decode(encoded.read_text(encoding="utf-8"), validate=True), "base64"
+            return base64.b64decode(text, validate=True), "base64"
         except (binascii.Error, ValueError) as error:
             raise ValueError(f"'{name}.base64' is not valid base64: {error}") from error
     path = source / name
