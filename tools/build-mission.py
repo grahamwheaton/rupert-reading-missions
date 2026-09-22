@@ -132,6 +132,22 @@ def source_fingerprint(source):
     return digest.hexdigest()
 
 
+def check_illustration(source):
+    """Warn about a mission with no picture, or with drawn-in-code art.
+
+    Inline SVG converts, but what arrives on the Kindle is flat shapes rather
+    than an illustration. A base64 image is what makes him want to open it.
+    """
+    html = (source / "mission.html").read_text(encoding="utf-8", errors="replace")
+    if "<img" not in html:
+        if "<svg" in html:
+            print("warning: mission illustrates with inline SVG; embed a base64 image instead")
+        else:
+            print("warning: mission has no illustration")
+    elif "<svg" in html:
+        print("warning: mission contains inline SVG alongside its image")
+
+
 def convert(source, destination):
     # Calibre picks the output plugin from the extension, so the destination
     # must end in .mobi -- staging to something like .part fails the run.
@@ -213,6 +229,7 @@ def main():
 
     meta = metadata(source, mission_id)
     print(f"building {mission_id}: {meta['title']}")
+    check_illustration(source)
 
     ARCHIVE.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as workspace:
