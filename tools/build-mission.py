@@ -119,6 +119,19 @@ def streak(mission_id):
     return count
 
 
+def source_fingerprint(source):
+    """Digest of the mission's sources, so a corrected story is republished.
+
+    The ID alone is not enough: fixing today's mission leaves the ID the same,
+    and the Kindle would keep the first version forever.
+    """
+    digest = hashlib.sha256()
+    for name in ("mission.html", "mission.json"):
+        path = source / name
+        digest.update(path.read_bytes() if path.is_file() else b"")
+    return digest.hexdigest()
+
+
 def convert(source, destination):
     # Calibre picks the output plugin from the extension, so the destination
     # must end in .mobi -- staging to something like .part fails the run.
@@ -186,9 +199,16 @@ def main():
             dry_run(source)
             return
 
-    current = PUBLISHED / "date.txt"
-    if current.is_file() and current.read_text(encoding="utf-8").strip() == mission_id:
-        print(f"{mission_id} is already published; nothing to do")
+    fingerprint = source_fingerprint(source)
+    published_id = PUBLISHED / "date.txt"
+    published_fingerprint = PUBLISHED / "source.sha256"
+    if (
+        published_id.is_file()
+        and published_id.read_text(encoding="utf-8").strip() == mission_id
+        and published_fingerprint.is_file()
+        and published_fingerprint.read_text(encoding="utf-8").strip() == fingerprint
+    ):
+        print(f"{mission_id} is already published and unchanged; nothing to do")
         return
 
     meta = metadata(source, mission_id)
@@ -204,6 +224,7 @@ def main():
         shutil.copyfile(staged, PUBLISHED / "today.mobi")
 
     (PUBLISHED / "today.sha256").write_text(f"{digest}\n", encoding="utf-8")
+    published_fingerprint.write_text(f"{fingerprint}\n", encoding="utf-8")
     (PUBLISHED / "launcher.properties").write_text(
         launcher_properties(mission_id, meta), encoding="utf-8"
     )
