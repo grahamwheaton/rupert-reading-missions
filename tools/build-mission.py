@@ -82,6 +82,9 @@ def streak(mission_id):
 
 
 def convert(source, destination):
+    # Calibre picks the output plugin from the extension, so the destination
+    # must end in .mobi -- staging to something like .part fails the run.
+    assert destination.suffix == ".mobi", destination
     try:
         subprocess.run(
             ["ebook-convert", str(source / "mission.html"), str(destination)] + CONVERT,
@@ -154,15 +157,13 @@ def main():
     print(f"building {mission_id}: {title}")
 
     ARCHIVE.mkdir(parents=True, exist_ok=True)
-    staged = ROOT / "today.mobi.part"
-    try:
+    with tempfile.TemporaryDirectory() as workspace:
+        staged = pathlib.Path(workspace) / "today.mobi"
         convert(source, staged)
         size = validate(staged)
         digest = hashlib.sha256(staged.read_bytes()).hexdigest()
         shutil.copyfile(staged, ARCHIVE / f"{mission_id}.mobi")
-        shutil.move(str(staged), PUBLISHED / "today.mobi")
-    finally:
-        staged.unlink(missing_ok=True)
+        shutil.copyfile(staged, PUBLISHED / "today.mobi")
 
     (PUBLISHED / "today.sha256").write_text(f"{digest}\n", encoding="utf-8")
     (PUBLISHED / "launcher.properties").write_text(
