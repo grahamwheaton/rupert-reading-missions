@@ -125,6 +125,10 @@ echo "$WIFI_STATE" | grep -q CONNECTED || {
 # Check the separately signed, allowlisted application update channel.
 [ -x "$RUNTIME/device-update.sh" ] && "$RUNTIME/device-update.sh" >/dev/null 2>&1 || true
 
+# Report finished missions while the radio is already on. Does nothing unless
+# a token and repository have been configured.
+[ -x "$RUNTIME/report.sh" ] && "$RUNTIME/report.sh" >/dev/null 2>&1 || true
+
 # Kindlet log snapshots for USB debugging; enable by creating $STATE/debug.
 if [ -f "$STATE/debug" ]; then
     tail -1200 /var/log/messages 2>/dev/null > "$STATE/kindlet-live.log"
