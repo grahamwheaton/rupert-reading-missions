@@ -89,7 +89,7 @@ def check_png(data):
     """Every problem with a PNG's structure, walking its chunks."""
     if len(data) < 8 or data[:8] != b"\x89PNG\r\n\x1a\n":
         return ["is not a PNG"], None
-    problems, size, offset, saw_end = [], None, 8, False
+    problems, size, depth, offset, saw_end = [], None, None, 8, False
     idat = b""
     while offset + 8 <= len(data):
         length = int.from_bytes(data[offset:offset + 4], "big")
@@ -104,6 +104,7 @@ def check_png(data):
             problems.append(f"is corrupt: the {tag.decode('ascii', 'replace')} chunk fails its checksum")
         if tag == b"IHDR" and length >= 8:
             size = struct.unpack(">II", body[:8])
+            depth = body[8] if length >= 9 else None
         elif tag == b"IDAT":
             idat += body
         elif tag == b"IEND":
@@ -117,7 +118,7 @@ def check_png(data):
             zlib.decompress(idat)
         except zlib.error as error:
             problems.append(f"will not decode: {error}")
-    return problems, size
+    return problems, size, depth
 
 
 def check_jpeg(data):
@@ -138,7 +139,7 @@ def check_jpeg(data):
                     int.from_bytes(data[offset + 5:offset + 7], "big"))
             break
         offset += 2 + length
-    return [], size
+    return [], size, 8
 
 
 def image_size(path):
@@ -290,13 +291,22 @@ def validate(source):
         # Decode it rather than trusting the header: a truncated cover with a
         # valid header is exactly how a broken story reached the Kindle once.
         if name.lower().endswith(".png"):
-            faults, size = check_png(data)
+            faults, size, depth = check_png(data)
         else:
-            faults, size = check_jpeg(data)
+            faults, size, depth = check_jpeg(data)
         for fault in faults:
             problems.append(f"picture '{name}' {fault}" + (f" (pushed as {how})" if how else ""))
         if faults:
             continue
+
+        if depth == 1:
+            print(f"warning: picture '{name}' is 1-bit black and white; the screen shows "
+                  "sixteen greys, so use 8-bit greyscale and it will look far better")
+        # Only worth saying once the picture is greyscale: a detailed 1-bit
+        # drawing is legitimately small, so this would cry wolf on it.
+        if depth and depth > 1 and size and len(data) < size[0] * size[1] / 100:
+            print(f"warning: picture '{name}' is only {len(data)} bytes for {size[0]}x{size[1]}: "
+                  "that looks like shapes drawn in code rather than an illustration")
 
         total += len(data)
         limit = MAX_COVER if name == story["cover"] else MAX_IMAGE

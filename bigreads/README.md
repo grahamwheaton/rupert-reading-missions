@@ -113,7 +113,15 @@ story stays this size.
 pages, and one at each ending. Not every page: the whole story travels over
 Wi-Fi to a fifteen-year-old Kindle.
 
-- PNG or JPEG, greyscale is fine, at most 600 wide and 500 tall.
+- **8-bit greyscale PNG**, not 1-bit black and white. The screen shows sixteen
+  shades of grey; pure black and white throws most of that away and makes a
+  drawing look blotchy. Quantise to sixteen levels if you like, but save it as
+  8-bit.
+- **Draw the picture. Do not construct it from shapes in code.** A house made
+  of a triangle and a rectangle is a diagram, not an illustration, and it shows
+  next to a real drawing. If a picture comes out under a couple of kilobytes,
+  it is almost certainly shapes rather than art.
+- PNG or JPEG, at most 600 wide and 500 tall.
 - The cover may be 600x800.
 - The whole folder must stay under 4 MB.
 - The build decodes every picture rather than trusting its header, so a
