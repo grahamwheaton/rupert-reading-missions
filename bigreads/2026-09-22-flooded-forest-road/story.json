@@ -1,0 +1,236 @@
+{
+  "title": "Tom and the Flooded Forest Road",
+  "subtitle": "A choose-your-path 4x4 adventure",
+  "cover": "cover.png",
+  "start": "forest-gate",
+  "nodes": {
+    "forest-gate": {
+      "text": "Tom sat beside Dad in the old green 4x4. Their job was to take a box of radio batteries to the forest ranger. Rain had filled the tracks with mud. At the gate, the road split in two. One track climbed into the pines. The other dropped towards the river.",
+      "choices": [
+        {
+          "text": "Take the muddy hill track",
+          "next": "mud-climb"
+        },
+        {
+          "text": "Follow the river road",
+          "next": "river-road"
+        }
+      ]
+    },
+    "mud-climb": {
+      "text": "The hill track was slick and rutted. Dad stopped before the steepest part. Tom remembered a useful rule. Slow and steady often gives tyres more grip than charging at the hill. They could use low gear and climb carefully, or investigate a narrow side track that looked less steep.",
+      "choices": [
+        {
+          "text": "Use low gear and climb",
+          "next": "ridge-view"
+        },
+        {
+          "text": "Try the narrow side track",
+          "next": "old-sign"
+        }
+      ]
+    },
+    "river-road": {
+      "text": "The river road looked easier at first. Then they heard rushing water. A shallow ford crossed the track ahead. Farther upstream stood an old wooden bridge. Tom knew moving water can hide deep holes, even when the surface looks calm. They had to choose how to continue.",
+      "choices": [
+        {
+          "text": "Check the ford carefully",
+          "next": "ford-edge"
+        },
+        {
+          "text": "Inspect the wooden bridge",
+          "next": "bridge-check"
+        }
+      ]
+    },
+    "ridge-view": {
+      "text": "Low gear worked. The 4x4 crept up without spinning its wheels. At the ridge, Tom could see a radio mast above the trees. Fresh tyre marks crossed the track and vanished through a gate. The map showed another route curling around the hill towards the same mast.",
+      "choices": [
+        {
+          "text": "Follow the fresh tyre marks",
+          "next": "lost-gate"
+        },
+        {
+          "text": "Follow the map contour",
+          "next": "radio-mast"
+        }
+      ]
+    },
+    "old-sign": {
+      "text": "The side track ended at an old wooden sign almost hidden by branches. Tom wiped away wet leaves. One arrow said STONE ROAD. Another pointed towards a grassy lane near a shepherd hut. The sign was faded, but both routes headed deeper into the forest.",
+      "choices": [
+        {
+          "text": "Clear the sign and take stone road",
+          "next": "stone-track"
+        },
+        {
+          "text": "Take the grassy lane",
+          "next": "shepherd-hut"
+        }
+      ]
+    },
+    "ford-edge": {
+      "text": "Dad stopped well before the water. Tom climbed out and used a long stick from the bank to test the depth at the edge. The current was quick in the middle. They could search for the shallow stony line, or leave the ford and use a higher road that joined the stone track.",
+      "choices": [
+        {
+          "text": "Find the shallow stony line",
+          "next": "shallow-crossing"
+        },
+        {
+          "text": "Take the higher road",
+          "next": "stone-track"
+        }
+      ]
+    },
+    "bridge-check": {
+      "text": "The bridge creaked in the wind. Dad parked and they walked across first. The planks were wet, but the main beams looked solid. A weight sign allowed one vehicle at a time. They could cross slowly, or follow a footpath beside the bridge towards a shepherd hut.",
+      "choices": [
+        {
+          "text": "Cross one vehicle at a time",
+          "next": "radio-mast"
+        },
+        {
+          "text": "Follow the riverside path",
+          "next": "shepherd-hut"
+        }
+      ]
+    },
+    "lost-gate": {
+      "text": "Beyond the gate, the tyre marks split again. One set headed towards an old quarry. The other disappeared into a dark woodland path. Tom checked the compass on the dashboard. Both routes pointed roughly towards the ranger station, but one looked rougher and shorter.",
+      "choices": [
+        {
+          "text": "Head towards the quarry",
+          "next": "quarry"
+        },
+        {
+          "text": "Take the woodland path",
+          "next": "fallen-tree"
+        }
+      ]
+    },
+    "radio-mast": {
+      "text": "The radio mast rose above the trees like a giant needle. Tom used it as a landmark. From here, a service road ran towards the old quarry. A second route crossed the woods towards a line of ranger signs. Tom liked that the landmark helped them stay oriented.",
+      "choices": [
+        {
+          "text": "Take the quarry service road",
+          "next": "quarry"
+        },
+        {
+          "text": "Follow the ranger signs",
+          "next": "fallen-tree"
+        }
+      ]
+    },
+    "stone-track": {
+      "text": "The stone track was firm, but around the next bend another 4x4 sat with one wheel buried in mud. Its driver waved. Dad had a tow strap in the back. They could stop to help, or continue to an old mill where a map board might show a faster route.",
+      "choices": [
+        {
+          "text": "Stop and help the stuck 4x4",
+          "next": "rescue-jeep"
+        },
+        {
+          "text": "Continue towards the old mill",
+          "next": "old-mill"
+        }
+      ]
+    },
+    "shepherd-hut": {
+      "text": "A farmer stood outside the shepherd hut fixing a gate. He knew the forest well. He said the old mill road was clear, but tractor ruts also led towards a stuck vehicle near the stone track. Tom realised that asking someone local could be as useful as checking a map.",
+      "choices": [
+        {
+          "text": "Follow the road to the old mill",
+          "next": "old-mill"
+        },
+        {
+          "text": "Follow the tractor ruts",
+          "next": "rescue-jeep"
+        }
+      ]
+    },
+    "shallow-crossing": {
+      "text": "Tom found a pale strip of stones where the water was slower and much shallower. Dad entered gently and kept a steady speed. Water curled around the tyres, but the 4x4 stayed firm. On the far bank, signs pointed towards the old mill and a woodland bypass.",
+      "choices": [
+        {
+          "text": "Take the old mill road",
+          "next": "old-mill"
+        },
+        {
+          "text": "Use the woodland bypass",
+          "next": "fallen-tree"
+        }
+      ]
+    },
+    "quarry": {
+      "text": "The quarry opened into a wide bowl of grey rock. Tom spotted two possible exits. A steep track climbed to a viewpoint where an emergency supply box was marked on the map. A smoother service road curved away towards a convoy route used by forestry trucks.",
+      "choices": [
+        {
+          "text": "Climb to the viewpoint",
+          "next": "hilltop-cache"
+        },
+        {
+          "text": "Take the forestry service road",
+          "next": "supply-convoy"
+        }
+      ]
+    },
+    "fallen-tree": {
+      "text": "A fallen pine blocked the woodland track. It was far too heavy to move by hand. Tom noticed a narrow gap between the branches and a signed bypass around the slope. They could carefully clear loose branches to make a safe gap, or follow the longer marked bypass.",
+      "choices": [
+        {
+          "text": "Clear a safe gap",
+          "next": "ranger-station"
+        },
+        {
+          "text": "Follow the marked bypass",
+          "next": "sunset-return"
+        }
+      ]
+    },
+    "rescue-jeep": {
+      "text": "Dad attached the tow strap to the proper recovery point. Tom stood well away while both drivers checked the line. With a slow pull, the stuck 4x4 climbed out of the mud. Its driver knew two routes ahead. One joined a forestry convoy. The other went straight to the ranger station.",
+      "choices": [
+        {
+          "text": "Join the forestry convoy",
+          "next": "supply-convoy"
+        },
+        {
+          "text": "Head for the ranger station",
+          "next": "ranger-station"
+        }
+      ]
+    },
+    "old-mill": {
+      "text": "The old mill was quiet except for water turning beneath the broken wheel. A map board showed two useful routes. One climbed to a hilltop emergency cache. The other followed the stream on a long loop that would bring them back to the main forest road near sunset.",
+      "choices": [
+        {
+          "text": "Climb to the emergency cache",
+          "next": "hilltop-cache"
+        },
+        {
+          "text": "Follow the stream loop",
+          "next": "sunset-return"
+        }
+      ]
+    },
+    "hilltop-cache": {
+      "text": "The track climbed above the mist. At the top, Tom found the emergency cache beside a radio post. Inside were blankets, a first aid kit and spare batteries. They left their battery box for the ranger to collect and radioed the station with their position.",
+      "image": "cover.png",
+      "ending": "You found the hilltop emergency cache!"
+    },
+    "supply-convoy": {
+      "text": "Two forestry trucks appeared on the service road. Their drivers were taking fuel and tools to the ranger station. Tom and Dad joined behind them. The convoy moved slowly through the mud, each vehicle leaving enough space to stop safely. Soon the ranger station came into view.",
+      "image": "cover.png",
+      "ending": "You joined the forest supply convoy!"
+    },
+    "ranger-station": {
+      "text": "The trees opened and a small ranger station appeared beside the track. Tom carried the box of radio batteries inside. The ranger thanked them and showed Tom a wall map covered in coloured routes. Their careful choices had brought the supplies exactly where they were needed.",
+      "image": "cover.png",
+      "ending": "Mission complete. The ranger has the batteries!"
+    },
+    "sunset-return": {
+      "text": "The bypass was longer than expected, but it stayed firm and safe. As the sun dropped behind the trees, they reached the main forest road. A ranger vehicle met them there and collected the batteries. Tom had not reached the station, but the mission still succeeded.",
+      "image": "cover.png",
+      "ending": "You found a safe way out before dark!"
+    }
+  }
+}
