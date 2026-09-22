@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>The Lost Trail</title>
+<style>
+  body  { font-family: serif; line-height: 1.5; }
+  h1    { text-align: center; page-break-before: avoid; }
+  .plate { text-align: center; margin: 1.5em 0; }
+  .plate img { max-width: 100%; }
+</style>
+</head>
+<body>
+
+<h1>The Lost Trail</h1>
+
+<!-- Illustrations must be inline, because the scheduled job can push text but
+     not binary. A base64 data URI is the reliable route: Calibre embeds it as
+     a normal image in the MOBI. Inline <svg> also works but is rasterised
+     less predictably, so prefer this. -->
+<div class="plate">
+  <img alt="Rupert at the trailhead" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAEsCAAAAAA+lT+GAAAB/klEQVR42u3RAQ0AIBADsZeDYvzhBBdkGT0J11mqbiwALMCKBj6qDDBgARZgARZgARZgwAIswAIswAIswICtACzAAizAAizAAgxYgAVYgAVYgAUYsAALsAALsAALMGDAgAVYgAVYgAVYgAELsAALsAALsAADFmABFmABFmABBgwYsAALsAALsAALMGABFmABFmABFmDAAizAAizAAizAAgxYgAVYgAVYgAUYsAALsAALsAALMGDAgAVYgAVYgAVYgAELsPqBt14EGDBgwIABAwYswAIswIABAwYMGDBgARZgAQYMGDBgwIABAwYswAIswIABAwYMGDBgARZgAQYMGDBgwIABC7AACzBgwIABAwYMGDBgARZgAQYMGDBgwIABC7AACzBgwIABAwYMGDBgARZgwIABAwYMGDBgwAIswAIMGDBgwIABAxZgARZgwIABAwYMGDDgP4AVHWDAAizAAizAAizAgAVYgAVYgAVYgAFbAViABViABViABRiwAAuwAAuwAAswYAEWYAEWYAEWYMCAAQuwAAuwAAuwAAMWYAEWYAEWYAEGLMACLMACLMACDBgwYAEWYAEWYAEWYMACLMACLMACLMCABViABViABViABRiwAAuwAAuwAAswYAEWYAEWYAEWYMCAAQuwAAuwAAuwAANWE7B6AwxYgBXbBfO1mIKivaZ/AAAAAElFTkSuQmCC">
+</div>
+
+<p>The story goes here. Roughly five minutes of reading for a seven-year-old,
+which is somewhere near 500 words.</p>
+
+<p>Keep the markup plain — headings, paragraphs, and images. Firmware 4.1.4
+reads legacy MOBI 6, so anything clever in CSS is likely to be dropped in
+conversion.</p>
+
+</body>
+</html>
