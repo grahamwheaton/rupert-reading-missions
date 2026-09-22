@@ -11,9 +11,16 @@ looks like too much.
 ## What to push
 
 ```
-bigreads/<YYYY-MM-DD>-<slug>/story.json    required
-bigreads/<YYYY-MM-DD>-<slug>/*.png|*.jpg   pictures referenced by story.json
+bigreads/<YYYY-MM-DD>-<slug>/story.json           required
+bigreads/<YYYY-MM-DD>-<slug>/cover.png.base64     pictures, as base64 text
 ```
+
+**Push pictures as base64 text, not as binary files.** The job that writes
+stories can push UTF-8 reliably and binary unreliably: the first real Big Read
+arrived with a cover whose header was fine but whose image data was cut off
+half way. Write `cover.png.base64` containing the base64 of the PNG, and the
+build decodes it. `story.json` still refers to the picture by its real name,
+`cover.png`. A genuine binary file still works if you can push one.
 
 The date prefix is the Big Read's ID, and the newest one wins, exactly as
 missions work. GitHub Actions validates the story, packs it with its pictures
@@ -100,6 +107,11 @@ Wi-Fi to a fifteen-year-old Kindle.
 - PNG or JPEG, greyscale is fine, at most 600 wide and 500 tall.
 - The cover may be 600x800.
 - The whole folder must stay under 4 MB.
+- The build decodes every picture rather than trusting its header, so a
+  truncated or corrupt one fails the build with the reason.
+- Draw for e-ink: bold line art, strong contrast, no gradients or fine
+  texture. The screen shows sixteen greys and no colour. The full guidance is
+  in `assets/README.md` in the device repository.
 
 **Writing.** The same rules as a daily mission, which matter more here because
 the story is longer:

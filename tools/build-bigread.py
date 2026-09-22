@@ -11,13 +11,18 @@ fit the screen, choices that go somewhere, and no branch that traps him.
 """
 
 import argparse
+import base64
+import binascii
 import hashlib
+import io
 import json
 import pathlib
 import re
+import struct
 import sys
 import tarfile
 import tempfile
+import zlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BIGREADS = ROOT / "bigreads"
@@ -51,6 +56,81 @@ def latest_bigread():
     if not candidates:
         return None, None
     return max(candidates, key=lambda item: (item[0], item[1].name))
+
+
+def image_bytes(source, name):
+    """A picture's bytes, from the file itself or from <name>.base64.
+
+    The job that writes stories can push text but not binary, which is how a
+    cover arrived truncated once, so base64 beside story.json is the safer
+    route and the one the README asks for.
+    """
+    encoded = source / (name + ".base64")
+    if encoded.is_file():
+        try:
+            return base64.b64decode(encoded.read_text(encoding="utf-8"), validate=True), "base64"
+        except (binascii.Error, ValueError) as error:
+            raise ValueError(f"'{name}.base64' is not valid base64: {error}") from error
+    path = source / name
+    if path.is_file():
+        return path.read_bytes(), "binary"
+    return None, None
+
+
+def check_png(data):
+    """Every problem with a PNG's structure, walking its chunks."""
+    if len(data) < 8 or data[:8] != b"\x89PNG\r\n\x1a\n":
+        return ["is not a PNG"], None
+    problems, size, offset, saw_end = [], None, 8, False
+    idat = b""
+    while offset + 8 <= len(data):
+        length = int.from_bytes(data[offset:offset + 4], "big")
+        tag = data[offset + 4:offset + 8]
+        if offset + 12 + length > len(data):
+            problems.append(f"is truncated: the {tag.decode('ascii', 'replace')} chunk needs "
+                            f"{length} bytes but the file ends")
+            break
+        body = data[offset + 8:offset + 8 + length]
+        crc = int.from_bytes(data[offset + 8 + length:offset + 12 + length], "big")
+        if crc != binascii.crc32(tag + body):
+            problems.append(f"is corrupt: the {tag.decode('ascii', 'replace')} chunk fails its checksum")
+        if tag == b"IHDR" and length >= 8:
+            size = struct.unpack(">II", body[:8])
+        elif tag == b"IDAT":
+            idat += body
+        elif tag == b"IEND":
+            saw_end = True
+            break
+        offset += 12 + length
+    if not saw_end and not problems:
+        problems.append("is truncated: it has no end marker")
+    if idat and not problems:
+        try:
+            zlib.decompress(idat)
+        except zlib.error as error:
+            problems.append(f"will not decode: {error}")
+    return problems, size
+
+
+def check_jpeg(data):
+    """Size and basic integrity of a JPEG."""
+    if len(data) < 4 or data[:2] != b"\xff\xd8":
+        return ["is not a JPEG"], None
+    if data[-2:] != b"\xff\xd9":
+        return ["is truncated: it has no end marker"], None
+    offset, size = 2, None
+    while offset < len(data) - 9:
+        if data[offset] != 0xFF:
+            offset += 1
+            continue
+        marker = data[offset + 1]
+        length = int.from_bytes(data[offset + 2:offset + 4], "big")
+        if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB):
+            size = (int.from_bytes(data[offset + 7:offset + 9], "big"),
+                    int.from_bytes(data[offset + 5:offset + 7], "big"))
+            break
+        offset += 2 + length
+    return [], size
 
 
 def image_size(path):
@@ -113,17 +193,17 @@ def validate(source):
     try:
         story = json.loads((source / "story.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
-        return [f"story.json could not be read: {error}"], None
+        return [f"story.json could not be read: {error}"], None, {}
 
     for key in ("title", "subtitle", "cover", "start", "nodes"):
         if not story.get(key):
             problems.append(f"story.json has no {key}")
     if problems:
-        return problems, story
+        return problems, story, {}
 
     nodes = story["nodes"]
     if not isinstance(nodes, dict):
-        return ["nodes must be an object keyed by node ID"], story
+        return ["nodes must be an object keyed by node ID"], story, {}
 
     if not NODES[0] <= len(nodes) <= NODES[1]:
         problems.append(f"{len(nodes)} nodes; a Big Read has between {NODES[0]} and {NODES[1]}")
@@ -185,25 +265,43 @@ def validate(source):
             problems.append(f"node '{node_id}': no ending can be reached from here")
 
     total = 0
+    pictures = {}
     for name in sorted(images):
-        path = source / name
-        if not path.is_file():
-            problems.append(f"picture '{name}' is missing")
-            continue
-        if path.suffix.lower() not in IMAGE_SUFFIXES:
+        if pathlib.Path(name).suffix.lower() not in IMAGE_SUFFIXES:
             problems.append(f"picture '{name}': use PNG or JPEG")
             continue
-        total += path.stat().st_size
-        size = image_size(path)
+        try:
+            data, how = image_bytes(source, name)
+        except ValueError as error:
+            problems.append(f"picture {error}")
+            continue
+        if data is None:
+            problems.append(f"picture '{name}' is missing (as itself or as {name}.base64)")
+            continue
+
+        # Decode it rather than trusting the header: a truncated cover with a
+        # valid header is exactly how a broken story reached the Kindle once.
+        if name.lower().endswith(".png"):
+            faults, size = check_png(data)
+        else:
+            faults, size = check_jpeg(data)
+        for fault in faults:
+            problems.append(f"picture '{name}' {fault}" + (f" (pushed as {how})" if how else ""))
+        if faults:
+            continue
+
+        total += len(data)
         limit = MAX_COVER if name == story["cover"] else MAX_IMAGE
         if size and (size[0] > limit[0] or size[1] > limit[1]):
             problems.append(
                 f"picture '{name}' is {size[0]}x{size[1]}, at most {limit[0]}x{limit[1]}")
+        pictures[name] = data
+
     total += (source / "story.json").stat().st_size
     if total > MAX_TOTAL_BYTES:
         problems.append(f"the story is {total // 1024} KB; keep it under {MAX_TOTAL_BYTES // 1024} KB")
 
-    return problems, story
+    return problems, story, pictures
 
 
 def print_map(story):
@@ -220,16 +318,19 @@ def print_map(story):
                 print(f"      {choice.get('text')} -> {choice.get('next')}")
 
 
-def publish(bigread_id, source, story):
+def publish(bigread_id, source, story, pictures):
     PUBLISHED.mkdir(parents=True, exist_ok=True)
-    images = {story["cover"]} | {n["image"] for n in story["nodes"].values() if n.get("image")}
 
     with tempfile.TemporaryDirectory() as workspace:
         staged = pathlib.Path(workspace) / "bigread.tar"
-        with tarfile.open(staged, "w") as archive:
+        # BusyBox 1.7.2 on the Kindle warns at PAX headers, which is what
+        # Python writes by default; the old format it understands is enough.
+        with tarfile.open(staged, "w", format=tarfile.USTAR_FORMAT) as archive:
             archive.add(source / "story.json", arcname="story.json")
-            for name in sorted(images):
-                archive.add(source / name, arcname=name)
+            for name in sorted(pictures):
+                info = tarfile.TarInfo(name)
+                info.size = len(pictures[name])
+                archive.addfile(info, io.BytesIO(pictures[name]))
         data = staged.read_bytes()
         digest = hashlib.sha256(data).hexdigest()
         (PUBLISHED / "bigread.tar").write_bytes(data)
@@ -255,7 +356,7 @@ def main():
             print("no Big Read sources found; nothing to do")
             return
 
-    problems, story = validate(source)
+    problems, story, pictures = validate(source)
     if problems:
         print(f"refusing to publish {source.name}:", file=sys.stderr)
         for problem in problems:
@@ -279,7 +380,7 @@ def main():
         print(f"{bigread_id} is already published and unchanged; nothing to do")
         return
 
-    publish(bigread_id, source, story)
+    publish(bigread_id, source, story, pictures)
     marker.write_text(f"{fingerprint.hexdigest()}\n", encoding="utf-8")
 
 
