@@ -34,6 +34,31 @@ The directory name's date prefix is the mission ID, and the newest one wins.
 Without `mission.json`, the title comes from the `<title>` tag and the type
 defaults to `Fiction`.
 
+## Writing for a seven-year-old
+
+He is learning to read, so the device is set up to help: larger type, wide
+even margins, loose line spacing, ragged-right text and **hyphenation off**,
+so no word is ever split across two lines.
+
+That only works if the mission does not fight it:
+
+- **Do not set page margins, padding or indents.** The Kindle's own settings
+  handle spacing, and CSS margins here make it look uneven. Style structure
+  (centred headings, a rule around the fact box), not layout.
+- **Avoid hyphenated words** where a simple one exists: "mountain bike trails"
+  rather than "mountain-bike trails". A hyphen mid-sentence is a stumble.
+- **Short sentences, one idea per line**, and paragraphs of a few lines so he
+  can find his place again after looking up.
+- **Plain words first.** Introduce one harder word when the story needs it, and
+  let the sentence around it explain it.
+- **Em dashes and semicolons** are harder than a full stop. Prefer two
+  sentences.
+- **Keep headings small** — `h1 { font-size: 1.3em }`. His reading text is
+  already large, so a default heading is about twice that and fills the first
+  page before the story starts.
+
+`missions/TEMPLATE/mission.html` is a working example.
+
 ## Illustrations
 
 Inline them as base64 `data:` URIs:
