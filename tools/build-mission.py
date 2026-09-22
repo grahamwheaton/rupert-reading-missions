@@ -51,18 +51,56 @@ def latest_mission():
 
 
 def metadata(source, mission_id):
-    """Title and type from mission.json, falling back to the <title> tag."""
+    """mission.json, with the title falling back to the <title> tag."""
     meta = {}
     config = source / "mission.json"
     if config.is_file():
         meta = json.loads(config.read_text(encoding="utf-8"))
 
-    title = meta.get("title")
-    if not title:
+    if not meta.get("title"):
         html = (source / "mission.html").read_text(encoding="utf-8", errors="replace")
         match = re.search(r"<title>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
-        title = match.group(1).strip() if match else mission_id
-    return title, meta.get("type", "Fiction")
+        meta["title"] = match.group(1).strip() if match else mission_id
+    meta.setdefault("type", "Fiction")
+    return meta
+
+
+def mission_number(mission_id):
+    """How many missions have been published, counting this one."""
+    published = {mission_id}
+    if ARCHIVE.is_dir():
+        published.update(path.stem for path in ARCHIVE.glob("*.mobi"))
+    return len(published)
+
+
+def one_line(value):
+    """launcher.properties is one key per line, so flatten any whitespace."""
+    return re.sub(r"\s+", " ", str(value)).strip()
+
+
+def launcher_properties(mission_id, meta):
+    """The fields the Kindle dashboard reads. Everything but id/title/type/
+    streak is optional; the dashboard falls back when a key is missing."""
+    fields = [
+        ("id", mission_id),
+        ("title", meta["title"]),
+        ("type", meta["type"]),
+        ("streak", streak(mission_id)),
+        ("mission", meta.get("mission") or mission_number(mission_id)),
+    ]
+    for key in ("subtitle", "blurb"):
+        if meta.get(key):
+            fields.append((key, meta[key]))
+
+    # tags: [{"icon": "terrain", "text": "4x4s"}, ...] -- icon is one of
+    # terrain, wrench, book, star; anything else is ignored by the dashboard.
+    for index, tag in enumerate(meta.get("tags", [])[:4], start=1):
+        icon = one_line(tag.get("icon", "star"))
+        text = one_line(tag.get("text", ""))
+        if text:
+            fields.append((f"tag{index}", f"{icon}|{text}"))
+
+    return "".join(f"{key}={one_line(value)}\n" for key, value in fields)
 
 
 def streak(mission_id):
@@ -153,8 +191,8 @@ def main():
         print(f"{mission_id} is already published; nothing to do")
         return
 
-    title, kind = metadata(source, mission_id)
-    print(f"building {mission_id}: {title}")
+    meta = metadata(source, mission_id)
+    print(f"building {mission_id}: {meta['title']}")
 
     ARCHIVE.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as workspace:
@@ -167,8 +205,7 @@ def main():
 
     (PUBLISHED / "today.sha256").write_text(f"{digest}\n", encoding="utf-8")
     (PUBLISHED / "launcher.properties").write_text(
-        f"id={mission_id}\ntitle={title}\ntype={kind}\nstreak={streak(mission_id)}\n",
-        encoding="utf-8",
+        launcher_properties(mission_id, meta), encoding="utf-8"
     )
 
     # Last. Everything above must exist before the Kindle is told to look.

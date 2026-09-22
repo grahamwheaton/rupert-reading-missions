@@ -8,8 +8,25 @@ able to push binary files.
 
 ```
 missions/<YYYY-MM-DD>-<slug>/mission.html   required
-missions/<YYYY-MM-DD>-<slug>/mission.json   optional: {"title": "...", "type": "Fiction"}
+missions/<YYYY-MM-DD>-<slug>/mission.json   optional: see below
 ```
+
+`mission.json` carries what the Kindle dashboard shows around the story. Only
+`title` and `type` matter to the book itself; the rest fill in the mission
+card, and the dashboard falls back sensibly when they are missing.
+
+| Key | Shown as |
+| --- | --- |
+| `title` | the mission title |
+| `type` | the line under it, when there is no `subtitle` |
+| `subtitle` | the line under the title |
+| `blurb` | the teaser beside the illustration |
+| `tags` | up to four icon-and-text rows: `{"icon": "terrain", "text": "4x4s"}` |
+| `mission` | the mission number; counted from the archive when absent |
+
+Tag icons are `terrain`, `wrench`, `book` or `star`; any other name is ignored.
+Values are flattened to one line each, so a blurb may be written across several
+lines in the JSON. See `missions/TEMPLATE/mission.json`.
 
 The directory name's date prefix is the mission ID, and the newest one wins.
 `missions/TEMPLATE/` has no date prefix, so it is ignored by the build.
@@ -38,7 +55,7 @@ stays UTF-8 text.
 | `published/today.mobi` | what the Kindle downloads |
 | `published/date.txt` | the mission ID the Kindle checks |
 | `published/today.sha256` | digest of `today.mobi` |
-| `published/launcher.properties` | id, title, type, streak |
+| `published/launcher.properties` | id, title, type, streak, mission, and any subtitle/blurb/tags |
 | `published/archive/<id>.mobi` | every mission, kept |
 
 Conversion uses `--mobi-file-type old --output-profile kindle`. Firmware 4.1.4

@@ -1,4 +1,12 @@
 {
   "title": "The Lost Trail",
-  "type": "Fiction"
+  "type": "Fiction",
+  "subtitle": "A true-like adventure with Tom",
+  "blurb": "One or two sentences that make him want to open it.",
+  "tags": [
+    { "icon": "terrain", "text": "4x4s" },
+    { "icon": "wrench", "text": "Real facts" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "2 challenge questions" }
+  ]
 }
