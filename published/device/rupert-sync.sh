@@ -132,9 +132,18 @@ if [ -f "$STATE/debug" ]; then
         /var/log/messages 2>/dev/null | tail -2400 > "$STATE/kindlet-errors.log"
 fi
 
+# wifid reports CONNECTED from the previous association before the radio is
+# usable again, so the first request after switching Wi-Fi on often fails.
+# Retry rather than waiting for the next scheduled run.
 fetch() {
-    "$CURL" --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
-        --connect-timeout 20 --max-time 90 --cacert "$CA" -o "$1" "$2"
+    TRY=1
+    while :; do
+        "$CURL" --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
+            --connect-timeout 20 --max-time 90 --cacert "$CA" -o "$1" "$2" && return 0
+        [ "$TRY" -ge 3 ] && return 1
+        TRY=$((TRY + 1))
+        sleep 8
+    done
 }
 
 STAMP="$STATE/date.part"

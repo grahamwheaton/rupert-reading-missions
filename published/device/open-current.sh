@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Opens today's mission in KOReader (kindle-legacy build, installed by hand at
+# Opens Rupert's dashboard, or today's mission, in KOReader (kindle-legacy build, installed by hand at
 # /mnt/us/koreader). Firmware 4.1.4's own framework cannot open a document by
 # path: `lipc-set-prop com.lab126.framework read 1` is accepted but returns to
 # Home. KOReader takes the file as an argument instead.
@@ -24,5 +24,11 @@ if pidof reader.lua >/dev/null 2>&1; then
     exit 0
 fi
 
-( "$KOREADER" --kual "$MISSION" >> "$LOG" 2>&1 & )
+# With the dashboard plugin installed, start on the dashboard (it opens the
+# mission itself); otherwise open the mission directly.
+if [ -d /mnt/us/koreader/plugins/rupertdash.koplugin ]; then
+    ( RUPERT_DASHBOARD=1 "$KOREADER" --kual /mnt/us/documents >> "$LOG" 2>&1 & )
+else
+    ( "$KOREADER" --kual "$MISSION" >> "$LOG" 2>&1 & )
+fi
 exit 0
