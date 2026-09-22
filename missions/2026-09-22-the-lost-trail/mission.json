@@ -1,1 +1,24 @@
-{"title":"The Lost Trail","type":"Fiction"}
+{
+  "title": "The Lost Trail",
+  "type": "Fiction",
+  "subtitle": "A mountain bike adventure with Tom",
+  "blurb": "A missing trail marker, a fallen tree and a forest route to solve. Can Tom and Sam find their way to the old hut?",
+  "tags": [
+    {
+      "icon": "terrain",
+      "text": "Mountain biking"
+    },
+    {
+      "icon": "wrench",
+      "text": "Trail skills"
+    },
+    {
+      "icon": "book",
+      "text": "~5 min read"
+    },
+    {
+      "icon": "star",
+      "text": "3 questions"
+    }
+  ]
+}
