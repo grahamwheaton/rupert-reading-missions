@@ -41,7 +41,8 @@
           "text": "Inspect the wooden bridge",
           "next": "bridge-check"
         }
-      ]
+      ],
+      "image": "river.png"
     },
     "ridge-view": {
       "text": "Low gear worked. The 4x4 crept up without spinning its wheels. At the ridge, Tom could see a radio mast above the trees. Fresh tyre marks crossed the track and vanished through a gate. The map showed another route curling around the hill towards the same mast.",
@@ -67,7 +68,8 @@
           "text": "Take the grassy lane",
           "next": "shepherd-hut"
         }
-      ]
+      ],
+      "image": "sign.png"
     },
     "ford-edge": {
       "text": "Dad stopped well before the water. Tom climbed out and used a long stick from the bank to test the depth at the edge. The current was quick in the middle. They could search for the shallow stony line, or leave the ford and use a higher road that joined the stone track.",
@@ -132,7 +134,8 @@
           "text": "Continue towards the old mill",
           "next": "old-mill"
         }
-      ]
+      ],
+      "image": "recovery.png"
     },
     "shepherd-hut": {
       "text": "A farmer stood outside the shepherd hut fixing a gate. He knew the forest well. He said the old mill road was clear, but tractor ruts also led towards a stuck vehicle near the stone track. Tom realised that asking someone local could be as useful as checking a map.",
@@ -214,22 +217,22 @@
     },
     "hilltop-cache": {
       "text": "The track climbed above the mist. At the top, Tom found the emergency cache beside a radio post. Inside were blankets, a first aid kit and spare batteries. They left their battery box for the ranger to collect and radioed the station with their position.",
-      "image": "cover.png",
+      "image": "cache.png",
       "ending": "You found the hilltop emergency cache!"
     },
     "supply-convoy": {
       "text": "Two forestry trucks appeared on the service road. Their drivers were taking fuel and tools to the ranger station. Tom and Dad joined behind them. The convoy moved slowly through the mud, each vehicle leaving enough space to stop safely. Soon the ranger station came into view.",
-      "image": "cover.png",
+      "image": "convoy.png",
       "ending": "You joined the forest supply convoy!"
     },
     "ranger-station": {
       "text": "The trees opened and a small ranger station appeared beside the track. Tom carried the box of radio batteries inside. The ranger thanked them and showed Tom a wall map covered in coloured routes. Their careful choices had brought the supplies exactly where they were needed.",
-      "image": "cover.png",
+      "image": "ranger.png",
       "ending": "Mission complete. The ranger has the batteries!"
     },
     "sunset-return": {
       "text": "The bypass was longer than expected, but it stayed firm and safe. As the sun dropped behind the trees, they reached the main forest road. A ranger vehicle met them there and collected the batteries. Tom had not reached the station, but the mission still succeeded.",
-      "image": "cover.png",
+      "image": "sunset.png",
       "ending": "You found a safe way out before dark!"
     }
   }
