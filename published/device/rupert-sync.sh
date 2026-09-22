@@ -183,6 +183,41 @@ BIGREAD_ID_PART="$STATE/bigread-id.part"
 BIGREAD_DIGEST_PART="$STATE/bigread-digest.part"
 BIGREAD_TAR="$STATE/bigread.tar.part"
 rm -f "$BIGREAD_ID_PART" "$BIGREAD_DIGEST_PART" "$BIGREAD_TAR"
+if fetch "$BIGREAD_ID_PART" "$BASE_URL/bigread.txt" >> "$LOG" 2>&1; then
+    BIGREAD_ID=$(tr -d '
+ ' < "$BIGREAD_ID_PART")
+    fetch "$BIGREAD_DIGEST_PART" "$BASE_URL/bigread.sha256" >> "$LOG" 2>&1         && BIGREAD_DIGEST=$(tr -d '
+ ' < "$BIGREAD_DIGEST_PART")
+
+    if [ -n "$BIGREAD_ID" ] && [ -n "$BIGREAD_DIGEST" ]         && { [ "$(cat "$STATE/bigread-id" 2>/dev/null)" != "$BIGREAD_ID" ]             || [ "$(cat "$STATE/bigread-digest" 2>/dev/null)" != "$BIGREAD_DIGEST" ]             || [ ! -f "$STATE/bigread/story.json" ]; }
+    then
+        if fetch "$BIGREAD_TAR" "$BASE_URL/bigread.tar" >> "$LOG" 2>&1; then
+            LOCAL_DIGEST=$(/usr/bin/openssl dgst -sha256 "$BIGREAD_TAR" 2>/dev/null | awk '{print $NF}')
+            if [ "$LOCAL_DIGEST" = "$BIGREAD_DIGEST" ]; then
+                rm -rf "$STATE/bigread.new"
+                mkdir -p "$STATE/bigread.new"
+                if tar -xf "$BIGREAD_TAR" -C "$STATE/bigread.new" 2>> "$LOG"                     && [ -f "$STATE/bigread.new/story.json" ]
+                then
+                    rm -rf "$STATE/bigread.old"
+                    [ -d "$STATE/bigread" ] && mv "$STATE/bigread" "$STATE/bigread.old"
+                    mv "$STATE/bigread.new" "$STATE/bigread"
+                    rm -rf "$STATE/bigread.old"
+                    echo "$BIGREAD_ID" > "$STATE/bigread-id"
+                    echo "$BIGREAD_DIGEST" > "$STATE/bigread-digest"
+                    log "installed Big Read $BIGREAD_ID"
+                else
+                    log 'Big Read rejected: the archive would not unpack'
+                    rm -rf "$STATE/bigread.new"
+                fi
+            else
+                log 'Big Read rejected: digest did not match the published one'
+            fi
+        else
+            log 'Big Read download failed'
+        fi
+    fi
+fi
+rm -f "$BIGREAD_ID_PART" "$BIGREAD_DIGEST_PART" "$BIGREAD_TAR"
 
 if [ "$(cat "$STATE/last-remote-id" 2>/dev/null)" = "$REMOTE_ID" ] \
     && [ "$(cat "$STATE/last-remote-digest" 2>/dev/null)" = "$REMOTE_DIGEST" ] \
@@ -241,42 +276,6 @@ log "installed mission $REMOTE_ID ($SIZE bytes)"
 ls -1 "$ARCHIVE"/*.mobi 2>/dev/null | sort -r | awk "NR > $ARCHIVE_KEEP" | while read OLD; do
     rm -f "$OLD" "${OLD%.mobi}.properties"
 done
-
-if fetch "$BIGREAD_ID_PART" "$BASE_URL/bigread.txt" >> "$LOG" 2>&1; then
-    BIGREAD_ID=$(tr -d '
- ' < "$BIGREAD_ID_PART")
-    fetch "$BIGREAD_DIGEST_PART" "$BASE_URL/bigread.sha256" >> "$LOG" 2>&1         && BIGREAD_DIGEST=$(tr -d '
- ' < "$BIGREAD_DIGEST_PART")
-
-    if [ -n "$BIGREAD_ID" ] && [ -n "$BIGREAD_DIGEST" ]         && { [ "$(cat "$STATE/bigread-id" 2>/dev/null)" != "$BIGREAD_ID" ]             || [ "$(cat "$STATE/bigread-digest" 2>/dev/null)" != "$BIGREAD_DIGEST" ]             || [ ! -f "$STATE/bigread/story.json" ]; }
-    then
-        if fetch "$BIGREAD_TAR" "$BASE_URL/bigread.tar" >> "$LOG" 2>&1; then
-            LOCAL_DIGEST=$(/usr/bin/openssl dgst -sha256 "$BIGREAD_TAR" 2>/dev/null | awk '{print $NF}')
-            if [ "$LOCAL_DIGEST" = "$BIGREAD_DIGEST" ]; then
-                rm -rf "$STATE/bigread.new"
-                mkdir -p "$STATE/bigread.new"
-                if tar -xf "$BIGREAD_TAR" -C "$STATE/bigread.new" 2>> "$LOG"                     && [ -f "$STATE/bigread.new/story.json" ]
-                then
-                    rm -rf "$STATE/bigread.old"
-                    [ -d "$STATE/bigread" ] && mv "$STATE/bigread" "$STATE/bigread.old"
-                    mv "$STATE/bigread.new" "$STATE/bigread"
-                    rm -rf "$STATE/bigread.old"
-                    echo "$BIGREAD_ID" > "$STATE/bigread-id"
-                    echo "$BIGREAD_DIGEST" > "$STATE/bigread-digest"
-                    log "installed Big Read $BIGREAD_ID"
-                else
-                    log 'Big Read rejected: the archive would not unpack'
-                    rm -rf "$STATE/bigread.new"
-                fi
-            else
-                log 'Big Read rejected: digest did not match the published one'
-            fi
-        else
-            log 'Big Read download failed'
-        fi
-    fi
-fi
-rm -f "$BIGREAD_ID_PART" "$BIGREAD_DIGEST_PART" "$BIGREAD_TAR"
 
 # Prompt the framework to notice changed documents after a resume-style event.
 dbus-send --system /default com.lab126.powerd.resuming int32:1 >/dev/null 2>&1 || true
