@@ -53,6 +53,8 @@ That only works if the mission does not fight it:
   let the sentence around it explain it.
 - **Em dashes and semicolons** are harder than a full stop. Prefer two
   sentences.
+- **Put the picture first**, before the title, so the book opens on the
+  artwork rather than a page holding nothing but a heading.
 - **Keep headings small** — `h1 { font-size: 1.3em }`. His reading text is
   already large, so a default heading is about twice that and fills the first
   page before the story starts.
