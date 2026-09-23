@@ -1,0 +1,24 @@
+{
+  "title": "The Stuck Summit",
+  "type": "Fiction",
+  "subtitle": "A mountain recovery adventure with Tom",
+  "blurb": "A stuck 4x4, a muddy mountain track and a surprise waiting at the summit.",
+  "tags": [
+    {
+      "icon": "terrain",
+      "text": "4x4 recovery"
+    },
+    {
+      "icon": "wrench",
+      "text": "Traction and safe pulling"
+    },
+    {
+      "icon": "star",
+      "text": "Mountain adventure"
+    },
+    {
+      "icon": "book",
+      "text": "About 5 minutes"
+    }
+  ]
+}
