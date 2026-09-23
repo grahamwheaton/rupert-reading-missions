@@ -151,7 +151,7 @@ def decode_cover(source, destination):
         data = base64.b64decode(payload, validate=True)
     except binascii.Error as error:
         sys.exit(f"refusing to publish: invalid cover base64 ({error})")
-    if len(data) < 57 or not data.startswith(b"\\x89PNG\\r\\n\\x1a\\n"):
+    if len(data) < 57 or not data.startswith(b"\x89PNG\r\n\x1a\n"):
         sys.exit("refusing to publish: cover is not a PNG")
     pos, has_image, has_end = 8, False, False
     while pos + 12 <= len(data):
@@ -208,7 +208,7 @@ def validate(book):
         sys.exit("refusing to publish: MOBI record table is incomplete")
     first_image = struct.unpack_from(">I", data, offsets[0] + 108)[0]
     if first_image >= count or not any(
-        data[offsets[i]:offsets[i] + 4].startswith((b"\\xff\\xd8\\xff", b"\\x89PNG", b"GIF"))
+        data[offsets[i]:offsets[i] + 4].startswith((b"\xff\xd8\xff", b"\x89PNG", b"GIF"))
         for i in range(first_image, count)
     ):
         sys.exit("refusing to publish: MOBI contains no cover image")
