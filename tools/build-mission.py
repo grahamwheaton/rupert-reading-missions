@@ -6,12 +6,14 @@ The Kindle reads `published/date.txt` first and only downloads
 the book exists and has been validated: the pointer can never advance to a
 book that was not built.
 
-Mission sources are text only. Illustrations must be inline SVG or base64
-`data:` URIs inside mission.html, because the scheduled job that pushes them
-can write UTF-8 but not binary.
+Mission sources are text only. A required 600x800, 8-bit greyscale cover is
+carried in cover.png.base64, wrapped at 76 characters per line. The title is
+the only text in the approved artwork.
 """
 
 import argparse
+import base64
+import binascii
 import datetime
 import hashlib
 import json
@@ -19,6 +21,8 @@ import pathlib
 import re
 import shutil
 import subprocess
+import struct
+import zlib
 import sys
 import tempfile
 
@@ -126,35 +130,62 @@ def source_fingerprint(source):
     and the Kindle would keep the first version forever.
     """
     digest = hashlib.sha256()
-    for name in ("mission.html", "mission.json"):
+    for name in ("mission.html", "mission.json", "cover.png.base64"):
         path = source / name
         digest.update(path.read_bytes() if path.is_file() else b"")
     return digest.hexdigest()
 
 
-def check_illustration(source):
-    """Warn about a mission with no picture, or with drawn-in-code art.
+def decode_cover(source, destination):
+    """Require a complete, Kindle-sized greyscale PNG carried as wrapped text."""
+    encoded = source / "cover.png.base64"
+    if not encoded.is_file():
+        sys.exit(f"refusing to publish: missing {encoded}")
+    lines = encoded.read_text(encoding="ascii").splitlines()
+    if not lines or any(not line or len(line) > 76 for line in lines):
+        sys.exit("refusing to publish: cover base64 must be wrapped at 76 characters")
+    payload = "".join(lines)
+    if len(payload) % 4:
+        sys.exit("refusing to publish: cover base64 length is not divisible by four")
+    try:
+        data = base64.b64decode(payload, validate=True)
+    except binascii.Error as error:
+        sys.exit(f"refusing to publish: invalid cover base64 ({error})")
+    if len(data) < 57 or not data.startswith(b"\\x89PNG\\r\\n\\x1a\\n"):
+        sys.exit("refusing to publish: cover is not a PNG")
+    pos, has_image, has_end = 8, False, False
+    while pos + 12 <= len(data):
+        length = struct.unpack_from(">I", data, pos)[0]
+        end = pos + 12 + length
+        if end > len(data):
+            sys.exit("refusing to publish: truncated cover PNG")
+        kind = data[pos + 4:pos + 8]
+        chunk = data[pos + 8:pos + 8 + length]
+        crc = struct.unpack_from(">I", data, pos + 8 + length)[0]
+        if zlib.crc32(kind + chunk) & 0xffffffff != crc:
+            sys.exit("refusing to publish: cover PNG checksum failed")
+        if kind == b"IHDR":
+            width, height, depth, colour = struct.unpack_from(">IIBB", chunk)
+            if (width, height, depth, colour) != (600, 800, 8, 0):
+                sys.exit("refusing to publish: cover must be 600x800, 8-bit greyscale PNG")
+        elif kind == b"IDAT":
+            has_image = True
+        elif kind == b"IEND":
+            has_end = end == len(data)
+            break
+        pos = end
+    if not (has_image and has_end):
+        sys.exit("refusing to publish: cover PNG is incomplete")
+    destination.write_bytes(data)
 
-    Inline SVG converts, but what arrives on the Kindle is flat shapes rather
-    than an illustration. A base64 image is what makes him want to open it.
-    """
-    html = (source / "mission.html").read_text(encoding="utf-8", errors="replace")
-    if "<img" not in html:
-        if "<svg" in html:
-            print("warning: mission illustrates with inline SVG; embed a base64 image instead")
-        else:
-            print("warning: mission has no illustration")
-    elif "<svg" in html:
-        print("warning: mission contains inline SVG alongside its image")
 
-
-def convert(source, destination):
+def convert(source, destination, cover):
     # Calibre picks the output plugin from the extension, so the destination
     # must end in .mobi -- staging to something like .part fails the run.
     assert destination.suffix == ".mobi", destination
     try:
         subprocess.run(
-            ["ebook-convert", str(source / "mission.html"), str(destination)] + CONVERT,
+            ["ebook-convert", str(source / "mission.html"), str(destination)] + CONVERT + ["--cover", str(cover)],
             check=True,
         )
     except subprocess.CalledProcessError as error:
@@ -170,6 +201,17 @@ def validate(book):
         handle.seek(60)
         if handle.read(8) != b"BOOKMOBI":
             sys.exit("refusing to publish: output is not a MOBI 6 book")
+    data = book.read_bytes()
+    count = struct.unpack_from(">H", data, 76)[0]
+    offsets = [struct.unpack_from(">I", data, 78 + 8 * i)[0] for i in range(count)]
+    if not offsets or offsets[0] + 112 > len(data):
+        sys.exit("refusing to publish: MOBI record table is incomplete")
+    first_image = struct.unpack_from(">I", data, offsets[0] + 108)[0]
+    if first_image >= count or not any(
+        data[offsets[i]:offsets[i] + 4].startswith((b"\\xff\\xd8\\xff", b"\\x89PNG", b"GIF"))
+        for i in range(first_image, count)
+    ):
+        sys.exit("refusing to publish: MOBI contains no cover image")
     return size
 
 
@@ -177,7 +219,9 @@ def dry_run(source):
     """Convert and validate without touching published/. Proves the toolchain."""
     with tempfile.TemporaryDirectory() as workspace:
         book = pathlib.Path(workspace) / "dry-run.mobi"
-        convert(source, book)
+        cover = pathlib.Path(workspace) / "cover.png"
+        decode_cover(source, cover)
+        convert(source, book, cover)
         size = validate(book)
         print(f"dry run OK: {source.name} converts to a {size} byte MOBI 6 book")
 
@@ -229,12 +273,13 @@ def main():
 
     meta = metadata(source, mission_id)
     print(f"building {mission_id}: {meta['title']}")
-    check_illustration(source)
 
     ARCHIVE.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as workspace:
         staged = pathlib.Path(workspace) / "today.mobi"
-        convert(source, staged)
+        cover = pathlib.Path(workspace) / "cover.png"
+        decode_cover(source, cover)
+        convert(source, staged, cover)
         size = validate(staged)
         digest = hashlib.sha256(staged.read_bytes()).hexdigest()
         shutil.copyfile(staged, ARCHIVE / f"{mission_id}.mobi")
