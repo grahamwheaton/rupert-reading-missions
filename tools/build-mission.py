@@ -7,8 +7,8 @@ the book exists and has been validated: the pointer can never advance to a
 book that was not built.
 
 Mission sources are text only. A required 600x800, 8-bit greyscale cover is
-carried in cover.png.base64, wrapped at 76 characters per line. The title is
-the only text in the approved artwork.
+carried in cover.png.base64 or numbered cover.png.base64.partNN files, wrapped
+at 76 characters per line. The title is the only text in the approved artwork.
 """
 
 import argparse
@@ -130,18 +130,37 @@ def source_fingerprint(source):
     and the Kindle would keep the first version forever.
     """
     digest = hashlib.sha256()
-    for name in ("mission.html", "mission.json", "cover.png.base64"):
+    for name in ("mission.html", "mission.json"):
         path = source / name
         digest.update(path.read_bytes() if path.is_file() else b"")
+    for path in cover_sources(source):
+        digest.update(path.name.encode("ascii") + b"\0")
+        digest.update(path.read_bytes())
     return digest.hexdigest()
+
+
+def cover_sources(source):
+    """One base64 file, or a contiguous sequence of small text parts."""
+    single = source / "cover.png.base64"
+    parts = sorted(source.glob("cover.png.base64.part*"))
+    if single.is_file() and parts:
+        sys.exit("refusing to publish: use either one cover file or numbered parts")
+    if single.is_file():
+        return [single]
+    if not parts:
+        sys.exit(f"refusing to publish: missing cover in {source}")
+    if len(parts) > 99 or [part.name for part in parts] != [
+        f"cover.png.base64.part{i:02d}" for i in range(1, len(parts) + 1)
+    ]:
+        sys.exit("refusing to publish: cover parts must be numbered contiguously from part01")
+    return parts
 
 
 def decode_cover(source, destination):
     """Require a complete, Kindle-sized greyscale PNG carried as wrapped text."""
-    encoded = source / "cover.png.base64"
-    if not encoded.is_file():
-        sys.exit(f"refusing to publish: missing {encoded}")
-    lines = encoded.read_text(encoding="ascii").splitlines()
+    lines = []
+    for encoded in cover_sources(source):
+        lines.extend(encoded.read_text(encoding="ascii").splitlines())
     if not lines or any(not line or len(line) > 76 for line in lines):
         sys.exit("refusing to publish: cover base64 must be wrapped at 76 characters")
     payload = "".join(lines)

@@ -9,8 +9,12 @@ device configuration are not published here.
 
 ## Daily cover rule
 
-Each dated mission directory must include `cover.png.base64`: a complete PNG
-encoded as base64 text, wrapped at no more than 76 characters per line. The
+Each dated mission directory must include either `cover.png.base64` or
+numbered `cover.png.base64.part01`, `part02`, etc.: a complete PNG encoded
+as base64 text, wrapped at no more than 76 characters per line. Use
+`python3 tools/encode-cover.py cover.png missions/YYYY-MM-DD-slug` to make
+small parts that the GitHub text connector can upload individually. Commit
+the whole numbered set together; a missing part prevents publication. The
 builder verifies the encoding, PNG checksums, 600×800 dimensions, 8-bit
 greyscale format, and the image record in the converted MOBI. It refuses to
 publish when any of these checks fail.
