@@ -219,6 +219,49 @@ if fetch "$BIGREAD_ID_PART" "$BASE_URL/bigread.txt" >> "$LOG" 2>&1; then
 fi
 rm -f "$BIGREAD_ID_PART" "$BIGREAD_DIGEST_PART" "$BIGREAD_TAR"
 
+# The unlock store changes independently of the daily book. Its public
+# catalog contains only names, prices and preprocessed thumbnail images.
+# Never fetch the private ActionNotes repository from the Kindle.
+UNLOCK_URL="$BASE_URL/unlocks"
+UNLOCK_NEW="$STATE/unlock-catalog.new"
+UNLOCK_DIR="$STATE/unlock-catalog"
+rm -rf "$UNLOCK_NEW"
+mkdir -p "$UNLOCK_NEW/images"
+if fetch "$UNLOCK_NEW/catalog.sha256" "$UNLOCK_URL/catalog.sha256" >> "$LOG" 2>&1 \
+    && fetch "$UNLOCK_NEW/catalog.tsv" "$UNLOCK_URL/catalog.tsv" >> "$LOG" 2>&1
+then
+    EXPECTED=$(tr -d '\r\n ' < "$UNLOCK_NEW/catalog.sha256")
+    ACTUAL=$(/usr/bin/openssl dgst -sha256 "$UNLOCK_NEW/catalog.tsv" 2>/dev/null | awk '{print $NF}')
+    VALID=true
+    [ "$EXPECTED" = "$ACTUAL" ] || VALID=false
+    TAB=$(printf '\t')
+    while IFS="$TAB" read -r ITEM_ID PENCE POINTS TITLE IMAGE_SHA; do
+        [ -z "$ITEM_ID" ] && continue
+        case "$ITEM_ID" in *[!a-z0-9-]*|'') VALID=false; break ;; esac
+        case "$PENCE:$POINTS" in *[!0-9:]*|'') VALID=false; break ;; esac
+        case "$IMAGE_SHA" in *[!a-f0-9]*|'') VALID=false; break ;; esac
+        [ "${#IMAGE_SHA}" -eq 64 ] || { VALID=false; break; }
+        [ -n "$TITLE" ] || { VALID=false; break; }
+        [ "$VALID" = true ] || break
+        if ! fetch "$UNLOCK_NEW/images/$ITEM_ID.png" "$UNLOCK_URL/images/$ITEM_ID.png" >> "$LOG" 2>&1; then
+            VALID=false
+            break
+        fi
+        IMAGE_DIGEST=$(/usr/bin/openssl dgst -sha256 "$UNLOCK_NEW/images/$ITEM_ID.png" 2>/dev/null | awk '{print $NF}')
+        [ "$IMAGE_SHA" = "$IMAGE_DIGEST" ] || { VALID=false; break; }
+    done < "$UNLOCK_NEW/catalog.tsv"
+    if [ "$VALID" = true ]; then
+        rm -rf "$STATE/unlock-catalog.old"
+        [ -d "$UNLOCK_DIR" ] && mv "$UNLOCK_DIR" "$STATE/unlock-catalog.old"
+        mv "$UNLOCK_NEW" "$UNLOCK_DIR"
+        rm -rf "$STATE/unlock-catalog.old"
+        log 'installed unlock catalog'
+    else
+        log 'unlock catalog rejected: digest or contents invalid'
+    fi
+fi
+rm -rf "$UNLOCK_NEW"
+
 if [ "$(cat "$STATE/last-remote-id" 2>/dev/null)" = "$REMOTE_ID" ] \
     && [ "$(cat "$STATE/last-remote-digest" 2>/dev/null)" = "$REMOTE_DIGEST" ] \
     && [ -f "$DOCUMENT" ] && [ -f "$STATE/launcher.properties" ]; then
