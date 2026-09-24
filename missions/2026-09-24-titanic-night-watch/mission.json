@@ -1,0 +1,12 @@
+{
+  "title": "Titanic: The Night Watch",
+  "type": "Fact",
+  "subtitle": "Ice, engines and the night everything changed",
+  "blurb": "Climb aboard Titanic and discover what happened on her final night, why the ship sank, and how the disaster changed safety at sea.",
+  "tags": [
+    {"icon": "book", "text": "Titanic"},
+    {"icon": "star", "text": "Real history"},
+    {"icon": "wrench", "text": "Ships and engineering"},
+    {"icon": "book", "text": "About 5 minutes"}
+  ]
+}
