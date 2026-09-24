@@ -1,0 +1,49 @@
+name: Publish unlock store
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-unlocks
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check notes access
+        env:
+          NOTES_TOKEN: ${{ secrets.RUPERT_NOTES_TOKEN }}
+        run: |
+          if [ -z "$NOTES_TOKEN" ]; then
+            echo "::error::Add RUPERT_NOTES_TOKEN with read access to SharedProjectNotes."
+            exit 1
+          fi
+      - name: Check out private ActionNotes repository
+        uses: actions/checkout@v4
+        with:
+          repository: grahamwheaton/SharedProjectNotes
+          token: ${{ secrets.RUPERT_NOTES_TOKEN }}
+          path: notes
+          persist-credentials: false
+      - name: Generate square greyscale thumbnails and catalog
+        run: |
+          python3 -m pip install --disable-pip-version-check Pillow
+          python3 tools/build-unlocks.py --notes notes
+      - name: Publish changed catalog
+        run: |
+          if [ -z "$(git status --porcelain published/unlocks/)" ]; then
+            echo "Unlock catalog unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add published/unlocks/
+          git commit -m "Refresh Kindle unlock store"
+          git push
