@@ -73,7 +73,10 @@ def build(notes, output):
         target = pictures / (ident + ".png")
         with Image.open(source) as raw:
             picture = ImageOps.exif_transpose(raw).convert("RGB")
-            picture = ImageOps.fit(picture, (220, 220), method=Image.Resampling.LANCZOS)
+            # Preserve words embedded in cover art; a centre crop can remove
+            # the season/title from wide screenshots. Fill the square instead.
+            picture = ImageOps.pad(picture, (220, 220),
+                                   method=Image.Resampling.LANCZOS, color="#eeeeee")
             picture = picture.convert("L").quantize(colors=16).convert("L")
             picture.save(target, format="PNG", optimize=True)
         sha = hashlib.sha256(target.read_bytes()).hexdigest()

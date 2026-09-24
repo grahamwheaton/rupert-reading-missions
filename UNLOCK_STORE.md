@@ -15,7 +15,8 @@ The Kindle never edits the note. Its saved redemption ledger continues to
 count spent points after a reward leaves the store.
 
 The hourly `Publish unlock store` workflow checks out the private notes
-repository, crops each attached image to a 220 × 220 square, converts it to
+repository, fits each attached image into a 220 × 220 square without cutting
+off cover text, converts it to
 16-level greyscale, and publishes `published/unlocks/catalog.tsv` and images
 here. Points are five per pound, rounded up to the next whole point.
 
