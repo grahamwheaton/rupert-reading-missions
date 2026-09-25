@@ -6,9 +6,10 @@ The Kindle reads `published/date.txt` first and only downloads
 the book exists and has been validated: the pointer can never advance to a
 book that was not built.
 
-Mission sources are text only. A required 600x800, 8-bit greyscale cover is
-carried in cover.png.base64 or numbered cover.png.base64.partNN files, wrapped
-at 76 characters per line. The title is the only text in the approved artwork.
+An authored 600x800, 8-bit greyscale cover is carried in cover.png.base64 or
+numbered cover.png.base64.partNN files, wrapped at 76 characters per line.
+If the author cannot transfer the cover, generate an illustrated grayscale
+cover with the title as its only text so the book still publishes.
 """
 
 import argparse
@@ -136,6 +137,8 @@ def source_fingerprint(source):
     for path in cover_sources(source):
         digest.update(path.name.encode("ascii") + b"\0")
         digest.update(path.read_bytes())
+    if not cover_sources(source):
+        digest.update((ROOT / "tools/fallback_cover.py").read_bytes())
     return digest.hexdigest()
 
 
@@ -148,7 +151,7 @@ def cover_sources(source):
     if single.is_file():
         return [single]
     if not parts:
-        sys.exit(f"refusing to publish: missing cover in {source}")
+        return []
     if len(parts) > 99 or [part.name for part in parts] != [
         f"cover.png.base64.part{i:02d}" for i in range(1, len(parts) + 1)
     ]:
@@ -157,7 +160,13 @@ def cover_sources(source):
 
 
 def decode_cover(source, destination):
-    """Require a complete, Kindle-sized greyscale PNG carried as wrapped text."""
+    """Decode an authored cover or draw the story's automatic fallback."""
+    if not cover_sources(source):
+        from fallback_cover import create_cover
+        title = metadata(source, source.name).get("title")
+        story = (source / "mission.html").read_text(encoding="utf-8", errors="replace")
+        create_cover(title, story, destination)
+        return
     lines = []
     for encoded in cover_sources(source):
         lines.extend(encoded.read_text(encoding="ascii").splitlines())
