@@ -1,0 +1,24 @@
+{
+  "title": "The Broken Bridge",
+  "type": "Fiction",
+  "subtitle": "A mountain winch recovery",
+  "blurb": "A damaged bridge, a stranded truck and a careful recovery before the adventure takes a longer route.",
+  "tags": [
+    {
+      "icon": "terrain",
+      "text": "4x4 adventure"
+    },
+    {
+      "icon": "wrench",
+      "text": "Winches and anchors"
+    },
+    {
+      "icon": "star",
+      "text": "Tom and Scout"
+    },
+    {
+      "icon": "book",
+      "text": "About 5 minutes"
+    }
+  ]
+}
