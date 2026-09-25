@@ -17,7 +17,7 @@ CA="$RUNTIME/cacert.pem"
 WAKE_PID=/var/tmp/rupert-wake-listener.pid
 # lipc-wait-event splits its comma-separated event list in place, so /proc
 # shows the arguments space-separated.
-WAIT_EVENT_CMD='/usr/bin/lipc-wait-event -m com.lab126.powerd outOfScreenSaver resuming '
+WAIT_EVENT_CMD='/usr/bin/lipc-wait-event -m com.lab126.powerd outOfScreenSaver resuming readyToSuspend '
 
 # Run from a tmpfs copy so nothing holds $SELF open. An open (replaced) copy on
 # the root filesystem stops the updater remounting it read-only.
@@ -43,10 +43,39 @@ cmdline() {
 
 # Run a background check whenever the user wakes the Kindle. The normal cron
 # entry remains as a fallback while the device is already awake.
+arm_daily_wake() {
+    RTC=/sys/class/rtc/rtc1
+    [ -w "$RTC/wakealarm" ] && [ -r "$RTC/since_epoch" ] || return 0
+    # date uses the Kindle's local timezone. Recalculate at every suspend so
+    # manual wakes do not move tomorrow's alarm later in the day.
+    HOUR=$(date +%H | sed 's/^0//')
+    MINUTE=$(date +%M | sed 's/^0//')
+    SECOND=$(date +%S | sed 's/^0//')
+    HOUR=${HOUR:-0}
+    MINUTE=${MINUTE:-0}
+    SECOND=${SECOND:-0}
+    NOW=$(cat "$RTC/since_epoch" 2>/dev/null)
+    case "$HOUR$MINUTE$SECOND$NOW" in *[!0-9]*|'') return 0 ;; esac
+    DELAY=$(( (6 * 3600 + 45 * 60 - (HOUR * 3600 + MINUTE * 60 + SECOND) + 86400) % 86400 ))
+    [ "$DELAY" -ge 60 ] || DELAY=$((DELAY + 86400))
+    TARGET=$((NOW + DELAY))
+    CURRENT=$(cat "$RTC/wakealarm" 2>/dev/null)
+    case "$CURRENT" in *[!0-9]*|'') CURRENT=0 ;; esac
+    # Leave any earlier alarm set by the firmware or another application.
+    [ "$CURRENT" -gt "$NOW" ] && [ "$CURRENT" -le "$TARGET" ] && return 0
+    echo 0 > "$RTC/wakealarm" 2>/dev/null || return 0
+    if echo "$TARGET" > "$RTC/wakealarm" 2>/dev/null; then
+        log "daily story wake armed for 06:45 (RTC $TARGET)"
+    else
+        log 'daily story wake alarm could not be armed'
+    fi
+}
+
 if [ "$1" = "--wake-listener" ]; then
     echo $$ > "$WAKE_PID"
-    /usr/bin/lipc-wait-event -m com.lab126.powerd outOfScreenSaver,resuming | while read EVENT; do
+    /usr/bin/lipc-wait-event -m com.lab126.powerd outOfScreenSaver,resuming,readyToSuspend | while read EVENT; do
         case "$EVENT" in
+            readyToSuspend*) arm_daily_wake ;;
             outOfScreenSaver*|resuming*)
                 log 'Kindle wake received; starting mission sync'
                 /bin/sh "$SELF" --scheduled >/dev/null 2>&1 &
