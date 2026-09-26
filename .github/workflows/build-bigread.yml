@@ -32,7 +32,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install image support
+        run: python3 -m pip install --disable-pip-version-check Pillow
+
+
       - name: Validate and publish the newest Big Read
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           python3 tools/build-bigread.py --map \
             ${{ inputs.check && format('--check {0}', inputs.check) || '' }}
