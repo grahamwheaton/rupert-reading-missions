@@ -1,0 +1,20 @@
+{
+  "title": "The Red Ball Express",
+  "type": "Fact",
+  "subtitle": "The trucks that kept an army moving",
+  "blurb": "Thousands of trucks raced supplies across France. Discover the huge road system that kept fuel, food and ammunition moving.",
+  "tags": [
+    {
+      "icon": "wrench",
+      "text": "Cargo hauling"
+    },
+    {
+      "icon": "book",
+      "text": "World War Two"
+    },
+    {
+      "icon": "star",
+      "text": "Real history"
+    }
+  ]
+}
