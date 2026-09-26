@@ -1,0 +1,260 @@
+{
+  "title": "The Polar Supply Run",
+  "subtitle": "A frozen convoy adventure with Tom and Scout",
+  "cover": "cover.png",
+  "start": "stage-1",
+  "image_prompts": {
+    "cover.png": "Cover for The Polar Supply Run. Tom, age seven, and black Labrador Scout ride in a rugged tracked polar supply vehicle pulling cargo sledges toward a remote research camp. Snow mountains, route poles and blowing snow. Put only the title 'The Polar Supply Run' on the cover.",
+    "departure.png": "Tom and black Labrador Scout inside a rugged tracked polar supply vehicle leaving a small polar base, cargo sledges behind, tall route poles across a huge snowy plain.",
+    "radio-check.png": "Polar convoy stopped beside tall snow marker poles for a radio check, Tom studying a paper map in the cab, black Labrador Scout beside him, wind beginning to blow.",
+    "sledge.png": "Tracked polar vehicle beside a cargo sledge whose runner has sunk into deep powder snow, adults calmly planning recovery while Tom watches from a safe distance.",
+    "whiteout.png": "Tracked supply convoy moving very slowly through a polar whiteout, headlights glowing, only the next tall route marker visible through blowing snow.",
+    "camp.png": "Remote polar research camp appearing through snow, low buildings, radio mast, tracked cargo convoy approaching along marked safe route.",
+    "fuel-ending.png": "Researchers and convoy crew unloading fuel drums from tracked cargo sledges into a protected store at a polar research camp, Tom and black Labrador Scout watching happily.",
+    "radio-ending.png": "Tom helping carry batteries and radio parts inside a polar weather station, scientist at instruments, black Labrador Scout nearby, snowy camp visible through window.",
+    "team-ending.png": "Two tracked polar convoys safely parked together at a research camp while drivers scientists and mechanics unload supplies as a team, Tom and black Labrador Scout in foreground."
+  },
+  "nodes": {
+    "stage-1": {
+      "text": "Tom tightened his coat as the tracked supply vehicle left the polar base. Scout watched the marker poles slide past the window. Ahead, two safe routes crossed the white plain, and both could reach the distant research camp before the next storm.",
+      "choices": [
+        {
+          "text": "Take the careful route",
+          "next": "stage-2"
+        },
+        {
+          "text": "Check the other option",
+          "next": "stage-3"
+        }
+      ],
+      "image": "departure.png"
+    },
+    "stage-2": {
+      "text": "The convoy turned towards a field of low snow ridges. Wind had packed some drifts hard and left others soft. Dad slowed down and asked Tom to compare the route poles with the map before they chose the next section.",
+      "choices": [
+        {
+          "text": "Follow the marked route",
+          "next": "stage-3"
+        },
+        {
+          "text": "Choose the safer detour",
+          "next": "stage-4"
+        }
+      ]
+    },
+    "stage-3": {
+      "text": "The western trail climbed onto firmer snow. From the higher ground Tom could see a dark line across the plain. It might be a harmless shadow, or it might be a crack in the sea ice that needed checking.",
+      "choices": [
+        {
+          "text": "Take the careful route",
+          "next": "stage-4"
+        },
+        {
+          "text": "Check the other option",
+          "next": "stage-5"
+        }
+      ]
+    },
+    "stage-4": {
+      "text": "The eastern trail stayed low beside a frozen ridge. Snow blew across the tracks behind them and quickly hid the tyre marks. Tom learned why polar routes use tall marker poles that remain visible when the ground disappears under fresh snow.",
+      "choices": [
+        {
+          "text": "Follow the marked route",
+          "next": "stage-5"
+        },
+        {
+          "text": "Choose the safer detour",
+          "next": "stage-6"
+        }
+      ]
+    },
+    "stage-5": {
+      "text": "At the next marker the convoy stopped for a radio check. The research camp still had enough fuel for the day, but the weather report showed stronger wind coming. They could take a shorter exposed route or a longer sheltered one.",
+      "choices": [
+        {
+          "text": "Take the careful route",
+          "next": "stage-6"
+        },
+        {
+          "text": "Check the other option",
+          "next": "stage-7"
+        }
+      ],
+      "image": "radio-check.png"
+    },
+    "stage-6": {
+      "text": "The short route crossed a wide flat sheet of ice. Dad did not trust its smooth appearance. A survey flag showed where another team had tested the ice that morning, while an older line of poles curved farther north.",
+      "choices": [
+        {
+          "text": "Follow the marked route",
+          "next": "stage-7"
+        },
+        {
+          "text": "Choose the safer detour",
+          "next": "stage-8"
+        }
+      ]
+    },
+    "stage-7": {
+      "text": "The sheltered route wound between rocky hills. It was slower, but the wind dropped at once. Scout stopped pacing and curled on his blanket. Ahead, a narrow gap offered a shortcut while the main trail continued around the hill.",
+      "choices": [
+        {
+          "text": "Take the careful route",
+          "next": "stage-8"
+        },
+        {
+          "text": "Check the other option",
+          "next": "stage-9"
+        }
+      ]
+    },
+    "stage-8": {
+      "text": "Tom spotted a broken marker pole half buried in snow. The map showed the route should bend east here. They could stop and replace the marker for the next convoy, or radio its position and keep the supplies moving.",
+      "choices": [
+        {
+          "text": "Follow the marked route",
+          "next": "stage-9"
+        },
+        {
+          "text": "Choose the safer detour",
+          "next": "stage-10"
+        }
+      ]
+    },
+    "stage-9": {
+      "text": "Beyond the hills they found a cargo sledge leaning into deep powder. Nothing was damaged, but one runner had sunk. Dad explained that pulling harder could bury it deeper, so the team needed to reduce the load or improve the pulling angle.",
+      "choices": [
+        {
+          "text": "Take the careful route",
+          "next": "stage-10"
+        },
+        {
+          "text": "Check the other option",
+          "next": "stage-11"
+        }
+      ],
+      "image": "sledge.png"
+    },
+    "stage-10": {
+      "text": "The lighter sledge moved again and the convoy reached a frozen river. Fresh snow covered most of the surface. Bright flags marked a checked crossing upstream, while the direct route ahead had no recent survey marks.",
+      "choices": [
+        {
+          "text": "Follow the marked route",
+          "next": "stage-11"
+        },
+        {
+          "text": "Choose the safer detour",
+          "next": "stage-12"
+        }
+      ]
+    },
+    "stage-11": {
+      "text": "The checked crossing was narrow but rough. The vehicles went one at a time with a large gap between them. Halfway over, Tom saw a thin dark crack beside a marker and called it out before the next vehicle moved.",
+      "choices": [
+        {
+          "text": "Take the careful route",
+          "next": "stage-12"
+        },
+        {
+          "text": "Check the other option",
+          "next": "stage-13"
+        }
+      ]
+    },
+    "stage-12": {
+      "text": "They stopped on firm ground and marked the crack on the map. A detour followed the bank, while another surveyed line crossed farther east. The radio operator confirmed that both routes had been used safely earlier that morning.",
+      "choices": [
+        {
+          "text": "Follow the marked route",
+          "next": "stage-13"
+        },
+        {
+          "text": "Choose the safer detour",
+          "next": "stage-14"
+        }
+      ]
+    },
+    "stage-13": {
+      "text": "Cloud rolled over the mountains and the light became flat. Soon Tom could hardly tell where the ground ended and the sky began. Dad called it a whiteout. Speed dropped to a crawl as the next marker faded in and out.",
+      "choices": [
+        {
+          "text": "Take the careful route",
+          "next": "stage-14"
+        },
+        {
+          "text": "Check the other option",
+          "next": "stage-15"
+        }
+      ],
+      "image": "whiteout.png"
+    },
+    "stage-14": {
+      "text": "A small emergency hut appeared beside the route. It held blankets, a radio and a weather chart. The team could wait for the worst snow to pass, or join another convoy approaching on a more sheltered southern track.",
+      "choices": [
+        {
+          "text": "Follow the marked route",
+          "next": "stage-15"
+        },
+        {
+          "text": "Choose the safer detour",
+          "next": "stage-16"
+        }
+      ]
+    },
+    "stage-15": {
+      "text": "The snow eased after twenty minutes. The camp radio reported that its main generator was still running, but the spare fuel tank was nearly empty. Tom knew the cargo mattered, yet rushing now could turn a delay into an accident.",
+      "choices": [
+        {
+          "text": "Take the careful route",
+          "next": "stage-16"
+        },
+        {
+          "text": "Check the other option",
+          "next": "stage-17"
+        }
+      ]
+    },
+    "stage-16": {
+      "text": "The southern convoy arrived with another tracked vehicle and recovery gear. Travelling together meant more help if something broke. The combined group now had a choice between a direct valley route and a longer line of tested marker poles.",
+      "choices": [
+        {
+          "text": "Follow the marked route",
+          "next": "stage-17"
+        },
+        {
+          "text": "Choose the safer detour",
+          "next": "ending-radio"
+        }
+      ]
+    },
+    "stage-17": {
+      "text": "At last, lights from the research camp appeared through the snow. A drift blocked the normal gate. One team could clear it while the others used a flagged service entrance near the radio tower.",
+      "choices": [
+        {
+          "text": "Take the careful route",
+          "next": "ending-fuel"
+        },
+        {
+          "text": "Check the other option",
+          "next": "ending-team"
+        }
+      ],
+      "image": "camp.png"
+    },
+    "ending-fuel": {
+      "text": "The first sledge rolled through the service entrance and stopped beside the protected fuel store. Everyone formed an unloading line. Soon the camp had enough fuel to keep its generators and heaters running safely through the storm. Tom gave Scout a biscuit and grinned.",
+      "image": "fuel-ending.png",
+      "ending": "Emergency fuel delivered!"
+    },
+    "ending-radio": {
+      "text": "Tom joined the team at the radio tower while the cargo vehicles entered by the side gate. Fresh batteries and spare parts brought the weather equipment back to full power. The screen filled with wind arrows and temperatures, helping every convoy choose safer routes.",
+      "image": "radio-ending.png",
+      "ending": "Weather station restored!"
+    },
+    "ending-team": {
+      "text": "The two convoys reached the camp together and parked in a neat line beside the stores. Drivers, scientists and mechanics unloaded food, fuel and equipment before the next snow arrived. Tom saw that the safest journey had also brought the most helping hands.",
+      "image": "team-ending.png",
+      "ending": "The whole convoy made it!"
+    }
+  }
+}
