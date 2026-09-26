@@ -1,14 +1,16 @@
 # Mission sources
 
-The daily job writes a mission here as **text only**. GitHub Actions builds the
-MOBI the Kindle downloads. Nothing that writes to this repository needs to be
-able to push binary files.
+The daily job writes a mission and its artwork here. GitHub Actions builds the
+MOBI the Kindle downloads. The standard ChatGPT route uses GitHub binary blobs
+for pictures, without a separately billed image API key.
 
 ## What to push
 
 ```
 missions/<YYYY-MM-DD>-<slug>/mission.html   required
 missions/<YYYY-MM-DD>-<slug>/mission.json   optional: see below
+missions/<YYYY-MM-DD>-<slug>/cover.png      illustrated 600×800 greyscale cover
+missions/<YYYY-MM-DD>-<slug>/scene.png      optional picture used inside the story
 ```
 
 `mission.json` carries what the Kindle dashboard shows around the story. Only
@@ -63,15 +65,25 @@ That only works if the mission does not fight it:
 
 ## Illustrations
 
-Inline them as base64 `data:` URIs:
+Generate artwork in ChatGPT, convert it to an 8-bit greyscale PNG and upload it
+through `github.create_blob` with `encoding: "base64"`. Attach the resulting
+blob SHA as a binary `cover.png` or scene file in a Git tree commit, alongside
+`mission.html` and `mission.json`. Do not put a large base64 image in a GitHub
+text-file update. This uses ChatGPT image generation and no separate API key.
+
+Use local relative paths for pictures inside the book:
 
 ```html
-<img alt="..." src="data:image/png;base64,iVBORw0KGgo...">
+<img alt="Tom and Scout beside the bridge" src="bridge.png">
 ```
 
-Calibre embeds them as normal images during conversion. Inline `<svg>` also
-works but rasterises less predictably, so prefer base64. Either way the source
-stays UTF-8 text.
+The builder checks every local image exists and can be decoded, tracks it for
+corrected same-date publications, and Calibre packages it into the MOBI. A
+missing or damaged scene fails the build. Legacy base64 data URIs in the HTML
+and `cover.png.base64.partNN` cover files still work for old stories. If there
+is no cover, the builder draws a simple fallback, though authored art looks
+better. The final MOBI remains necessary for the stock Kindle 4 reader; the
+format choice does not affect how image files reach GitHub.
 
 ## What the build produces
 
