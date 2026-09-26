@@ -12,28 +12,37 @@ looks like too much.
 
 ```
 bigreads/<YYYY-MM-DD>-<slug>/story.json           required
-bigreads/<YYYY-MM-DD>-<slug>/cover.png.base64     pictures, as base64 text
 ```
 
-**Push pictures as base64 text, not as binary files.** The job that writes
-stories can push UTF-8 reliably and binary unreliably: the first real Big Read
-arrived with a cover whose header was fine but whose image data was cut off
-half way. Write `cover.png.base64` containing the base64 of the PNG, and the
-build decodes it. `story.json` still refers to the picture by its real name,
-`cover.png`. A genuine binary file still works if you can push one.
+The scheduled chat should normally push **only story.json**. Put short artwork
+descriptions in its `image_prompts` object, keyed by the exact image filenames
+used by `cover` and node `image` fields:
 
-**Wrap the base64 at 76 characters per line.** One enormous line loses
-characters in transit: the second attempt at a cover arrived one byte short of
-a complete PNG, having lost three characters somewhere in a 4,167-character
-line. The build checks the length and says so when that happens.
+```json
+"image_prompts": {
+  "cover.png": "Tom and Scout in a tracked polar supply vehicle...",
+  "whiteout.png": "The convoy moving slowly through a whiteout..."
+}
+```
 
-Keep pictures small and they are less likely to be mangled at all. Bold line
-art at one bit per pixel is about 3 KB for a full 600x800 cover, which is both
-the right look for e-ink and a short enough file to survive the trip.
+The Build Big Read Action generates any referenced image that is not supplied,
+converts it to Kindle-friendly 8-bit greyscale, validates it, then packs it into
+`published/bigread.tar`. The Action requires the repository Actions secret
+`OPENAI_API_KEY` for prompt generation.
+
+**Supplied artwork is still supported and takes priority.** A real PNG/JPEG may
+sit beside story.json, or legacy `<name>.base64` text is accepted for existing
+publishers. New scheduled chats should not send large base64 artwork.
+
+**Every referenced image is mandatory.** If supplied art is corrupt, a prompt
+is missing, generation fails, or the image cannot be decoded, the build fails
+before any published pointer changes. Rupert therefore keeps the previous Big
+Read rather than receiving a partly illustrated story.
 
 The date prefix is the Big Read's ID, and the newest one wins, exactly as
-missions work. GitHub Actions validates the story, packs it with its pictures
-and publishes it; the Kindle downloads it on its next check.
+missions work. GitHub Actions validates the story, creates/validates its
+pictures, packs everything and publishes it; the Kindle downloads it on its
+next check.
 
 **A story that breaks a rule below is not published.** The build fails and says
 why, and Rupert keeps last week's story rather than getting a broken one.
