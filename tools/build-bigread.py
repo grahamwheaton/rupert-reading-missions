@@ -16,6 +16,9 @@ import binascii
 import hashlib
 import io
 import json
+import os
+import urllib.error
+import urllib.request
 import pathlib
 import re
 import struct
@@ -58,13 +61,56 @@ def latest_bigread():
     return max(candidates, key=lambda item: (item[0], item[1].name))
 
 
-def image_bytes(source, name):
-    """A picture's bytes, from the file itself or from <name>.base64.
+def generated_image(source, name):
+    """Generate a referenced image from story.json image_prompts.
 
-    The job that writes stories can push text but not binary, which is how a
-    cover arrived truncated once, so base64 beside story.json is the safer
-    route and the one the README asks for.
+    Authored binary/base64 artwork always wins. Prompt generation is the
+    connector-safe fallback: chat only pushes short UTF-8 descriptions and
+    the runner creates the actual Kindle artwork.
     """
+    story = json.loads((source / "story.json").read_text(encoding="utf-8"))
+    prompt = (story.get("image_prompts") or {}).get(name)
+    if not prompt:
+        return None
+    key = os.environ.get("OPENAI_API_KEY", "").strip()
+    if not key:
+        raise ValueError(f"'{name}' has an image description but OPENAI_API_KEY is not configured")
+    is_cover = name == story.get("cover")
+    size = "1024x1536" if is_cover else "1536x1024"
+    kindle = ("Kindle e-ink children's adventure illustration. Bold hand-drawn line art, "
+              "strong contrast, clear silhouettes, rich greys, no fine texture. "
+              "Do not add any text unless the description explicitly asks for it. ")
+    payload = json.dumps({"model":"gpt-image-1","prompt":kindle + prompt,
+                          "size":size,"quality":"medium","n":1}).encode()
+    request = urllib.request.Request("https://api.openai.com/v1/images/generations", data=payload,
+        headers={"Authorization":f"Bearer {key}","Content-Type":"application/json"}, method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=180) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        detail = error.read().decode("utf-8", "replace")[:800]
+        raise ValueError(f"generation failed for '{name}': HTTP {error.code}: {detail}") from error
+    item = result["data"][0]
+    if item.get("b64_json"):
+        raw = base64.b64decode(item["b64_json"])
+    elif item.get("url"):
+        with urllib.request.urlopen(item["url"], timeout=120) as response:
+            raw = response.read()
+    else:
+        raise ValueError(f"generation failed for '{name}': provider returned no image")
+    from PIL import Image
+    image = Image.open(io.BytesIO(raw)).convert("L")
+    limit = MAX_COVER if is_cover else MAX_IMAGE
+    image.thumbnail(limit)
+    canvas = Image.new("L", limit, 255)
+    canvas.paste(image, ((limit[0]-image.width)//2, (limit[1]-image.height)//2))
+    out = io.BytesIO()
+    canvas.save(out, format="PNG", optimize=True)
+    return out.getvalue()
+
+
+def image_bytes(source, name):
+    """A picture's bytes, preferring supplied art then prompt generation."""
     encoded = source / (name + ".base64")
     if encoded.is_file():
         # Line breaks are fine and in fact safer: a single enormous line is
@@ -82,6 +128,9 @@ def image_bytes(source, name):
     path = source / name
     if path.is_file():
         return path.read_bytes(), "binary"
+    generated = generated_image(source, name)
+    if generated is not None:
+        return generated, "generated from image_prompts"
     return None, None
 
 
