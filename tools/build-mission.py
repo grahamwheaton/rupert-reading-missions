@@ -6,8 +6,8 @@ The Kindle reads `published/date.txt` first and only downloads
 the book exists and has been validated: the pointer can never advance to a
 book that was not built.
 
-An authored 600x800, 8-bit greyscale cover is carried in cover.png.base64 or
-numbered cover.png.base64.partNN files, wrapped at 76 characters per line.
+An authored 600x800, 8-bit greyscale cover may be a binary cover.png, a
+cover.png.base64 file or numbered cover.png.base64.partNN files.
 If the author cannot transfer the cover, generate an illustrated grayscale
 cover with the title as its only text so the book still publishes.
 """
@@ -17,6 +17,7 @@ import base64
 import binascii
 import datetime
 import hashlib
+from html.parser import HTMLParser
 import json
 import pathlib
 import re
@@ -26,6 +27,7 @@ import struct
 import zlib
 import sys
 import tempfile
+from urllib.parse import unquote, urlsplit
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 MISSIONS = ROOT / "missions"
@@ -137,17 +139,59 @@ def source_fingerprint(source):
     for path in cover_sources(source):
         digest.update(path.name.encode("ascii") + b"\0")
         digest.update(path.read_bytes())
+    for path in inline_images(source):
+        digest.update(path.name.encode("utf-8") + b"\0")
+        digest.update(path.read_bytes())
     if not cover_sources(source):
         digest.update((ROOT / "tools/fallback_cover.py").read_bytes())
     return digest.hexdigest()
 
 
+def inline_images(source):
+    """Validate and track local image references used inside mission.html."""
+    class Images(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.references = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag.lower() == "img":
+                self.references.extend(value for key, value in attrs if key.lower() == "src" and value)
+
+    parser = Images()
+    parser.feed((source / "mission.html").read_text(encoding="utf-8"))
+    paths = set()
+    for reference in parser.references:
+        if reference.startswith("data:image/"):
+            continue  # Existing inline images remain supported.
+        url = urlsplit(reference)
+        if url.scheme or url.netloc or url.query or url.fragment:
+            sys.exit(f"refusing to publish: image must be a local file: {reference}")
+        name = unquote(url.path)
+        path = (source / name).resolve()
+        if path.parent != source.resolve() or path.suffix.lower() not in (".png", ".jpg", ".jpeg"):
+            sys.exit(f"refusing to publish: invalid local image path: {reference}")
+        if not path.is_file():
+            sys.exit(f"refusing to publish: local image is missing: {reference}")
+        from PIL import Image
+        try:
+            with Image.open(path) as image:
+                image.verify()
+        except Exception as error:
+            sys.exit(f"refusing to publish: local image is corrupt: {reference} ({error})")
+        paths.add(path)
+    return sorted(paths)
+
+
 def cover_sources(source):
-    """One base64 file, or a contiguous sequence of small text parts."""
+    """One binary PNG, one base64 file, or contiguous text parts."""
+    binary = source / "cover.png"
     single = source / "cover.png.base64"
     parts = sorted(source.glob("cover.png.base64.part*"))
-    if single.is_file() and parts:
-        sys.exit("refusing to publish: use either one cover file or numbered parts")
+    if sum((binary.is_file(), single.is_file(), bool(parts))) > 1:
+        sys.exit("refusing to publish: supply cover.png, one base64 file, or numbered parts")
+    if binary.is_file():
+        return [binary]
     if single.is_file():
         return [single]
     if not parts:
@@ -167,18 +211,21 @@ def decode_cover(source, destination):
         story = (source / "mission.html").read_text(encoding="utf-8", errors="replace")
         create_cover(title, story, destination)
         return
-    lines = []
-    for encoded in cover_sources(source):
-        lines.extend(encoded.read_text(encoding="ascii").splitlines())
-    if not lines or any(not line or len(line) > 76 for line in lines):
-        sys.exit("refusing to publish: cover base64 must be wrapped at 76 characters")
-    payload = "".join(lines)
-    if len(payload) % 4:
-        sys.exit("refusing to publish: cover base64 length is not divisible by four")
-    try:
-        data = base64.b64decode(payload, validate=True)
-    except binascii.Error as error:
-        sys.exit(f"refusing to publish: invalid cover base64 ({error})")
+    if (source / "cover.png").is_file():
+        data = (source / "cover.png").read_bytes()
+    else:
+        lines = []
+        for encoded in cover_sources(source):
+            lines.extend(encoded.read_text(encoding="ascii").splitlines())
+        if not lines or any(not line or len(line) > 76 for line in lines):
+            sys.exit("refusing to publish: cover base64 must be wrapped at 76 characters")
+        payload = "".join(lines)
+        if len(payload) % 4:
+            sys.exit("refusing to publish: cover base64 length is not divisible by four")
+        try:
+            data = base64.b64decode(payload, validate=True)
+        except binascii.Error as error:
+            sys.exit(f"refusing to publish: invalid cover base64 ({error})")
     if len(data) < 57 or not data.startswith(b"\x89PNG\r\n\x1a\n"):
         sys.exit("refusing to publish: cover is not a PNG")
     pos, has_image, has_end = 8, False, False
@@ -204,6 +251,13 @@ def decode_cover(source, destination):
         pos = end
     if not (has_image and has_end):
         sys.exit("refusing to publish: cover PNG is incomplete")
+    from PIL import Image
+    try:
+        import io
+        with Image.open(io.BytesIO(data)) as image:
+            image.load()
+    except Exception as error:
+        sys.exit(f"refusing to publish: cover PNG could not be decoded ({error})")
     destination.write_bytes(data)
 
 
@@ -245,6 +299,7 @@ def validate(book):
 
 def dry_run(source):
     """Convert and validate without touching published/. Proves the toolchain."""
+    inline_images(source)
     with tempfile.TemporaryDirectory() as workspace:
         book = pathlib.Path(workspace) / "dry-run.mobi"
         cover = pathlib.Path(workspace) / "cover.png"
