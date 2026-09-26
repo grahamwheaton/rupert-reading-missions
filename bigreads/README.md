@@ -8,36 +8,37 @@ down that branch.
 He is seven and learning to read. Everything below exists so a page never
 looks like too much.
 
-## What to push
+## Artwork handoff from the scheduled chat
 
-```
-bigreads/<YYYY-MM-DD>-<slug>/story.json           required
-```
+Create the story and its pictures with ChatGPT Images. Convert each picture to
+an 8-bit greyscale PNG before uploading: cover at most 600×800, scenes at most
+600×500. Aim for a compact PNG (typically under 200 KB); keep the title as the
+only text on the cover. The normal path needs no image API key or API credits.
 
-The scheduled chat should normally push **only story.json**. Put short artwork
-descriptions in its `image_prompts` object, keyed by the exact image filenames
-used by `cover` and node `image` fields:
+Use the GitHub connector's Git database operations for binary artwork:
 
-```json
-"image_prompts": {
-  "cover.png": "Tom and Scout in a tracked polar supply vehicle...",
-  "whiteout.png": "The convoy moving slowly through a whiteout..."
-}
-```
+1. Encode each PNG as base64 **inside the tool call**, then call `github.create_blob`
+   with `encoding: "base64"`; capture its returned SHA. Do not use
+   `github.create_file` or `github.update_file` for the image or write
+   `*.png.base64` into the repository.
+2. Create a tree based on the latest `master` tree with `story.json` (UTF-8)
+   and every referenced PNG (mode `100644`, type `blob`, each blob SHA) under
+   `bigreads/<YYYY-MM-DD>-<slug>/`.
+3. Commit the tree against the latest `master` commit and fast-forward `master`.
+   If someone has pushed in the meantime, re-read the head and recreate the
+   tree; never force-update it.
+4. Check the Build Big Read Action and `published/bigread.txt`,
+   `published/bigread.sha256`, and `published/bigread.tar`. Only call the story
+   published after the Action succeeds and the pointer changes.
 
-The Build Big Read Action generates any referenced image that is not supplied,
-converts it to Kindle-friendly 8-bit greyscale, validates it, then packs it into
-`published/bigread.tar`. The Action requires the repository Actions secret
-`OPENAI_API_KEY` for prompt generation.
-
-**Supplied artwork is still supported and takes priority.** A real PNG/JPEG may
-sit beside story.json, or legacy `<name>.base64` text is accepted for existing
-publishers. New scheduled chats should not send large base64 artwork.
-
-**Every referenced image is mandatory.** If supplied art is corrupt, a prompt
-is missing, generation fails, or the image cannot be decoded, the build fails
-before any published pointer changes. Rupert therefore keeps the previous Big
-Read rather than receiving a partly illustrated story.
+`story.json` must reference exact image filenames in its `cover` and node
+`image` fields. Every referenced picture is mandatory. Binary PNG/JPEG art
+is supported; remove any legacy `<name>.base64` for the same picture because
+that text file takes precedence when both exist. `image_prompts` is an
+optional fallback for installations that **explicitly** configure separately
+billed `OPENAI_API_KEY` in GitHub Actions; it is not the standard route.
+If any image is missing or damaged, the build refuses to publish and Rupert
+keeps the previous Big Read.
 
 The date prefix is the Big Read's ID, and the newest one wins, exactly as
 missions work. GitHub Actions validates the story, creates/validates its
