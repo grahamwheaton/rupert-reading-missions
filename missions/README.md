@@ -9,6 +9,7 @@ for pictures, without a separately billed image API key.
 ```
 missions/<YYYY-MM-DD>-<slug>/mission.html   required
 missions/<YYYY-MM-DD>-<slug>/mission.json   optional: see below
+missions/<YYYY-MM-DD>-<slug>/quiz.json      1–5 questions, two choices each
 missions/<YYYY-MM-DD>-<slug>/cover.png      illustrated 600×800 greyscale cover
 missions/<YYYY-MM-DD>-<slug>/scene.png      optional picture used inside the story
 ```
@@ -61,7 +62,7 @@ That only works if the mission does not fight it:
   already large, so a default heading is about twice that and fills the first
   page before the story starts.
 
-`missions/TEMPLATE/mission.html` is a working example.
+`missions/TEMPLATE/mission.html` and `quiz.json` are working examples. For each question, provide exactly two short choices and a `correct` value of 1 or 2. The Kindle shows them after the final pages, with the physical left and right buttons selecting answers. New missions dated 28 September 2026 or later require this file.
 
 ## Illustrations
 
@@ -96,6 +97,7 @@ format choice does not affect how image files reach GitHub.
 | `published/today.sha256` | digest of `today.mobi` |
 | `published/launcher.properties` | id, title, type, streak, mission, and any subtitle/blurb/tags |
 | `published/archive/<id>.mobi` | every mission, kept |
+| `published/quizzes/<id>.json` | two-choice question cards for that mission |
 
 Conversion uses `--mobi-file-type old --output-profile kindle`. Firmware 4.1.4
 cannot open KF8, so the legacy MOBI 6 flag is not optional.

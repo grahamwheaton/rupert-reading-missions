@@ -1,0 +1,28 @@
+{
+  "questions": [
+    {
+      "text": "Why did the driver stop on the bridge?",
+      "choices": [
+        "The bridge moved under the truck",
+        "He needed to read a map"
+      ],
+      "correct": 1
+    },
+    {
+      "text": "What did the pine tree provide?",
+      "choices": [
+        "A bridge across the river",
+        "A strong anchor for the winch"
+      ],
+      "correct": 2
+    },
+    {
+      "text": "What happened after the recovery?",
+      "choices": [
+        "They used a longer route",
+        "They drove over the damaged bridge"
+      ],
+      "correct": 1
+    }
+  ]
+}

@@ -31,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Install image support
         run: python3 -m pip install --disable-pip-version-check Pillow
@@ -40,6 +42,13 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
+          # A workflow/tool change alone must not retry an unfinished story.
+          # Publishing begins when story files are supplied or edited.
+          if [ -z "${{ inputs.check }}" ] \
+            && ! git diff --name-only HEAD^ HEAD -- bigreads/ | grep -q .; then
+            echo 'No Big Read source changed; nothing to publish'
+            exit 0
+          fi
           python3 tools/build-bigread.py --map \
             ${{ inputs.check && format('--check {0}', inputs.check) || '' }}
 

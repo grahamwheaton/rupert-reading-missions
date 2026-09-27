@@ -1,0 +1,28 @@
+{
+  "questions": [
+    {
+      "text": "Why did the pedals spin without moving the bike?",
+      "choices": [
+        "The chain had broken",
+        "The tyres were too soft"
+      ],
+      "correct": 1
+    },
+    {
+      "text": "What did the quick link do?",
+      "choices": [
+        "Inflated the tyre",
+        "Joined the chain ends"
+      ],
+      "correct": 2
+    },
+    {
+      "text": "Why did Dad test the bike?",
+      "choices": [
+        "To check it was safe to ride",
+        "To race Tom home"
+      ],
+      "correct": 1
+    }
+  ]
+}

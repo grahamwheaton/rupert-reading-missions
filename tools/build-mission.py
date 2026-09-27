@@ -133,7 +133,7 @@ def source_fingerprint(source):
     and the Kindle would keep the first version forever.
     """
     digest = hashlib.sha256()
-    for name in ("mission.html", "mission.json"):
+    for name in ("mission.html", "mission.json", "quiz.json"):
         path = source / name
         digest.update(path.read_bytes() if path.is_file() else b"")
     for path in cover_sources(source):
@@ -318,6 +318,33 @@ def archive_manifest():
     (ARCHIVE / "manifest.tsv").write_text("".join(entries), encoding="ascii")
 
 
+def publish_quiz(source, mission_id):
+    path = source / "quiz.json"
+    if not path.is_file():
+        if mission_id >= "2026-09-28":
+            sys.exit("refusing to publish: quiz.json is required for new missions")
+        return
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (ValueError, UnicodeError) as error:
+        sys.exit(f"refusing to publish: invalid quiz.json ({error})")
+    questions = data.get("questions") if isinstance(data, dict) else None
+    if not isinstance(questions, list) or not 1 <= len(questions) <= 5:
+        sys.exit("refusing to publish: quiz needs 1 to 5 questions")
+    for question in questions:
+        if (not isinstance(question, dict) or not isinstance(question.get("text"), str)
+                or not 5 <= len(question["text"]) <= 140
+                or not isinstance(question.get("choices"), list) or len(question["choices"]) != 2
+                or any(not isinstance(choice, str) or not 1 <= len(choice) <= 85
+                       for choice in question["choices"])
+                or question.get("correct") not in (1, 2)):
+            sys.exit("refusing to publish: every quiz question needs two short choices and correct 1 or 2")
+    target = PUBLISHED / "quizzes"
+    target.mkdir(exist_ok=True)
+    (target / f"{mission_id}.json").write_text(
+        json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -352,6 +379,7 @@ def main():
             return
 
     fingerprint = source_fingerprint(source)
+    publish_quiz(source, mission_id)
     published_id = PUBLISHED / "date.txt"
     published_fingerprint = PUBLISHED / "source.sha256"
     current_id = published_id.read_text(encoding="utf-8").strip() if published_id.is_file() else ""

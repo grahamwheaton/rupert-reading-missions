@@ -401,6 +401,13 @@ def publish(bigread_id, source, story, pictures):
         data = staged.read_bytes()
         digest = hashlib.sha256(data).hexdigest()
         (PUBLISHED / "bigread.tar").write_bytes(data)
+        history = PUBLISHED / "bigreads"
+        history.mkdir(exist_ok=True)
+        (history / f"{bigread_id}.tar").write_bytes(data)
+        (history / "manifest.tsv").write_text("".join(
+            f"{path.stem}\t{hashlib.sha256(path.read_bytes()).hexdigest()}\n"
+            for path in sorted(history.glob("*.tar"), reverse=True)[:14]
+        ), encoding="ascii")
 
     (PUBLISHED / "bigread.sha256").write_text(f"{digest}\n", encoding="utf-8")
     # Last: everything above must exist before the Kindle is told to look.

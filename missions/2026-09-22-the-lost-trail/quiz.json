@@ -1,0 +1,28 @@
+{
+  "questions": [
+    {
+      "text": "What clue pointed Tom towards the stream?",
+      "choices": [
+        "He heard water on the left",
+        "He saw a red arrow on the right"
+      ],
+      "correct": 1
+    },
+    {
+      "text": "Why did Tom use an easier gear uphill?",
+      "choices": [
+        "To make the tyres slippery",
+        "To keep pedalling on the climb"
+      ],
+      "correct": 2
+    },
+    {
+      "text": "How did they get past the fallen tree?",
+      "choices": [
+        "They carried the bikes around it",
+        "They rode straight through it"
+      ],
+      "correct": 1
+    }
+  ]
+}

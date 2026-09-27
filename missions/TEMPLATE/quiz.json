@@ -1,0 +1,14 @@
+{
+  "questions": [
+    {
+      "text": "What helped Tom find the correct route?",
+      "choices": ["He heard the stream", "He guessed without looking"],
+      "correct": 1
+    },
+    {
+      "text": "Why did Tom use an easier gear?",
+      "choices": ["To make the wheels stop", "To keep pedalling uphill"],
+      "correct": 2
+    }
+  ]
+}

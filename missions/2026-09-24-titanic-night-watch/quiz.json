@@ -1,0 +1,28 @@
+{
+  "questions": [
+    {
+      "text": "Why did the lookout ring the bell?",
+      "choices": [
+        "He saw an iceberg",
+        "He saw a whale"
+      ],
+      "correct": 1
+    },
+    {
+      "text": "What did watertight doors slow down?",
+      "choices": [
+        "Smoke from the funnels",
+        "Flooding between compartments"
+      ],
+      "correct": 2
+    },
+    {
+      "text": "Which ship rescued survivors?",
+      "choices": [
+        "Carpathia",
+        "Titanic"
+      ],
+      "correct": 1
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "questions": [
+    {
+      "text": "Why was the white 4x4 stuck?",
+      "choices": [
+        "Its wheels were buried in mud",
+        "It had run out of fuel"
+      ],
+      "correct": 1
+    },
+    {
+      "text": "What does traction mean?",
+      "choices": [
+        "The engine gets louder",
+        "The tyres grip the ground"
+      ],
+      "correct": 2
+    },
+    {
+      "text": "Where did Dad attach the strap?",
+      "choices": [
+        "To proper recovery points",
+        "To a weak plastic bumper"
+      ],
+      "correct": 1
+    }
+  ]
+}
