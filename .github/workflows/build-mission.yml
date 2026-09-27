@@ -34,6 +34,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Install Calibre
         run: |
@@ -46,6 +48,7 @@ jobs:
         run: |
           # Rebuild edited past missions into the archive first. The builder
           # keeps today's date pointer intact for these corrections.
+          set -o pipefail
           if [ -z "${{ inputs.source }}" ] && [ "${{ inputs.dry_run }}" != "true" ]; then
             git diff --name-only HEAD^ HEAD -- missions/ | cut -d/ -f2 | sort -u | while read -r folder; do
               [ -f "missions/$folder/mission.html" ] || continue
