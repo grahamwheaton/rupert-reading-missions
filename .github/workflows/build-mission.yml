@@ -51,6 +51,7 @@ jobs:
           set -o pipefail
           if [ -z "${{ inputs.source }}" ] && [ "${{ inputs.dry_run }}" != "true" ]; then
             git diff --name-only HEAD^ HEAD -- missions/ | cut -d/ -f2 | sort -u | while read -r folder; do
+              case "$folder" in [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-*) ;; *) continue ;; esac
               [ -f "missions/$folder/mission.html" ] || continue
               python3 tools/build-mission.py --source "missions/$folder"
             done
