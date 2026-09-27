@@ -114,7 +114,10 @@ if ! listener_running; then
     /bin/sh "$SELF" --wake-listener >/dev/null 2>&1 &
 fi
 
-mkdir "$LOCK" 2>/dev/null || exit 0
+if ! mkdir "$LOCK" 2>/dev/null; then
+    [ "$1" = "--check-update" ] && echo busy > "$STATE/update-check-result"
+    exit 0
+fi
 
 WIFI_RESTORE=false
 cleanup() {
@@ -148,6 +151,7 @@ done
 
 echo "$WIFI_STATE" | grep -q CONNECTED || {
     log 'Wi-Fi was not connected'
+    [ "$1" = "--check-update" ] && echo offline > "$STATE/update-check-result"
     exit 0
 }
 
@@ -158,6 +162,16 @@ if [ -x "$RUNTIME/device-update.sh" ]; then
     else
         "$RUNTIME/device-update.sh" --check >/dev/null 2>&1
     fi
+elif [ "$1" = "--check-update" ]; then
+    echo error > "$STATE/update-check-result"
+fi
+
+# The Settings button only checks the signed manifest. Skip the larger book,
+# archive and unlock downloads, which can otherwise leave the UI waiting long
+# after the answer has arrived.
+if [ "$1" = "--check-update" ]; then
+    [ -f "$STATE/update-check-result" ] || echo error > "$STATE/update-check-result"
+    exit 0
 fi
 
 # Report finished missions while the radio is already on. Does nothing unless
