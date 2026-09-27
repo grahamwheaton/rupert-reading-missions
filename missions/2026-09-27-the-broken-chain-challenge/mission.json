@@ -1,0 +1,20 @@
+{
+  "title": "The Broken Chain Challenge",
+  "type": "Fiction",
+  "subtitle": "A mountain bike repair adventure",
+  "blurb": "A chain snaps high on Eagle Trail. Can Tom and Dad repair it before sunset?",
+  "tags": [
+    {
+      "icon": "terrain",
+      "text": "Mountain biking"
+    },
+    {
+      "icon": "wrench",
+      "text": "Trail repair"
+    },
+    {
+      "icon": "star",
+      "text": "Tom adventure"
+    }
+  ]
+}
