@@ -152,7 +152,13 @@ echo "$WIFI_STATE" | grep -q CONNECTED || {
 }
 
 # Check the separately signed, allowlisted application update channel.
-[ -x "$RUNTIME/device-update.sh" ] && "$RUNTIME/device-update.sh" >/dev/null 2>&1 || true
+if [ -x "$RUNTIME/device-update.sh" ]; then
+    if [ "$1" = "--install-update" ]; then
+        "$RUNTIME/device-update.sh" --install >/dev/null 2>&1
+    else
+        "$RUNTIME/device-update.sh" --check >/dev/null 2>&1
+    fi
+fi
 
 # Report finished missions while the radio is already on. Does nothing unless
 # a token and repository have been configured.
@@ -227,12 +233,29 @@ if fetch "$BIGREAD_ID_PART" "$BASE_URL/bigread.txt" >> "$LOG" 2>&1; then
                 mkdir -p "$STATE/bigread.new"
                 if tar -xf "$BIGREAD_TAR" -C "$STATE/bigread.new" 2>> "$LOG"                     && [ -f "$STATE/bigread.new/story.json" ]
                 then
+                    BIGREAD_ARCHIVE="$STATE/bigread-archive"
+                    mkdir -p "$BIGREAD_ARCHIVE"
+                    OLD_BIGREAD_ID=$(cat "$STATE/bigread-id" 2>/dev/null)
+                    case "$OLD_BIGREAD_ID" in
+                        [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])
+                            if [ -d "$STATE/bigread" ] && [ "$OLD_BIGREAD_ID" != "$BIGREAD_ID" ]; then
+                                rm -rf "$BIGREAD_ARCHIVE/$OLD_BIGREAD_ID"
+                                mv "$STATE/bigread" "$BIGREAD_ARCHIVE/$OLD_BIGREAD_ID"
+                            fi ;;
+                    esac
                     rm -rf "$STATE/bigread.old"
                     [ -d "$STATE/bigread" ] && mv "$STATE/bigread" "$STATE/bigread.old"
                     mv "$STATE/bigread.new" "$STATE/bigread"
                     rm -rf "$STATE/bigread.old"
                     echo "$BIGREAD_ID" > "$STATE/bigread-id"
                     echo "$BIGREAD_DIGEST" > "$STATE/bigread-digest"
+                    # The current story appears in Previous Missions too and
+                    # remains available after the next weekly replacement.
+                    case "$BIGREAD_ID" in
+                        [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])
+                            rm -rf "$BIGREAD_ARCHIVE/$BIGREAD_ID"
+                            cp -R "$STATE/bigread" "$BIGREAD_ARCHIVE/$BIGREAD_ID" ;;
+                    esac
                     log "installed Big Read $BIGREAD_ID"
                 else
                     log 'Big Read rejected: the archive would not unpack'
@@ -247,6 +270,55 @@ if fetch "$BIGREAD_ID_PART" "$BASE_URL/bigread.txt" >> "$LOG" 2>&1; then
     fi
 fi
 rm -f "$BIGREAD_ID_PART" "$BIGREAD_DIGEST_PART" "$BIGREAD_TAR"
+
+# Existing installations already have a Big Read before this archive feature.
+BIGREAD_ARCHIVE="$STATE/bigread-archive"
+CURRENT_BIGREAD_ID=$(cat "$STATE/bigread-id" 2>/dev/null)
+case "$CURRENT_BIGREAD_ID" in
+    [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])
+        if [ -f "$STATE/bigread/story.json" ] && [ ! -d "$BIGREAD_ARCHIVE/$CURRENT_BIGREAD_ID" ]; then
+            mkdir -p "$BIGREAD_ARCHIVE"
+            cp -R "$STATE/bigread" "$BIGREAD_ARCHIVE/$CURRENT_BIGREAD_ID"
+        fi ;;
+esac
+
+# A compact public index lets a fresh Kindle recover earlier Big Reads too.
+# Validate each tar before unpacking; the local history is independent of the
+# current weekly story and its completion records.
+BIGREAD_ARCHIVE="$STATE/bigread-archive"
+BIGREAD_INDEX="$STATE/bigread-archive.part"
+if fetch "$BIGREAD_INDEX" "$BASE_URL/bigreads/manifest.tsv" >> "$LOG" 2>&1; then
+    mkdir -p "$BIGREAD_ARCHIVE"
+    while read -r STORY_ID STORY_DIGEST; do
+        case "$STORY_ID" in [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ;; *) continue ;; esac
+        [ "${#STORY_DIGEST}" -eq 64 ] || continue
+        case "$STORY_DIGEST" in *[!a-f0-9]*|'') continue ;; esac
+        DEST="$BIGREAD_ARCHIVE/$STORY_ID"
+        [ "$(cat "$DEST/.sha256" 2>/dev/null)" != "$STORY_DIGEST" ] || continue
+        if [ "$STORY_ID" = "$CURRENT_BIGREAD_ID" ] \
+            && [ "$(cat "$STATE/bigread-digest" 2>/dev/null)" = "$STORY_DIGEST" ]; then
+            rm -rf "$DEST"
+            cp -R "$STATE/bigread" "$DEST" && echo "$STORY_DIGEST" > "$DEST/.sha256"
+            continue
+        fi
+        PART="$STATE/bigread-archive.tar.part"
+        if fetch "$PART" "$BASE_URL/bigreads/$STORY_ID.tar" >> "$LOG" 2>&1 \
+            && [ "$(/usr/bin/openssl dgst -sha256 "$PART" 2>/dev/null | awk '{print $NF}')" = "$STORY_DIGEST" ] \
+            && ! tar -tf "$PART" 2>/dev/null | grep -q -e '^/' -e '\.\.'; then
+            rm -rf "$DEST.new"
+            mkdir -p "$DEST.new"
+            if tar -xf "$PART" -C "$DEST.new" 2>> "$LOG" && [ -f "$DEST.new/story.json" ]; then
+                echo "$STORY_DIGEST" > "$DEST.new/.sha256"
+                rm -rf "$DEST"
+                mv "$DEST.new" "$DEST"
+                log "archived Big Read $STORY_ID"
+            fi
+        fi
+        rm -f "$PART"
+        rm -rf "$DEST.new"
+    done < "$BIGREAD_INDEX"
+fi
+rm -f "$BIGREAD_INDEX"
 
 # The unlock store changes independently of the daily book. Its public
 # catalog contains only names, prices and preprocessed thumbnail images.
@@ -322,6 +394,32 @@ if fetch "$ARCHIVE_INDEX" "$BASE_URL/archive/manifest.tsv" >> "$LOG" 2>&1; then
     done < "$ARCHIVE_INDEX"
 fi
 rm -f "$ARCHIVE_INDEX"
+
+# The answer cards belong to a date, just like the MOBI. Fetch for the current
+# and previously downloaded books; existing answers are replaced atomically.
+QUIZZES="$STATE/quizzes"
+mkdir -p "$QUIZZES"
+case "$REMOTE_ID" in
+    [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])
+        if [ ! -f "$QUIZZES/$REMOTE_ID.json" ]; then
+            fetch "$QUIZZES/$REMOTE_ID.part" "$BASE_URL/quizzes/$REMOTE_ID.json" >> "$LOG" 2>&1 \
+                && mv -f "$QUIZZES/$REMOTE_ID.part" "$QUIZZES/$REMOTE_ID.json"
+            rm -f "$QUIZZES/$REMOTE_ID.part"
+        fi ;;
+esac
+for QUIZ_BOOK in "$ARCHIVE"/*.mobi; do
+    [ -f "$QUIZ_BOOK" ] || continue
+    QUIZ_ID=${QUIZ_BOOK##*/}
+    QUIZ_ID=${QUIZ_ID%.mobi}
+    case "$QUIZ_ID" in [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ;;
+        *) continue ;;
+    esac
+    if [ ! -f "$QUIZZES/$QUIZ_ID.json" ]; then
+        fetch "$QUIZZES/$QUIZ_ID.part" "$BASE_URL/quizzes/$QUIZ_ID.json" >> "$LOG" 2>&1 \
+            && mv -f "$QUIZZES/$QUIZ_ID.part" "$QUIZZES/$QUIZ_ID.json"
+        rm -f "$QUIZZES/$QUIZ_ID.part"
+    fi
+done
 
 if [ "$(cat "$STATE/last-remote-id" 2>/dev/null)" = "$REMOTE_ID" ] \
     && [ "$(cat "$STATE/last-remote-digest" 2>/dev/null)" = "$REMOTE_DIGEST" ] \
