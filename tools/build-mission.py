@@ -345,6 +345,49 @@ def publish_quiz(source, mission_id):
         json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
 
 
+def publish_phonics(source, mission_id):
+    """Small offline sound guide for words actually used in this book.
+
+    CMUdict is installed by the build runner. Unknown words are omitted rather
+    than shown with a guessed or potentially misleading pronunciation.
+    """
+    import cmudict
+
+    class Words(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.words = set()
+
+        def handle_data(self, data):
+            self.words.update(re.findall(r"[A-Za-z]+(?:'[A-Za-z]+)?", data.lower()))
+
+    parser = Words()
+    parser.feed((source / "mission.html").read_text(encoding="utf-8"))
+    sounds = {
+        "AA": "ah", "AE": "a", "AH": "uh", "AO": "aw", "AW": "ow",
+        "AY": "eye", "EH": "eh", "ER": "er", "EY": "ay", "IH": "ih",
+        "IY": "ee", "OW": "oh", "OY": "oy", "UH": "u", "UW": "oo",
+        "B": "b", "CH": "ch", "D": "d", "DH": "th", "F": "f",
+        "G": "g", "HH": "h", "JH": "j", "K": "k", "L": "l",
+        "M": "m", "N": "n", "NG": "ng", "P": "p", "R": "r",
+        "S": "s", "SH": "sh", "T": "t", "TH": "th", "V": "v",
+        "W": "w", "Y": "y", "Z": "z", "ZH": "zh",
+    }
+    dictionary = cmudict.dict()
+    guide = {}
+    for word in sorted(parser.words):
+        pronunciations = dictionary.get(word)
+        if not pronunciations:
+            continue
+        phonemes = [re.sub(r"\d", "", item) for item in pronunciations[0]]
+        if all(item in sounds for item in phonemes):
+            guide[word] = " - ".join(sounds[item] for item in phonemes)
+    target = PUBLISHED / "phonics"
+    target.mkdir(exist_ok=True)
+    (target / f"{mission_id}.json").write_text(
+        json.dumps(guide, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -356,6 +399,7 @@ def main():
         action="store_true",
         help="convert and validate only; publish nothing",
     )
+    parser.add_argument("--phonics-only", action="store_true", help="publish only the offline sound guide")
     args = parser.parse_args()
 
     if args.source:
@@ -369,6 +413,9 @@ def main():
         if not match:
             sys.exit(f"{source.name} has no YYYY-MM-DD prefix; use --dry-run")
         mission_id = match.group(1)
+        if args.phonics_only:
+            publish_phonics(source, mission_id)
+            return
     else:
         mission_id, source = latest_mission()
         if not mission_id:
@@ -380,6 +427,7 @@ def main():
 
     fingerprint = source_fingerprint(source)
     publish_quiz(source, mission_id)
+    publish_phonics(source, mission_id)
     published_id = PUBLISHED / "date.txt"
     published_fingerprint = PUBLISHED / "source.sha256"
     current_id = published_id.read_text(encoding="utf-8").strip() if published_id.is_file() else ""

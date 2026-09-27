@@ -41,11 +41,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends calibre
-          python3 -m pip install --disable-pip-version-check Pillow
+          python3 -m pip install --disable-pip-version-check Pillow cmudict
           ebook-convert --version
 
       - name: Build and publish the newest mission
         run: |
+          # Keep sound guides available for all archived stories too.
+          for source in missions/20??-??-??-*; do
+            [ -f "$source/mission.html" ] || continue
+            python3 tools/build-mission.py --source "$source" --phonics-only
+          done
           # Rebuild edited past missions into the archive first. The builder
           # keeps today's date pointer intact for these corrections.
           set -o pipefail
