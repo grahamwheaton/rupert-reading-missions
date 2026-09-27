@@ -435,6 +435,28 @@ for QUIZ_BOOK in "$ARCHIVE"/*.mobi; do
     fi
 done
 
+# Pronunciation sound guides are generated from the words in each book. Keep
+# them by date so a previously downloaded mission works offline too.
+PHONICS="$STATE/phonics"
+mkdir -p "$PHONICS"
+case "$REMOTE_ID" in
+    [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])
+        fetch "$PHONICS/$REMOTE_ID.part" "$BASE_URL/phonics/$REMOTE_ID.json" >> "$LOG" 2>&1 \
+            && mv -f "$PHONICS/$REMOTE_ID.part" "$PHONICS/$REMOTE_ID.json"
+        rm -f "$PHONICS/$REMOTE_ID.part" ;;
+esac
+for PHONICS_BOOK in "$ARCHIVE"/*.mobi; do
+    [ -f "$PHONICS_BOOK" ] || continue
+    PHONICS_ID=${PHONICS_BOOK##*/}
+    PHONICS_ID=${PHONICS_ID%.mobi}
+    case "$PHONICS_ID" in [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ;; *) continue ;; esac
+    if [ ! -f "$PHONICS/$PHONICS_ID.json" ]; then
+        fetch "$PHONICS/$PHONICS_ID.part" "$BASE_URL/phonics/$PHONICS_ID.json" >> "$LOG" 2>&1 \
+            && mv -f "$PHONICS/$PHONICS_ID.part" "$PHONICS/$PHONICS_ID.json"
+        rm -f "$PHONICS/$PHONICS_ID.part"
+    fi
+done
+
 if [ "$(cat "$STATE/last-remote-id" 2>/dev/null)" = "$REMOTE_ID" ] \
     && [ "$(cat "$STATE/last-remote-digest" 2>/dev/null)" = "$REMOTE_DIGEST" ] \
     && [ -f "$DOCUMENT" ] && [ -f "$STATE/launcher.properties" ]; then
