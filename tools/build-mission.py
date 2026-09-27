@@ -309,6 +309,15 @@ def dry_run(source):
         print(f"dry run OK: {source.name} converts to a {size} byte MOBI 6 book")
 
 
+def archive_manifest():
+    """Advertise corrected older books without moving today's date pointer."""
+    entries = []
+    for book in sorted(ARCHIVE.glob("*.mobi"), reverse=True)[:14]:
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", book.stem):
+            entries.append(f"{book.stem}\t{hashlib.sha256(book.read_bytes()).hexdigest()}\n")
+    (ARCHIVE / "manifest.tsv").write_text("".join(entries), encoding="ascii")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -345,6 +354,9 @@ def main():
     fingerprint = source_fingerprint(source)
     published_id = PUBLISHED / "date.txt"
     published_fingerprint = PUBLISHED / "source.sha256"
+    current_id = published_id.read_text(encoding="utf-8").strip() if published_id.is_file() else ""
+    if current_id and mission_id < current_id and not args.source:
+        sys.exit("refusing to move today's mission backwards")
     if (
         published_id.is_file()
         and published_id.read_text(encoding="utf-8").strip() == mission_id
@@ -366,6 +378,10 @@ def main():
         size = validate(staged)
         digest = hashlib.sha256(staged.read_bytes()).hexdigest()
         shutil.copyfile(staged, ARCHIVE / f"{mission_id}.mobi")
+        archive_manifest()
+        if current_id and mission_id < current_id:
+            print(f"corrected archived {mission_id} ({size} bytes, sha256 {digest}); today's {current_id} unchanged")
+            return
         shutil.copyfile(staged, PUBLISHED / "today.mobi")
 
     (PUBLISHED / "today.sha256").write_text(f"{digest}\n", encoding="utf-8")

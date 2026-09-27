@@ -44,6 +44,14 @@ jobs:
 
       - name: Build and publish the newest mission
         run: |
+          # Rebuild edited past missions into the archive first. The builder
+          # keeps today's date pointer intact for these corrections.
+          if [ -z "${{ inputs.source }}" ] && [ "${{ inputs.dry_run }}" != "true" ]; then
+            git diff --name-only HEAD^ HEAD -- missions/ | cut -d/ -f2 | sort -u | while read -r folder; do
+              [ -f "missions/$folder/mission.html" ] || continue
+              python3 tools/build-mission.py --source "missions/$folder"
+            done
+          fi
           python3 tools/build-mission.py \
             ${{ inputs.source && format('--source {0}', inputs.source) || '' }} \
             ${{ inputs.dry_run && '--dry-run' || '' }}
