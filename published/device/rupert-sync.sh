@@ -291,6 +291,38 @@ then
 fi
 rm -rf "$UNLOCK_NEW"
 
+# Repair previously downloaded missions when the publisher corrects an older
+# cover or story. Keep today's mission untouched, and only replace books this
+# Kindle already has in Previous Missions. The remote index is a small text
+# file; each downloaded MOBI is verified before an atomic replacement.
+ARCHIVE_INDEX="$STATE/archive-manifest.part"
+if fetch "$ARCHIVE_INDEX" "$BASE_URL/archive/manifest.tsv" >> "$LOG" 2>&1; then
+    while read -r ARCHIVE_ID ARCHIVE_DIGEST; do
+        [ "${#ARCHIVE_ID}" -eq 10 ] || continue
+        echo "$ARCHIVE_ID" | grep -q '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$' || continue
+        [ "${#ARCHIVE_DIGEST}" -eq 64 ] || continue
+        case "$ARCHIVE_DIGEST" in *[!a-f0-9]*|'') continue ;; esac
+        [ "$ARCHIVE_ID" != "$REMOTE_ID" ] || continue
+        ARCHIVE_BOOK="$ARCHIVE/$ARCHIVE_ID.mobi"
+        [ -f "$ARCHIVE_BOOK" ] || continue
+        LOCAL_ARCHIVE_DIGEST=$(/usr/bin/openssl dgst -sha256 "$ARCHIVE_BOOK" 2>/dev/null | awk '{print $NF}')
+        [ "$LOCAL_ARCHIVE_DIGEST" != "$ARCHIVE_DIGEST" ] || continue
+        ARCHIVE_PART="$ARCHIVE_BOOK.part"
+        rm -f "$ARCHIVE_PART"
+        if fetch "$ARCHIVE_PART" "$BASE_URL/archive/$ARCHIVE_ID.mobi" >> "$LOG" 2>&1; then
+            RECEIVED=$(/usr/bin/openssl dgst -sha256 "$ARCHIVE_PART" 2>/dev/null | awk '{print $NF}')
+            if [ "$RECEIVED" = "$ARCHIVE_DIGEST" ] && [ "$(wc -c < "$ARCHIVE_PART")" -ge 1024 ]; then
+                mv -f "$ARCHIVE_PART" "$ARCHIVE_BOOK"
+                log "corrected archived mission $ARCHIVE_ID"
+            else
+                log "archived mission $ARCHIVE_ID rejected: digest or size"
+            fi
+        fi
+        rm -f "$ARCHIVE_PART"
+    done < "$ARCHIVE_INDEX"
+fi
+rm -f "$ARCHIVE_INDEX"
+
 if [ "$(cat "$STATE/last-remote-id" 2>/dev/null)" = "$REMOTE_ID" ] \
     && [ "$(cat "$STATE/last-remote-digest" 2>/dev/null)" = "$REMOTE_DIGEST" ] \
     && [ -f "$DOCUMENT" ] && [ -f "$STATE/launcher.properties" ]; then
