@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What pushed the Duck through water?",
+      "choices": ["A propeller", "Its headlights"],
+      "correct": 1
+    },
+    {
+      "text": "Why did the Duck save time?",
+      "choices": ["It flew over roads", "It went from sea to land"],
+      "correct": 2
+    },
+    {
+      "text": "What does amphibious mean?",
+      "choices": ["Works on land and water", "Only works on sand"],
+      "correct": 1
+    }
+  ]
+}
