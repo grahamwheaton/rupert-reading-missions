@@ -1,0 +1,20 @@
+{
+  "title": "The Race Across Tide Road",
+  "type": "Fiction",
+  "subtitle": "A heavy hauling adventure with Tom and Scout",
+  "blurb": "A lighthouse needs a new generator, but the island road is vanishing beneath the sea.",
+  "tags": [
+    {
+      "icon": "terrain",
+      "text": "Tidal crossing"
+    },
+    {
+      "icon": "wrench",
+      "text": "Heavy hauling"
+    },
+    {
+      "icon": "star",
+      "text": "Tom and Scout"
+    }
+  ]
+}
