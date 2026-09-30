@@ -114,7 +114,20 @@ if ! listener_running; then
     /bin/sh "$SELF" --wake-listener >/dev/null 2>&1 &
 fi
 
-if ! mkdir "$LOCK" 2>/dev/null; then
+# The check writes its answer just before releasing this lock. An immediate
+# one-press install must wait for that check (or a wake-triggered sync) to exit.
+if [ "$1" = "--install-update" ]; then
+    WAIT_FOR_LOCK=0
+    until mkdir "$LOCK" 2>/dev/null; do
+        if [ "$WAIT_FOR_LOCK" -ge 90 ]; then
+            echo busy > "$STATE/install-result"
+            log 'install could not acquire sync lock'
+            exit 0
+        fi
+        sleep 1
+        WAIT_FOR_LOCK=$((WAIT_FOR_LOCK + 1))
+    done
+elif ! mkdir "$LOCK" 2>/dev/null; then
     [ "$1" = "--check-update" ] && echo busy > "$STATE/update-check-result"
     exit 0
 fi
@@ -132,6 +145,8 @@ fi
 
 if [ ! -x "$CURL" ] || [ ! -f "$CA" ]; then
     log 'secure downloader is missing'
+    [ "$1" = "--check-update" ] && echo error > "$STATE/update-check-result"
+    [ "$1" = "--install-update" ] && echo prerequisites > "$STATE/install-result"
     exit 0
 fi
 
@@ -152,6 +167,7 @@ done
 echo "$WIFI_STATE" | grep -q CONNECTED || {
     log 'Wi-Fi was not connected'
     [ "$1" = "--check-update" ] && echo offline > "$STATE/update-check-result"
+    [ "$1" = "--install-update" ] && echo wifi > "$STATE/install-result"
     exit 0
 }
 
@@ -159,11 +175,15 @@ echo "$WIFI_STATE" | grep -q CONNECTED || {
 if [ -x "$RUNTIME/device-update.sh" ]; then
     if [ "$1" = "--install-update" ]; then
         "$RUNTIME/device-update.sh" --install >/dev/null 2>&1
+        exit 0
     else
         "$RUNTIME/device-update.sh" --check >/dev/null 2>&1
     fi
 elif [ "$1" = "--check-update" ]; then
     echo error > "$STATE/update-check-result"
+elif [ "$1" = "--install-update" ]; then
+    echo prerequisites > "$STATE/install-result"
+    exit 0
 fi
 
 # The Settings button only checks the signed manifest. Skip the larger book,
