@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What sent pictures to the ship?",
+      "choices": ["Argo's cameras", "A lighthouse"],
+      "correct": 1
+    },
+    {
+      "text": "Why did the team follow the debris?",
+      "choices": ["To count fish", "It could lead to Titanic"],
+      "correct": 2
+    },
+    {
+      "text": "What appeared on the screen?",
+      "choices": ["A Titanic boiler", "A mountain bike"],
+      "correct": 1
+    }
+  ]
+}

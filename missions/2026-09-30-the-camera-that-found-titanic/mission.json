@@ -1,0 +1,20 @@
+{
+  "title": "The Camera That Found Titanic",
+  "type": "Fact",
+  "subtitle": "The true story of a deep-sea discovery",
+  "blurb": "A patient team follows a trail through the dark ocean and finds the world's most famous shipwreck.",
+  "tags": [
+    {
+      "icon": "star",
+      "text": "Titanic"
+    },
+    {
+      "icon": "search",
+      "text": "Deep-sea search"
+    },
+    {
+      "icon": "wrench",
+      "text": "Argo camera sled"
+    }
+  ]
+}
