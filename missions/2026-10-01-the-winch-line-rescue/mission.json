@@ -1,0 +1,20 @@
+{
+  "title": "The Winch Line Rescue",
+  "type": "Fiction",
+  "subtitle": "A careful 4x4 recovery with Tom and Scout",
+  "blurb": "A ranger is stuck in a muddy ditch. Can Tom and Dad build a safe winch line around the bend?",
+  "tags": [
+    {
+      "icon": "terrain",
+      "text": "Forest recovery"
+    },
+    {
+      "icon": "wrench",
+      "text": "Winch and pulley"
+    },
+    {
+      "icon": "star",
+      "text": "Tom and Scout"
+    }
+  ]
+}
