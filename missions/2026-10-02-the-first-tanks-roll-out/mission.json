@@ -1,0 +1,20 @@
+{
+  "title": "The First Tanks Roll Out",
+  "type": "Fact",
+  "subtitle": "The World War One machines built to cross trenches",
+  "blurb": "Engineers need a machine that can climb through mud and cross wide trenches. Their strange diamond-shaped answer changes vehicles forever.",
+  "tags": [
+    {
+      "icon": "terrain",
+      "text": "World War One"
+    },
+    {
+      "icon": "wrench",
+      "text": "Engineering"
+    },
+    {
+      "icon": "star",
+      "text": "Mark I tank"
+    }
+  ]
+}
