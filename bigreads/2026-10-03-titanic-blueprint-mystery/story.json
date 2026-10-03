@@ -1,0 +1,208 @@
+{
+  "title": "The Titanic Blueprint Mystery",
+  "subtitle": "A choose-your-path museum adventure",
+  "cover": "cover.png",
+  "start": "museum-doors",
+  "nodes": {
+    "museum-doors": {
+      "text": "Tom arrived early at the maritime museum. Miss Bell, the curator, had a problem. A brass tube holding a special Titanic blueprint had vanished before the new display opened. On the floor beside the great model lay two fresh clue cards. Which one should Tom follow?",
+      "image": "model-hall.png",
+      "choices": [
+        {"text": "Search beside the ship model", "next": "model-hall"},
+        {"text": "Look inside the curator's office", "next": "curator-office"}
+      ]
+    },
+    "model-hall": {
+      "text": "The model was longer than Tom's bed. It showed Titanic with four tall funnels. Only three funnels carried smoke; the fourth helped air move through the ship. Tom found a silver star near the bow and a black arrow near the stern.",
+      "choices": [
+        {"text": "Follow the silver star", "next": "bow-case"},
+        {"text": "Follow the black arrow", "next": "stern-gallery"}
+      ]
+    },
+    "curator-office": {
+      "text": "Miss Bell's office was neat, apart from one open drawer. Inside it, Tom found a folded museum map and a slip marked with dots and dashes. The map had a circle around the archive. The strange marks looked like a message.",
+      "choices": [
+        {"text": "Follow the museum map", "next": "desk-map"},
+        {"text": "Study the dots and dashes", "next": "message-slip"}
+      ]
+    },
+    "bow-case": {
+      "text": "At the bow case, Tom spotted a tiny brass B on the glass. A nearby display explained that Titanic was built in Belfast. Beneath it were two clues: a shipyard plaque and a rolled deck plan tied with grey string.",
+      "choices": [
+        {"text": "Read the shipyard plaque", "next": "builder-plaque"},
+        {"text": "Open the deck plan", "next": "deck-plan"}
+      ]
+    },
+    "stern-gallery": {
+      "text": "The stern gallery held machines that once pushed great ships through the sea. A brass arrow on the floor pointed towards a giant propeller. A second arrow led down three steps to the engine displays. Both paths looked promising.",
+      "choices": [
+        {"text": "Inspect the giant propeller", "next": "propeller-gallery"},
+        {"text": "Go down the engine steps", "next": "engine-stairs"}
+      ]
+    },
+    "desk-map": {
+      "text": "Tom opened the map under a lamp. A pencil line ran from the office to the archive corridor, but a small radio symbol pointed towards the wireless room. Miss Bell said an old museum game once linked all three places.",
+      "choices": [
+        {"text": "Take the archive corridor", "next": "archive-corridor"},
+        {"text": "Visit the wireless room", "next": "wireless-room"}
+      ]
+    },
+    "message-slip": {
+      "text": "The dots and dashes came in neat groups. Tom knew ships once sent messages this way. It was Morse code. He could test the slip in the wireless room, or compare its flashing pattern with the signal lamp display.",
+      "choices": [
+        {"text": "Try the wireless room", "next": "wireless-room"},
+        {"text": "Check the signal lamp", "next": "signal-lamp"}
+      ]
+    },
+    "builder-plaque": {
+      "text": "The plaque showed a great shipyard full of cranes. Titanic was launched in Belfast in 1911, before workers finished fitting out the rooms inside. A little crane symbol pointed to a wall map, while a hammer symbol pointed to a rivet case.",
+      "choices": [
+        {"text": "Study the shipyard map", "next": "shipyard-map"},
+        {"text": "Check the rivet case", "next": "rivet-case"}
+      ]
+    },
+    "deck-plan": {
+      "text": "The plan showed rooms, stairs and long passages. Deck plans help people see where things fit inside a ship. One pencilled line ended at the lifeboat gallery. Another ran straight to a door marked for museum staff and archive visitors.",
+      "choices": [
+        {"text": "Go to the lifeboat gallery", "next": "lifeboat-gallery"},
+        {"text": "Enter the archive corridor", "next": "archive-corridor"}
+      ]
+    },
+    "propeller-gallery": {
+      "text": "The propeller towered over Tom. Propellers spin and push water backwards, which moves a ship forwards. Beside the display lay a brass arrow stamped with a tiny W. Another arrow pointed towards the round boiler model.",
+      "image": "engine-gallery.png",
+      "choices": [
+        {"text": "Follow the arrow marked W", "next": "propeller-mark"},
+        {"text": "Inspect the boiler model", "next": "boiler-gallery"}
+      ]
+    },
+    "engine-stairs": {
+      "text": "At the bottom of the steps, Tom heard a soft clink. A brass washer rolled from beneath a bench and stopped by his shoe. It matched a trail leading either towards the boiler gallery or to a locked workshop door.",
+      "choices": [
+        {"text": "Follow the washers", "next": "boiler-gallery"},
+        {"text": "Try the workshop door", "next": "workshop-door"}
+      ]
+    },
+    "archive-corridor": {
+      "text": "Tall cabinets lined the quiet corridor. One door led to the archive room, where old plans were stored. On a bench, Tom also found a note folded into the shape of a funnel. Its arrow pointed back towards the giant model.",
+      "choices": [
+        {"text": "Enter the archive room", "next": "archive-room"},
+        {"text": "Follow the funnel note", "next": "model-note"}
+      ]
+    },
+    "wireless-room": {
+      "text": "The wireless room was packed with knobs, coils and wires. Tom tapped the old Morse key. Dots were short sounds and dashes were long sounds. The clue spelled two possible hints: MAP and BOX. He had to choose which one to trust.",
+      "image": "wireless-room.png",
+      "choices": [
+        {"text": "Follow the MAP hint", "next": "morse-clue"},
+        {"text": "Search the signal box", "next": "signal-cabinet"}
+      ]
+    },
+    "signal-lamp": {
+      "text": "Tom pressed the safe display button. The lamp blinked a short flash, then a long one. A card explained that light could carry Morse code when radios were silent. The flashes pointed him towards either the code desk or the model hall.",
+      "choices": [
+        {"text": "Decode the flashes", "next": "morse-clue"},
+        {"text": "Return to the model", "next": "model-note"}
+      ]
+    },
+    "shipyard-map": {
+      "text": "The map showed the Belfast slipway where Titanic took shape. Tom traced the long outline with one finger. A pencilled circle marked the museum archive, but a tiny drawing of a key pointed towards the workshop door.",
+      "choices": [
+        {"text": "Go to the archive", "next": "archive-room"},
+        {"text": "Look for the workshop", "next": "workshop-door"}
+      ]
+    },
+    "rivet-case": {
+      "text": "Thousands of rivets held steel plates together on ships of Titanic's time. In the case, one replica rivet was loose. Beneath it lay a tiny key and a card showing two doors: the workshop and the archive.",
+      "choices": [
+        {"text": "Use the key at the workshop", "next": "workshop-door"},
+        {"text": "Take the key to the archive", "next": "archive-room"}
+      ]
+    },
+    "lifeboat-gallery": {
+      "text": "A wooden lifeboat hung beneath two curved arms called davits. Davits can lower a boat towards the water. Tom followed a thin cord from the display to a brass pointer. It aimed at a pulley wheel and a folded museum note.",
+      "image": "lifeboat-gallery.png",
+      "choices": [
+        {"text": "Inspect the pulley wheel", "next": "davit-clue"},
+        {"text": "Open the folded note", "next": "model-note"}
+      ]
+    },
+    "propeller-mark": {
+      "text": "The W stood for workshop. Behind the propeller display, a dotted line showed the quickest route there. Yet Tom also noticed blue chalk dust leading away towards the archive, just like dust from an old blueprint.",
+      "choices": [
+        {"text": "Follow the W to the workshop", "next": "workshop-door"},
+        {"text": "Follow the blue chalk dust", "next": "archive-room"}
+      ]
+    },
+    "boiler-gallery": {
+      "text": "The boiler model showed how hot steam once helped power huge engines. This one was only a safe cutaway. A loose panel hid a workshop token. Across the room, a funnel-shaped note pointed back towards the great Titanic model.",
+      "choices": [
+        {"text": "Take the workshop token", "next": "workshop-door"},
+        {"text": "Follow the funnel note", "next": "model-note"}
+      ]
+    },
+    "morse-clue": {
+      "text": "Tom slowly tapped the full message. Miss Bell wrote down each letter. It said, BLUE MAP DRAWER. That sounded like the archive, but another final signal said RADIO CUPBOARD. Perhaps the missing tube had been moved twice.",
+      "choices": [
+        {"text": "Check the blue map drawer", "next": "archive-room"},
+        {"text": "Open the radio cupboard", "next": "radio-ending"}
+      ]
+    },
+    "signal-cabinet": {
+      "text": "Inside the signal box were spare wires, headphones and a narrow round space. The brass tube might fit there. Tom could search the cupboard carefully, or take a small blue key from its hook to the archive room.",
+      "choices": [
+        {"text": "Search the radio cupboard", "next": "radio-ending"},
+        {"text": "Take the blue key", "next": "archive-room"}
+      ]
+    },
+    "davit-clue": {
+      "text": "The pulley wheel turned just enough to reveal a hidden card. It showed a blue drawer with a long tube inside. Under it was a sketch of the finished exhibition. Tom could race to the archive or help prepare the display first.",
+      "choices": [
+        {"text": "Race to the archive", "next": "archive-room"},
+        {"text": "Help prepare the display", "next": "exhibition-ending"}
+      ]
+    },
+    "workshop-door": {
+      "text": "The workshop door opened with a click. Beyond it, tools hung in tidy rows. Tom heard something roll beneath a cloth-covered bench. He could search the workshop now, or follow a line of blue dust through the next door to the archive.",
+      "choices": [
+        {"text": "Search beneath the bench", "next": "workshop-ending"},
+        {"text": "Follow the blue dust", "next": "archive-room"}
+      ]
+    },
+    "model-note": {
+      "text": "Back at the model, Tom unfolded the funnel-shaped note. It said the final clue would make sense when every display was ready. He could take the note to the archive, or stay with Miss Bell and finish the new exhibition.",
+      "choices": [
+        {"text": "Take the note to the archive", "next": "archive-room"},
+        {"text": "Finish the exhibition", "next": "exhibition-ending"}
+      ]
+    },
+    "archive-room": {
+      "text": "The archive smelled of paper and polished wood. Tom tried the blue drawer. It was empty, but a round mark in the dust showed where the brass tube had rested. Two labels had fallen face down: one pointed to the lowest drawer and one to the display hall.",
+      "image": "archive-room.png",
+      "choices": [
+        {"text": "Open the lowest drawer", "next": "blueprint-ending"},
+        {"text": "Return to the display hall", "next": "exhibition-ending"}
+      ]
+    },
+    "radio-ending": {
+      "text": "Tom reached behind the spare headphones and felt cold brass. The blueprint tube slid out of the radio cupboard. A retired guide had hidden it there as the last part of the museum's old clue game. Miss Bell laughed with relief. Tom had solved the mystery by decoding Morse code!",
+      "image": "wireless-room.png",
+      "ending": "SIGNAL SLEUTH — You found the tube by radio clues!"
+    },
+    "exhibition-ending": {
+      "text": "Tom returned to the great model and fitted the last clue cards into place. One empty stand had a round hollow base. The brass tube was tucked safely inside it. Miss Bell opened the doors, and the new exhibition was ready exactly on time. Tom became its first official explorer!",
+      "image": "model-hall.png",
+      "ending": "MODEL MASTER — You completed the exhibition!"
+    },
+    "workshop-ending": {
+      "text": "Under the bench, Tom found the brass tube wrapped in a clean cloth. The museum carpenter had protected it while repairing its loose cap, then forgotten to return it. Inside, the old plan was safe. Tom's sharp eyes had solved the mystery without missing a single workshop clue.",
+      "image": "engine-gallery.png",
+      "ending": "WORKSHOP WIN — You tracked down the hidden tube!"
+    },
+    "blueprint-ending": {
+      "text": "The lowest drawer was very long. Inside lay the missing brass tube. Tom and Miss Bell rolled out the blueprint across the table. Its lines showed decks, rooms and four proud funnels. The new display could open at last, and Tom received a silver museum detective badge.",
+      "image": "archive-room.png",
+      "ending": "BLUEPRINT DETECTIVE — You solved the archive mystery!"
+    }
+  }
+}
