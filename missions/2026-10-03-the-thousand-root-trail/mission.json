@@ -1,0 +1,20 @@
+{
+  "title": "The Thousand-Root Trail",
+  "type": "Fiction",
+  "subtitle": "A slippery mountain-bike adventure with Tom",
+  "blurb": "Rain has turned Blackwood Forest's roots shiny and slick. Tom must learn when to roll—and when to walk.",
+  "tags": [
+    {
+      "icon": "terrain",
+      "text": "Forest trail"
+    },
+    {
+      "icon": "wrench",
+      "text": "Riding skills"
+    },
+    {
+      "icon": "star",
+      "text": "Mountain biking"
+    }
+  ]
+}
