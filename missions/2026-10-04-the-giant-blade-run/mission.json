@@ -1,0 +1,20 @@
+{
+  "title": "The Giant Blade Run",
+  "type": "Fiction",
+  "subtitle": "A huge cargo haul around Blackrock Bend",
+  "blurb": "Tom, Dad and Scout must guide a giant wind-turbine blade up a twisting mountain road.",
+  "tags": [
+    {
+      "icon": "terrain",
+      "text": "Mountain road"
+    },
+    {
+      "icon": "wrench",
+      "text": "Rear steering"
+    },
+    {
+      "icon": "star",
+      "text": "Heavy cargo"
+    }
+  ]
+}
