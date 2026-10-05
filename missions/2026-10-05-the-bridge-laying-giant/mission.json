@@ -1,0 +1,20 @@
+{
+  "title": "The Bridge-Laying Giant",
+  "type": "Fact",
+  "subtitle": "The army vehicle that carries its own crossing",
+  "blurb": "A practice route ends at a wide gap. Royal Engineers bring in Titan—a tracked giant with a bridge on its back.",
+  "tags": [
+    {
+      "icon": "terrain",
+      "text": "Practice gap"
+    },
+    {
+      "icon": "wrench",
+      "text": "Royal Engineers"
+    },
+    {
+      "icon": "star",
+      "text": "Titan bridge layer"
+    }
+  ]
+}

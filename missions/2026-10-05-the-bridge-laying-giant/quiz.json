@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "Why did the engineers check both banks?",
+      "choices": ["To find firm ground", "To count clouds"],
+      "correct": 1
+    },
+    {
+      "text": "What did Titan carry?",
+      "choices": ["A boat", "A metal bridge"],
+      "correct": 2
+    },
+    {
+      "text": "What crossed after the safety check?",
+      "choices": ["A heavy supply truck", "A racing bicycle"],
+      "correct": 1
+    }
+  ]
+}
