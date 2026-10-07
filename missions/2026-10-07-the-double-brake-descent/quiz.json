@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "Why did Tom practise on the small slope?",
+      "choices": ["To learn smooth braking", "To win a race"],
+      "correct": 1
+    },
+    {
+      "text": "How did Dad say to squeeze the brakes?",
+      "choices": ["As hard as possible", "Smoothly, like dimmer switches"],
+      "correct": 2
+    },
+    {
+      "text": "What did Tom do before the loose stones?",
+      "choices": ["Slowed down early", "Pedalled faster"],
+      "correct": 1
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "The Double-Brake Descent",
+  "type": "Fiction",
+  "subtitle": "A mountain-bike skills adventure with Tom",
+  "blurb": "A steep forest trail waits below. Can Tom learn the calm braking trick that will carry him safely to the bottom?",
+  "tags": [
+    { "icon": "bike", "text": "Mountain biking" },
+    { "icon": "wrench", "text": "Braking skills" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
