@@ -1,0 +1,12 @@
+{
+  "title": "Carpathia's Race Through the Ice",
+  "type": "Fact",
+  "subtitle": "The ship that answered Titanic's call",
+  "blurb": "A wireless message wakes a sleeping ship. Can Carpathia cross the icy sea in time to help?",
+  "tags": [
+    { "icon": "ship", "text": "Titanic history" },
+    { "icon": "radio", "text": "Sea rescue" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
