@@ -44,6 +44,37 @@ jobs:
           python3 -m pip install --disable-pip-version-check Pillow cmudict
           ebook-convert --version
 
+      - name: Normalize selected mission artwork
+        run: |
+          source="${{ inputs.source }}"
+          if [ -z "$source" ]; then
+            source="$(find missions -mindepth 1 -maxdepth 1 -type d -name '20??-??-??-*' | sort | tail -n 1)"
+          fi
+          python3 - "$source" <<'PY'
+          from pathlib import Path
+          import sys
+          from PIL import Image, ImageOps
+
+          source = Path(sys.argv[1])
+          targets = (
+              ("cover.png", (600, 800), (0.5, 0.35)),
+              ("scene.png", (600, 500), (0.5, 0.5)),
+          )
+          for name, size, centering in targets:
+              path = source / name
+              if not path.exists():
+                  continue
+              with Image.open(path) as opened:
+                  image = ImageOps.fit(
+                      opened.convert("L"),
+                      size,
+                      method=Image.Resampling.LANCZOS,
+                      centering=centering,
+                  )
+                  image.save(path, format="PNG", optimize=True, compress_level=9)
+              print(f"normalized {path} to {size[0]}x{size[1]} 8-bit greyscale")
+          PY
+
       - name: Build and publish the newest mission
         run: |
           # Keep sound guides available for all archived stories too.
@@ -68,12 +99,16 @@ jobs:
       - name: Commit if the published mission changed
         if: ${{ !inputs.dry_run }}
         run: |
-          if [ -z "$(git status --porcelain published/)" ]; then
-            echo "published/ unchanged; nothing to commit"
+          source="${{ inputs.source }}"
+          if [ -z "$source" ]; then
+            source="$(find missions -mindepth 1 -maxdepth 1 -type d -name '20??-??-??-*' | sort | tail -n 1)"
+          fi
+          if [ -z "$(git status --porcelain published/ "$source/cover.png" "$source/scene.png")" ]; then
+            echo "published mission and normalized artwork unchanged; nothing to commit"
             exit 0
           fi
           git config user.name  'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add published/
+          git add published/ "$source/cover.png" "$source/scene.png"
           git commit -m "Publish $(cat published/date.txt) reading mission"
           git push
