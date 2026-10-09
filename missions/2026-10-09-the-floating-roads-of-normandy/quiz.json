@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "Why were the Mulberry harbours needed?",
+      "choices": ["To unload supplies", "To catch fish"],
+      "correct": 1
+    },
+    {
+      "text": "What held up the Whale roads?",
+      "choices": ["Wooden houses", "Beetle pontoons"],
+      "correct": 2
+    },
+    {
+      "text": "What helped make the water calmer?",
+      "choices": ["Breakwaters", "Bicycles"],
+      "correct": 1
+    }
+  ]
+}

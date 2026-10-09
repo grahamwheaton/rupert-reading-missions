@@ -1,0 +1,12 @@
+{
+  "title": "The Floating Roads of Normandy",
+  "type": "Fact",
+  "subtitle": "The harbour built like a giant kit",
+  "blurb": "In World War Two, engineers faced a huge problem: how could ships unload on a beach with no docks? Their answer floated on the sea.",
+  "tags": [
+    { "icon": "anchor", "text": "Real history" },
+    { "icon": "engineering", "text": "Amazing machines" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
