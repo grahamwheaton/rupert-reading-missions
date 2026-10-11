@@ -1,0 +1,12 @@
+{
+  "title": "The Giant Crane's Last Lift",
+  "type": "Fiction",
+  "subtitle": "A windy container-port adventure with Tom and Scout",
+  "blurb": "One last box must reach the ship before it can sail. Then a gust makes the giant crane stop.",
+  "tags": [
+    { "icon": "truck", "text": "Cargo hauling" },
+    { "icon": "anchor", "text": "Real port facts" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
