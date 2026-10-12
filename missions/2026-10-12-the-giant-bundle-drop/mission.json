@@ -1,0 +1,12 @@
+{
+  "title": "The Giant Bundle Drop",
+  "type": "Fact",
+  "subtitle": "How an army engineering vehicle makes a road across a ditch",
+  "blurb": "A deep trench blocks the training route. Trojan carries a strange bundle that can turn the gap into a road.",
+  "tags": [
+    { "icon": "truck", "text": "Army vehicles" },
+    { "icon": "wrench", "text": "Royal Engineers" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}

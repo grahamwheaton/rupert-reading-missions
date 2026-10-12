@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What filled the practice ditch?",
+      "choices": ["A pipe fascine", "A wooden boat"],
+      "correct": 1
+    },
+    {
+      "text": "Why were the pipes hollow?",
+      "choices": ["To make a loud noise", "To let water flow through"],
+      "correct": 2
+    },
+    {
+      "text": "What crossed after Trojan?",
+      "choices": ["A supply truck", "A sailing ship"],
+      "correct": 1
+    }
+  ]
+}
