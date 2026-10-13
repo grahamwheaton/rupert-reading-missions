@@ -1,0 +1,12 @@
+{
+  "title": "The Whiteout Beacon Run",
+  "type": "Fiction",
+  "subtitle": "A snowy mountain haul with Tom and Scout",
+  "blurb": "A weather beacon needs a new battery before the storm closes the pass. Then the road vanishes into white.",
+  "tags": [
+    { "icon": "truck", "text": "Snow hauling" },
+    { "icon": "terrain", "text": "Mountain weather" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}

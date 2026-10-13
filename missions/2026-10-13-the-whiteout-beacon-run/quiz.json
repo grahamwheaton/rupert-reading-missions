@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What was the truck carrying?",
+      "choices": ["A beacon battery", "A box of toys"],
+      "correct": 1
+    },
+    {
+      "text": "Why did Dad stop at the lay-by?",
+      "choices": ["To build a snowman", "To fit the tyre chains"],
+      "correct": 2
+    },
+    {
+      "text": "What showed the edge of the road?",
+      "choices": ["Tall marker poles", "Little flags"],
+      "correct": 1
+    }
+  ]
+}
