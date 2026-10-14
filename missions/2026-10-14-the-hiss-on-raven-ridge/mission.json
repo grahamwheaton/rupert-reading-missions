@@ -1,0 +1,12 @@
+{
+  "title": "The Hiss on Raven Ridge",
+  "type": "Fiction",
+  "subtitle": "A mountain-bike mystery with Tom and Scout",
+  "blurb": "A tiny hiss follows Tom along Raven Ridge. Can he find the problem before his tyre goes flat?",
+  "tags": [
+    { "icon": "terrain", "text": "Mountain biking" },
+    { "icon": "wrench", "text": "Tubeless repair" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}

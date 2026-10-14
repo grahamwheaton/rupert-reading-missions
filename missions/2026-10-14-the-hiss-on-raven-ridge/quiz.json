@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What made the tyre hiss?",
+      "choices": ["A small thorn hole", "The brake lever"],
+      "correct": 1
+    },
+    {
+      "text": "Why did Dad turn the hole down?",
+      "choices": ["To hide the hole", "So sealant reached it"],
+      "correct": 2
+    },
+    {
+      "text": "What added air to the tyre?",
+      "choices": ["A small pump", "A water bottle"],
+      "correct": 1
+    }
+  ]
+}
