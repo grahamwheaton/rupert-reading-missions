@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What was launched into the river?",
+      "choices": ["Titanic's steel hull", "Finished passenger rooms"],
+      "correct": 1
+    },
+    {
+      "text": "Why were the wooden ways made slippery?",
+      "choices": ["To paint the timber", "To help the hull slide"],
+      "correct": 2
+    },
+    {
+      "text": "What helped stop Titanic?",
+      "choices": ["Drag chains and anchors", "The ship's funnels"],
+      "correct": 1
+    }
+  ]
+}

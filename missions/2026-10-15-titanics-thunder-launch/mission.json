@@ -1,0 +1,12 @@
+{
+  "title": "Titanic's Thunder Launch",
+  "type": "Fact",
+  "subtitle": "The day Titanic's unfinished hull first touched water",
+  "blurb": "A steel giant waits high above the River Lagan. One signal will send Titanic sliding into the water.",
+  "tags": [
+    { "icon": "ship", "text": "Titanic history" },
+    { "icon": "wrench", "text": "Shipbuilding" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
