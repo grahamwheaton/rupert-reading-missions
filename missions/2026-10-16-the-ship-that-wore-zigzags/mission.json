@@ -1,0 +1,12 @@
+{
+  "title": "The Ship That Wore Zigzags",
+  "type": "Fact",
+  "subtitle": "The strange painted ships of World War One",
+  "blurb": "A ship cannot hide on an empty sea. Could giant zigzags make its speed and direction hard to guess?",
+  "tags": [
+    { "icon": "ship", "text": "World War One" },
+    { "icon": "star", "text": "Dazzle camouflage" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "wrench", "text": "3 challenge questions" }
+  ]
+}
