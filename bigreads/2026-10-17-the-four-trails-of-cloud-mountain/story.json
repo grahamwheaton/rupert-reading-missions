@@ -1,0 +1,170 @@
+{
+  "title": "The Four Trails of Cloud Mountain",
+  "subtitle": "A choose-your-path mountain bike adventure",
+  "cover": "cover.png",
+  "start": "trail-centre",
+  "nodes": {
+    "trail-centre": {
+      "text": "Ranger Mia handed Tom a route card. Four secret stamps waited on Cloud Mountain. Each trail led to a different one. Dad checked both bikes, while Scout bounced in his bright trail harness. The first fork was beside the gate.",
+      "image": "scene-start.png",
+      "choices": [
+        {"text": "Enter the pine forest", "next": "pine-start"},
+        {"text": "Climb towards the ridge", "next": "ridge-start"}
+      ]
+    },
+    "pine-start": {
+      "text": "The pine trail smelled of wet earth. Soft needles covered the ground. Tom heard water somewhere below. Ahead, a narrow path curled through tall ferns, while a wide gravel road climbed steadily between the trees.",
+      "choices": [
+        {"text": "Follow the fern path", "next": "fern-turn"},
+        {"text": "Take the gravel climb", "next": "gravel-climb"}
+      ]
+    },
+    "ridge-start": {
+      "text": "The ridge trail rose into bright morning light. Small rocks clicked beneath the tyres. Tom could take a low line over smooth stone, or use a longer zigzag path that crossed the slope in gentle turns.",
+      "choices": [
+        {"text": "Ride the smooth rock line", "next": "rock-roll"},
+        {"text": "Take the zigzag climb", "next": "zigzag-climb"}
+      ]
+    },
+    "fern-turn": {
+      "text": "Ferns brushed Tom's handlebars. He looked ahead and kept his pedals level over the roots. The path soon split again. One arm dropped towards the sound of a stream. The other followed rusty railway posts through the woods.",
+      "choices": [
+        {"text": "Go towards the stream", "next": "stream-bridge"},
+        {"text": "Follow the railway posts", "next": "old-rail"}
+      ]
+    },
+    "gravel-climb": {
+      "text": "Tom chose an easy gear and kept pedalling. Easy gears let the back wheel turn without one huge push. Near the top, one track dipped to a wooden bridge. Another climbed towards a windy gap in the hills.",
+      "choices": [
+        {"text": "Drop to the bridge", "next": "stream-bridge"},
+        {"text": "Climb to the windy gap", "next": "windy-saddle"}
+      ]
+    },
+    "rock-roll": {
+      "text": "The smooth rock looked steep, but its surface was dry. Tom stood lightly on his pedals and let the bike roll. At the bottom, an old railway cutting opened on the left. Bright marker posts crossed a meadow on the right.",
+      "choices": [
+        {"text": "Enter the railway cutting", "next": "old-rail"},
+        {"text": "Follow the marker posts", "next": "marker-field"}
+      ]
+    },
+    "zigzag-climb": {
+      "text": "The zigzag was longer, yet each turn made the hill easier. Scout waited with Dad at every corner. At the crest, the wind carried the sound of falling water. A marked meadow lay farther along the ridge.",
+      "choices": [
+        {"text": "Follow the waterfall sound", "next": "windy-saddle"},
+        {"text": "Cross the marked meadow", "next": "marker-field"}
+      ]
+    },
+    "stream-bridge": {
+      "text": "A strong wooden bridge crossed a racing stream. Tom stopped before it. Wet boards can be slippery, so he and Dad could walk the bikes across. A stony bank also led towards a waterfall path.",
+      "image": "scene-water.png",
+      "choices": [
+        {"text": "Walk across the bridge", "next": "tunnel-mouth"},
+        {"text": "Follow the stony bank", "next": "waterfall-path"}
+      ]
+    },
+    "old-rail": {
+      "text": "Two rails once ran through the cutting, but only the flat stone bed remained. A dark tunnel mouth waited ahead. Above it, a grassy sheep track climbed through a wooden gate and curved around the hill.",
+      "choices": [
+        {"text": "Head for the tunnel", "next": "tunnel-mouth"},
+        {"text": "Climb through the sheep gate", "next": "sheep-gate"}
+      ]
+    },
+    "windy-saddle": {
+      "text": "The trail reached a dip between two peaks. Wind tugged at Tom's jacket. Dad reminded him to keep both hands on the bars and slow down. The waterfall path dropped left. The Cloud Pass path climbed right.",
+      "image": "scene-ridge.png",
+      "choices": [
+        {"text": "Descend to the waterfall", "next": "waterfall-path"},
+        {"text": "Climb towards Cloud Pass", "next": "cloud-pass"}
+      ]
+    },
+    "marker-field": {
+      "text": "Black and white posts crossed the meadow. They showed the safe trail when cloud covered the ground. One line reached a sheep gate below a stone wall. The other climbed straight towards Cloud Pass.",
+      "choices": [
+        {"text": "Follow posts to the gate", "next": "sheep-gate"},
+        {"text": "Follow posts uphill", "next": "cloud-pass"}
+      ]
+    },
+    "tunnel-mouth": {
+      "text": "The old railway tunnel was short. Tom could see a white dot of daylight at the far end. He switched on his bike light. A side path beside the tunnel followed water towards a clear lower pool.",
+      "image": "scene-tunnel.png",
+      "choices": [
+        {"text": "Use the lit tunnel", "next": "echo-chamber"},
+        {"text": "Take the path to the pool", "next": "lower-pool"}
+      ]
+    },
+    "waterfall-path": {
+      "text": "Spray cooled Tom's face as the path curled beside the falls. The bikes stayed on the signed trail, away from the edge. One branch dropped to a calm pool. Another climbed wooden steps towards a lookout track.",
+      "image": "scene-water.png",
+      "choices": [
+        {"text": "Go down to the pool", "next": "lower-pool"},
+        {"text": "Climb to the lookout track", "next": "lookout-track"}
+      ]
+    },
+    "sheep-gate": {
+      "text": "Tom closed the gate behind Scout. Beyond it, two old paths crossed. A stone arch led back towards the railway tunnel. A broad farm track led to a small storm shelter on the open hill.",
+      "choices": [
+        {"text": "Ride through the stone arch", "next": "echo-chamber"},
+        {"text": "Take the track to the shelter", "next": "storm-shelter"}
+      ]
+    },
+    "cloud-pass": {
+      "text": "Thin cloud drifted across the pass. Tom could still see the marker posts and Dad's bright jacket. A high track followed the posts to a lookout. A lower track curved towards the roof of a stone shelter.",
+      "image": "scene-ridge.png",
+      "choices": [
+        {"text": "Follow the high lookout track", "next": "lookout-track"},
+        {"text": "Take the lower shelter track", "next": "storm-shelter"}
+      ]
+    },
+    "echo-chamber": {
+      "text": "Bike lights glowed on the stone walls. Halfway through, the tunnel widened. Tom called, “Hello!” His voice came back twice. Ahead hung an old brass trail bell. A second exit sloped down towards the ranger road.",
+      "image": "scene-tunnel.png",
+      "choices": [
+        {"text": "Search beside the brass bell", "next": "bell-cavern"},
+        {"text": "Take the ranger road exit", "next": "ranger-return"}
+      ]
+    },
+    "lower-pool": {
+      "text": "The pool was clear enough to show every round stone. Scout drank from Dad's folding bowl. A small stamp box stood beside the waterfall trail. Another signed path followed the stream back towards the trail centre.",
+      "image": "scene-water.png",
+      "choices": [
+        {"text": "Open the waterfall stamp box", "next": "waterfall-finish"},
+        {"text": "Follow the stream home", "next": "ranger-return"}
+      ]
+    },
+    "lookout-track": {
+      "text": "The last climb was steep but short. Tom used an easy gear and looked ahead. Above him, a huge bird circled on wide wings. The track split between the eagle lookout and steps descending towards the waterfall.",
+      "image": "scene-ridge.png",
+      "choices": [
+        {"text": "Climb to the eagle lookout", "next": "eagle-lookout"},
+        {"text": "Descend towards the falls", "next": "waterfall-finish"}
+      ]
+    },
+    "storm-shelter": {
+      "text": "The stone shelter was dry and quiet. A map inside showed the safest routes home. Tom could follow a wide ranger road to the trail centre, or take a marked upper path to the eagle lookout.",
+      "choices": [
+        {"text": "Use the ranger road", "next": "ranger-return"},
+        {"text": "Take the upper path", "next": "eagle-lookout"}
+      ]
+    },
+    "bell-cavern": {
+      "text": "Behind the bell, Tom found a stamp shaped like a musical note. He pressed it onto his route card. Then he rang the bell once. Bong! The tunnel sent the sound rolling through the mountain. Even Scout tilted his head at the long, wobbly echo.",
+      "image": "scene-tunnel.png",
+      "ending": "BELL FINDER — You discovered the echo trail!"
+    },
+    "waterfall-finish": {
+      "text": "The box held a stamp shaped like a silver drop. Tom pressed it onto his card as cool spray floated over the trail. Dad found a safe bench, and they shared a snack while Scout watched the rushing water. Their path had found Cloud Mountain's hidden waterfall.",
+      "image": "scene-water.png",
+      "ending": "WATERFALL RIDER — You found the silver drop!"
+    },
+    "eagle-lookout": {
+      "text": "The high path opened above the clouds. An eagle glided past without flapping its wings. Tom found a feather stamp beside the stone wall and pressed it onto his card. Far below, all four mountain trails looked like thin threads through the wild land.",
+      "image": "scene-ridge.png",
+      "ending": "EAGLE EXPLORER — You reached the highest lookout!"
+    },
+    "ranger-return": {
+      "text": "The ranger road rolled gently back to the trail centre. Ranger Mia and Scout's water bucket waited by the fence. Tom found the final stamp beneath the route map. It was shaped like a paw. His careful choices had made a complete mountain loop.",
+      "image": "scene-start.png",
+      "ending": "TRAIL GUIDE — You found the safe route home!"
+    }
+  }
+}
