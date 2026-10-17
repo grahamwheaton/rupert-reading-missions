@@ -1,0 +1,12 @@
+{
+  "title": "The Giant Tank Taxi",
+  "type": "Fiction",
+  "subtitle": "An army heavy transport adventure",
+  "blurb": "A huge training tank must reach the far workshop. Its surprising taxi has more wheels than Tom can count.",
+  "tags": [
+    { "icon": "terrain", "text": "Army vehicles" },
+    { "icon": "wrench", "text": "Real machine facts" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
