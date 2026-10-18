@@ -1,0 +1,12 @@
+{
+  "title": "The Sand Trap Escape",
+  "type": "Fiction",
+  "subtitle": "A careful 4x4 recovery adventure",
+  "blurb": "Ranger Mia's 4x4 is sinking into soft sand. Tom watches the team escape with wide tyres, traction boards and a calm plan.",
+  "tags": [
+    { "icon": "terrain", "text": "4x4 recovery" },
+    { "icon": "wrench", "text": "Real sand facts" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
