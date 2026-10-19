@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What did Mia's truck carry?",
+      "choices": ["A giant cable drum", "A fishing boat"],
+      "correct": 1
+    },
+    {
+      "text": "Why did the convoy avoid the stone bridge?",
+      "choices": ["The road was too dry", "The load was too tall"],
+      "correct": 2
+    },
+    {
+      "text": "What held the round drum still?",
+      "choices": ["Chocks and chains", "Paper and string"],
+      "correct": 1
+    }
+  ]
+}

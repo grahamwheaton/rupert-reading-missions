@@ -1,0 +1,12 @@
+{
+  "title": "The Giant Cable Drum Run",
+  "type": "Fiction",
+  "subtitle": "A careful heavy-cargo adventure",
+  "blurb": "A giant cable drum must reach Pine Hill, but the usual road has a bridge that is too low. Mia, Tom and Scout find a careful way around.",
+  "tags": [
+    { "icon": "terrain", "text": "Cargo hauling" },
+    { "icon": "wrench", "text": "Real load facts" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
