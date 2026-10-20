@@ -1,0 +1,12 @@
+{
+  "title": "The Rock Garden Riddle",
+  "type": "Fiction",
+  "subtitle": "A mountain-bike suspension mystery",
+  "blurb": "Tom's bike suddenly feels hard and bumpy at the Rock Garden. He must stop safely and solve the mystery before the trail continues.",
+  "tags": [
+    { "icon": "terrain", "text": "Mountain biking" },
+    { "icon": "wrench", "text": "Real suspension facts" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
