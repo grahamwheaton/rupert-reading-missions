@@ -1,0 +1,12 @@
+{
+  "title": "Titanic's Twenty-Horse Anchor",
+  "type": "Fact",
+  "subtitle": "The true journey of a fifteen-ton anchor",
+  "blurb": "Titanic's enormous centre anchor must travel from a Black Country ironworks to Belfast. Its first mighty hauler is a team of twenty horses.",
+  "tags": [
+    { "icon": "terrain", "text": "Titanic history" },
+    { "icon": "wrench", "text": "Real engineering facts" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
