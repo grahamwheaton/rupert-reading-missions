@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What kind of animal was Winkie?",
+      "choices": ["A homing pigeon", "A rescue dog"],
+      "correct": 1
+    },
+    {
+      "text": "Why did the airmen release Winkie?",
+      "choices": ["To find fish", "To carry news home"],
+      "correct": 2
+    },
+    {
+      "text": "What helped the RAF choose where to search?",
+      "choices": ["Winkie's flight clues", "A toy compass"],
+      "correct": 1
+    }
+  ]
+}
