@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What vehicle travelled inside the Hamilcar?",
+      "choices": ["A Universal Carrier", "A heavy lorry"],
+      "correct": 1
+    },
+    {
+      "text": "Why was the carrier anchored to the floor?",
+      "choices": ["To paint the floor", "To stop it moving"],
+      "correct": 2
+    },
+    {
+      "text": "How did the carrier leave the glider?",
+      "choices": ["It drove down the ramp", "It floated away"],
+      "correct": 1
+    }
+  ]
+}
