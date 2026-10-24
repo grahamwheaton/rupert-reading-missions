@@ -1,0 +1,12 @@
+{
+  "title": "The Locomotive Road Run",
+  "type": "Fiction",
+  "subtitle": "A steam engine takes the road to the workshop",
+  "blurb": "Little Comet cannot reach the workshop by rail. Mia's giant trailer must carry her through a village bend with almost no room to spare.",
+  "tags": [
+    { "icon": "terrain", "text": "Cargo hauling" },
+    { "icon": "wrench", "text": "Real heavy-haul facts" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
