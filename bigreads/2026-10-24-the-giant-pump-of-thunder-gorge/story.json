@@ -1,0 +1,167 @@
+{
+  "title": "The Giant Pump of Thunder Gorge",
+  "subtitle": "A choose-your-route heavy haul adventure",
+  "cover": "cover.png",
+  "start": "storm-depot",
+  "nodes": {
+    "storm-depot": {
+      "text": "A storm had stopped the old pump at Thunder Gorge Dam. Ranger Mia had one day to bring in a giant new pump before more rain came. Tom and Scout rode safely with Dad in the escort 4x4. Which route should the heavy truck try first?",
+      "image": "scene-depot.png",
+      "choices": [
+        {"text": "Take the forest road", "next": "forest-start"},
+        {"text": "Enter the old quarry", "next": "quarry-start"}
+      ]
+    },
+    "forest-start": {
+      "text": "The convoy crept beneath dripping pine trees. The pump sat on a trailer with many small wheels. Many axles share a heavy load, so one wheel does not press too hard on the road. Ahead, fallen pines blocked one way and black mud covered another.",
+      "choices": [
+        {"text": "Clear the fallen pines", "next": "pine-block"},
+        {"text": "Test the muddy track", "next": "bog-edge"}
+      ]
+    },
+    "quarry-start": {
+      "text": "Stone walls rose on both sides of the old quarry. Scout watched from the escort car as the truck rumbled past silent diggers. A narrow shelf curled above the pit. Rusty railway tracks ran towards a dark cutting below.",
+      "choices": [
+        {"text": "Climb the rock shelf", "next": "rock-shelf"},
+        {"text": "Follow the old rails", "next": "old-rail"}
+      ]
+    },
+    "pine-block": {
+      "text": "The crew cut only the loose branches and rolled the logs aside. Beyond them, the road split. One path had a stout tree for a safe winch anchor. The other led towards the old bridge. Tom marked both paths on Mia's map.",
+      "choices": [
+        {"text": "Use the winch path", "next": "winch-path"},
+        {"text": "Head for the bridge road", "next": "bridge-road"}
+      ]
+    },
+    "bog-edge": {
+      "text": "Mia stopped before the soft ground. A stick sank deep into the mud. Broad timber mats could spread the truck's weight. A dry ridge also curved above the bog, but it looked steep. Scout sniffed the wet air from safe ground.",
+      "choices": [
+        {"text": "Lay the timber mats", "next": "mat-track"},
+        {"text": "Climb to the dry ridge", "next": "high-ridge"}
+      ]
+    },
+    "rock-shelf": {
+      "text": "The shelf was firm but narrow. Dad walked ahead with a radio while Tom stayed buckled inside the escort. A short quarry tunnel opened beside the cliff. Farther on, an enormous cable crane stood over Thunder Gorge.",
+      "choices": [
+        {"text": "Try the quarry tunnel", "next": "tunnel-route"},
+        {"text": "Go towards the crane", "next": "crane-yard"}
+      ]
+    },
+    "old-rail": {
+      "text": "Grass grew between the rails, but the stone bed was hard. An old flat wagon waited in a shed. It might carry the pump through the quarry. The truck could also leave the rails and turn towards the bridge road.",
+      "choices": [
+        {"text": "Inspect the rail wagon", "next": "rail-wagon"},
+        {"text": "Turn onto the bridge road", "next": "bridge-road"}
+      ]
+    },
+    "winch-path": {
+      "text": "Mia fixed the winch line to the marked anchor and checked that everyone stood well away. The cable helped the truck crawl up the slippery bank. At the top, tracks pointed down to the river ford or up towards the high pass.",
+      "choices": [
+        {"text": "Descend to the ford", "next": "river-ford"},
+        {"text": "Climb to the high pass", "next": "high-pass"}
+      ]
+    },
+    "bridge-road": {
+      "text": "The bridge road crossed a field of pale stones. Thunder rumbled far away. At the next signpost, one turn led to the storm-damaged wooden bridge. The other dropped to a shallow ford below it.",
+      "choices": [
+        {"text": "Check the old bridge", "next": "old-bridge"},
+        {"text": "Check the river ford", "next": "river-ford"}
+      ]
+    },
+    "mat-track": {
+      "text": "The crew placed the timber mats like a wide wooden road. The truck rolled across without sinking. At the far side, the low track followed the river. A rocky service track climbed towards the cable station above the gorge.",
+      "choices": [
+        {"text": "Follow the river track", "next": "river-ford"},
+        {"text": "Climb to the cable station", "next": "cable-station"}
+      ]
+    },
+    "high-ridge": {
+      "text": "Low gear kept the big truck moving slowly and steadily. From the ridge, Tom saw the dam between the mountains. White marker posts crossed the high pass. A second track zigzagged down to the cable station.",
+      "choices": [
+        {"text": "Follow the marker posts", "next": "high-pass"},
+        {"text": "Drop to the cable station", "next": "cable-station"}
+      ]
+    },
+    "tunnel-route": {
+      "text": "The crew measured the tunnel before the truck entered. The pump was too tall by the width of Tom's hand. Nobody guessed or squeezed. The team could transfer it to the low rail yard, or turn back towards the cable crane.",
+      "choices": [
+        {"text": "Transfer at the rail yard", "next": "rail-yard"},
+        {"text": "Turn towards the crane", "next": "crane-yard"}
+      ]
+    },
+    "crane-yard": {
+      "text": "The old cable crane stretched from cliff to cliff. Its fresh safety tag showed that engineers had tested it that week. One path reached its loading station. Another curved down to the wooden bridge beneath the cables.",
+      "choices": [
+        {"text": "Use the loading station", "next": "cable-station"},
+        {"text": "Go down to the bridge", "next": "old-bridge"}
+      ]
+    },
+    "rail-wagon": {
+      "text": "The flat wagon was rusty on top, but its wheels and brakes had been repaired. Mia found the inspection card in a dry box. The crew could roll it to the rail yard, or use its strong beams to help repair the nearby bridge.",
+      "choices": [
+        {"text": "Roll it to the rail yard", "next": "rail-yard"},
+        {"text": "Take beams to the bridge", "next": "old-bridge"}
+      ]
+    },
+    "river-ford": {
+      "text": "The ford was shallow, but the stones were slippery. Workers measured the water and found the marked safe line. They could lay a stone causeway first, or guide the truck across very slowly, one axle after another.",
+      "image": "scene-ford.png",
+      "choices": [
+        {"text": "Build the stone causeway", "next": "bridge-builder-ending"},
+        {"text": "Cross one axle at a time", "next": "pump-delivered-ending"}
+      ]
+    },
+    "high-pass": {
+      "text": "Cloud hid the far side of the pass. Tom spotted the white posts continuing towards the dam. A winch road also dropped to a sheltered valley. Mia checked the map, the brakes and the weather once more.",
+      "image": "scene-gorge.png",
+      "choices": [
+        {"text": "Follow the white posts", "next": "pump-delivered-ending"},
+        {"text": "Take the winch road down", "next": "cable-master-ending"}
+      ]
+    },
+    "cable-station": {
+      "text": "Thunder Gorge yawned below. The crane could carry the pump on a steel cradle while the empty truck used the service road. Or the whole convoy could stay on the long road around the cliffs.",
+      "image": "scene-gorge.png",
+      "choices": [
+        {"text": "Lift the pump by cable", "next": "cable-master-ending"},
+        {"text": "Take the long road around", "next": "pump-delivered-ending"}
+      ]
+    },
+    "old-bridge": {
+      "text": "One beam beneath the bridge had cracked in the storm. The deck was closed, so the truck stopped well back. The crew could fit strong spare beams, or use the cable crane that crossed the gorge above.",
+      "image": "scene-gorge.png",
+      "choices": [
+        {"text": "Fit the spare bridge beams", "next": "bridge-builder-ending"},
+        {"text": "Call the cable crane", "next": "cable-master-ending"}
+      ]
+    },
+    "rail-yard": {
+      "text": "A working quarry engine waited beside the low flat wagon. The railway reached a service siding near the dam. The team could load the pump onto the wagon, or remove its tall top pipe and return to the measured tunnel route.",
+      "image": "scene-depot.png",
+      "choices": [
+        {"text": "Load the quarry wagon", "next": "rail-rescue-ending"},
+        {"text": "Use the lower tunnel load", "next": "pump-delivered-ending"}
+      ]
+    },
+    "pump-delivered-ending": {
+      "text": "The convoy reached Thunder Gorge Dam before the next rain. A crane lowered the giant pump into its dry bay. Soon water flowed through the right channel again. Ranger Mia gave Tom a silver route badge, and Scout received a crunchy biscuit shaped like a truck.",
+      "image": "scene-dam.png",
+      "ending": "STEADY HAULER — You brought the giant pump home!"
+    },
+    "bridge-builder-ending": {
+      "text": "The careful road work took extra time, but it made a strong route for everyone. The truck crossed safely and delivered the pump to the dam. Later, villagers used the repaired crossing too. Tom learned that the best rescue can fix tomorrow's road as well as today's problem.",
+      "image": "scene-ford.png",
+      "ending": "ROAD BUILDER — Your route helped the whole valley!"
+    },
+    "cable-master-ending": {
+      "text": "The cable crane hummed. Slowly, the steel cradle carried the pump across Thunder Gorge. The empty truck met it on the far side and finished the journey to the dam. Tom watched the new pump settle into place as sunlight broke through the clouds.",
+      "image": "scene-gorge.png",
+      "ending": "GORGE MASTER — You found the sky route!"
+    },
+    "rail-rescue-ending": {
+      "text": "The quarry engine pulled the low wagon through the stone cutting. Its small steel wheels carried the pump neatly beneath the tunnel roof. At the dam siding, the crane lifted it into place. Scout barked once at the whistle, and the whole crew cheered.",
+      "image": "scene-dam.png",
+      "ending": "RAIL RESCUER — You saved the day on steel wheels!"
+    }
+  }
+}
