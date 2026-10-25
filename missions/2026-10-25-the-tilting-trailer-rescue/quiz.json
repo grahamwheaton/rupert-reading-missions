@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "Why did the crew remove the upper boxes?",
+      "choices": ["To make it steadier", "To hide the boxes"],
+      "correct": 1
+    },
+    {
+      "text": "What did the side winch do?",
+      "choices": ["It painted the trailer", "It held the trailer steady"],
+      "correct": 2
+    },
+    {
+      "text": "What helped the wheels climb out?",
+      "choices": ["A timber ramp", "A pile of blankets"],
+      "correct": 1
+    }
+  ]
+}
