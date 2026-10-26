@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What was missing from the trail fork?",
+      "choices": ["A blue arrow", "A bicycle wheel"],
+      "correct": 1
+    },
+    {
+      "text": "Why did Tom and Dad stop?",
+      "choices": ["They wanted a race", "The wrong trail might be too hard"],
+      "correct": 2
+    },
+    {
+      "text": "What protected the wet ground?",
+      "choices": ["A raised boardwalk", "A pile of leaves"],
+      "correct": 1
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "The Missing Blue Arrow",
+  "type": "Fiction",
+  "subtitle": "Tom and Scout solve a woodland trail mystery",
+  "blurb": "A storm has pulled the route marker from a mountain-bike trail. Tom must use the map, follow the clues and avoid guessing at the forest fork.",
+  "tags": [
+    { "icon": "terrain", "text": "Mountain biking" },
+    { "icon": "wrench", "text": "Real trail facts" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
