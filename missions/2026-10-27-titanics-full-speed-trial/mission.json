@@ -1,0 +1,12 @@
+{
+  "title": "Titanic's Full-Speed Trial",
+  "type": "Fact",
+  "subtitle": "The day a giant ship was put to the test",
+  "blurb": "Before Titanic could carry passengers, she had to prove that she could steer, turn, speed up and stop. Join the crew for one busy day in Belfast Lough.",
+  "tags": [
+    { "icon": "sailing", "text": "Titanic" },
+    { "icon": "wrench", "text": "Real sea-trial facts" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}

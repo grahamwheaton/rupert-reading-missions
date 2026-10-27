@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "Where did Titanic carry out her sea trials?",
+      "choices": ["Belfast Lough", "A mountain lake"],
+      "correct": 1
+    },
+    {
+      "text": "Why did the officers test the ship?",
+      "choices": ["To choose her paint", "To check she worked safely"],
+      "correct": 2
+    },
+    {
+      "text": "Where did Titanic sail next?",
+      "choices": ["Southampton", "The North Pole"],
+      "correct": 1
+    }
+  ]
+}
