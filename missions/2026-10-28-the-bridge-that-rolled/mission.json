@@ -1,0 +1,12 @@
+{
+  "title": "The Bridge That Rolled",
+  "type": "Fact",
+  "subtitle": "How a bridge in pieces crossed a river",
+  "blurb": "A broken crossing stops a convoy during World War Two. Royal Engineers must build a steel bridge on one bank—and roll it across the river.",
+  "tags": [
+    { "icon": "construction", "text": "World War Two engineering" },
+    { "icon": "local_shipping", "text": "Army vehicles" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
