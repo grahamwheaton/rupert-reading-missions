@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What vehicle came to help the stuck lorry?",
+      "choices": ["A Scammell Pioneer", "A tiny motorbike"],
+      "correct": 1
+    },
+    {
+      "text": "Why did the crew use a pulley block?",
+      "choices": ["To ring a bell", "To help the winch pull harder"],
+      "correct": 2
+    },
+    {
+      "text": "Where did the crew stand during the pull?",
+      "choices": ["Away from the cable", "On top of the cable"],
+      "correct": 1
+    }
+  ]
+}
