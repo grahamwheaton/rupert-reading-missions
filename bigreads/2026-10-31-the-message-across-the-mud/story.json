@@ -1,0 +1,209 @@
+{
+  "title": "The Message Across the Mud",
+  "subtitle": "A World War One signals adventure",
+  "cover": "cover.png",
+  "start": "storm-at-dawn",
+  "nodes": {
+    "storm-at-dawn": {
+      "text": "It was 1917, during World War One. A night storm had cracked the wooden bridge by Birch Wood. A supply convoy was coming. Signaller Ben had to warn it to stop, but the field telephone was silent. How should he begin?",
+      "image": "scene-dugout.png",
+      "choices": [
+        {"text": "Test the telephone line", "next": "telephone-table"},
+        {"text": "Prepare another messenger", "next": "messenger-yard"}
+      ]
+    },
+    "telephone-table": {
+      "text": "Ben turned the telephone handle. The little generator sent a ring along the wire, but no bell answered. He checked the plugs and battery. They were sound. The break must be outside in the mud.",
+      "choices": [
+        {"text": "Follow the wire", "next": "wire-test"},
+        {"text": "Try the field exchange", "next": "field-exchange"}
+      ]
+    },
+    "messenger-yard": {
+      "text": "In the yard waited Elsie, a dispatch rider, and Blue, a homing pigeon. Elsie's motorcycle could use the road. Blue could fly above the mud, but first Ben needed to write one very small message.",
+      "image": "scene-road.png",
+      "choices": [
+        {"text": "Check the motorcycle", "next": "motorcycle-check"},
+        {"text": "Visit the pigeon loft", "next": "pigeon-loft"}
+      ]
+    },
+    "wire-test": {
+      "text": "Ben and Sapper Cole traced the thin cable beside the trench. They tested it at each junction. A telephone line makes a complete path for an electric signal. Somewhere ahead, that path was broken.",
+      "image": "scene-wire.png",
+      "choices": [
+        {"text": "Search beside the duckboards", "next": "flooded-cut"},
+        {"text": "Carry a new cable drum", "next": "cable-drum"}
+      ]
+    },
+    "field-exchange": {
+      "text": "The field exchange was a box of sockets and cords. An operator could join one telephone line to another. Ben tried a spare route to the relay post. A faint voice crackled through, then vanished.",
+      "image": "scene-dugout.png",
+      "choices": [
+        {"text": "Strengthen the spare route", "next": "relay-post"},
+        {"text": "Send a signal to the hill", "next": "signal-hill"}
+      ]
+    },
+    "cable-drum": {
+      "text": "The new cable unwound from its drum as Ben and Cole walked. They kept it beside the marked path, away from cart wheels. At a fork, one route crossed a wet cutting. The other climbed to a relay post.",
+      "image": "scene-wire.png",
+      "choices": [
+        {"text": "Cross the wet cutting", "next": "flooded-cut"},
+        {"text": "Climb to the relay post", "next": "relay-post"}
+      ]
+    },
+    "flooded-cut": {
+      "text": "Brown water filled the cutting. Ben saw the old wire disappear beneath a fallen board. They could lift the board and join the snapped ends, or run the new cable around the safe edge.",
+      "image": "scene-wire.png",
+      "choices": [
+        {"text": "Repair the snapped ends", "next": "buried-cable"},
+        {"text": "Run cable around the edge", "next": "relay-post"}
+      ]
+    },
+    "signal-hill": {
+      "text": "A clear hill stood between Ben and the convoy road. A signal lamp could flash dots and dashes after dark. Flags could show letters in daylight. The rain was stopping, but mist still drifted low.",
+      "image": "scene-hill.png",
+      "choices": [
+        {"text": "Carry up the signal lamp", "next": "lamp-post"},
+        {"text": "Take the signal flags", "next": "flag-post"}
+      ]
+    },
+    "motorcycle-check": {
+      "text": "Elsie checked the fuel, tyres and chain. A dispatch rider carried written messages when wires failed. The main road was churned into deep ruts. A narrow farm lane looked firmer but crossed a small stream.",
+      "image": "scene-road.png",
+      "choices": [
+        {"text": "Use the rutted road", "next": "dispatch-yard"},
+        {"text": "Try the farm lane", "next": "footpath"}
+      ]
+    },
+    "pigeon-loft": {
+      "text": "Blue waited in a wicker basket. Homing pigeons fly back to their own loft, not to any place a person chooses. Blue's home was beside the convoy office. That made him perfect for this message.",
+      "image": "scene-pigeon.png",
+      "choices": [
+        {"text": "Write the bridge warning", "next": "tiny-message"},
+        {"text": "Check the weather first", "next": "weather-check"}
+      ]
+    },
+    "buried-cable": {
+      "text": "Cole cleaned the copper ends. Ben twisted them together and wrapped the join to keep out wet mud. They raised the repaired wire from the puddle. Now they needed to test the whole path.",
+      "image": "scene-wire.png",
+      "choices": [
+        {"text": "Call the convoy office", "next": "final-telephone"},
+        {"text": "Test through the relay", "next": "relay-post"}
+      ]
+    },
+    "relay-post": {
+      "text": "At the relay post, a second signaller heard Ben's weak call. Relays helped a message travel in stages. The final wire towards the convoy office was still dead, but the hill station answered clearly.",
+      "choices": [
+        {"text": "Join a fresh final wire", "next": "final-telephone"},
+        {"text": "Pass the message to the hill", "next": "hill-relay"}
+      ]
+    },
+    "lamp-post": {
+      "text": "Ben carried the shuttered lamp to the hill. Opening and closing its cover made short and long flashes. The mist thinned. Far away, a second lamp blinked once from the convoy road.",
+      "image": "scene-hill.png",
+      "choices": [
+        {"text": "Flash the warning in code", "next": "hill-relay"},
+        {"text": "Move to the clearer ridge", "next": "ridge-station"}
+      ]
+    },
+    "flag-post": {
+      "text": "Ben opened the two signal flags. Different arm positions stood for different letters. The wind tugged hard, so every shape had to be clear. A watcher on the far ridge raised a flag in reply.",
+      "image": "scene-hill.png",
+      "choices": [
+        {"text": "Spell STOP AT BRIDGE", "next": "hill-relay"},
+        {"text": "Move closer to the ridge", "next": "ridge-station"}
+      ]
+    },
+    "dispatch-yard": {
+      "text": "Elsie rode slowly between the deep ruts. Mud pulled at the wheels. At an abandoned cart, the road split. The left track reached the convoy office. The right track climbed towards the signal ridge.",
+      "image": "scene-road.png",
+      "choices": [
+        {"text": "Ride to the convoy office", "next": "road-or-foot"},
+        {"text": "Climb to the signal ridge", "next": "ridge-station"}
+      ]
+    },
+    "footpath": {
+      "text": "The farm lane ended at a stream. Its plank bridge was too narrow for the motorcycle. Elsie stopped. She could leave the bike and run along the footpath, or turn towards the nearby pigeon station.",
+      "image": "scene-road.png",
+      "choices": [
+        {"text": "Run along the footpath", "next": "road-or-foot"},
+        {"text": "Use the pigeon station", "next": "tiny-message"}
+      ]
+    },
+    "tiny-message": {
+      "text": "Ben wrote: BRIDGE CRACKED. STOP CONVOY. He added the map square and time. The paper rolled into a tiny tube on Blue's leg. Clear words mattered because there was no room for a long tale.",
+      "choices": [
+        {"text": "Release Blue now", "next": "pigeon-flight"},
+        {"text": "Wait for the rain to ease", "next": "weather-check"}
+      ]
+    },
+    "weather-check": {
+      "text": "The rain eased and the wind blew towards Blue's home loft. Ben checked that the message tube was closed. Blue ruffled his grey feathers and looked towards the pale strip of sky.",
+      "image": "scene-pigeon.png",
+      "choices": [
+        {"text": "Let Blue fly high", "next": "pigeon-flight"},
+        {"text": "Carry him to the ridge", "next": "ridge-station"}
+      ]
+    },
+    "pigeon-flight": {
+      "text": "Blue sprang into the air. He circled once to find his direction, then flew over the muddy fields. Below, the first convoy lorry rolled from its yard. Blue folded his wings and raced for home.",
+      "image": "scene-pigeon.png",
+      "choices": [
+        {"text": "Trust Blue to reach home", "next": "pigeon-ending"},
+        {"text": "Send a lamp signal too", "next": "hill-relay"}
+      ]
+    },
+    "ridge-station": {
+      "text": "From the ridge, the whole road was visible. A watcher stood near the convoy office with a lamp and flags. Ben could send the message by flashes, or Elsie could race down the final dry slope.",
+      "image": "scene-hill.png",
+      "choices": [
+        {"text": "Send the signal from the ridge", "next": "hill-relay"},
+        {"text": "Ride down the dry slope", "next": "road-or-foot"}
+      ]
+    },
+    "final-telephone": {
+      "text": "Ben rang again. This time, a bell jingled at the convoy office. A voice answered through the crackle. Ben read the warning twice. The clerk repeated every word, proving that it had arrived correctly.",
+      "image": "scene-dugout.png",
+      "choices": [
+        {"text": "Order the convoy to halt", "next": "telephone-ending"},
+        {"text": "Send engineers to the bridge", "next": "telephone-ending"}
+      ]
+    },
+    "hill-relay": {
+      "text": "The hill team passed the warning from post to post. Each team repeated it back before sending it on. At last, a flag waved beside the convoy office. The message had crossed the mist.",
+      "image": "scene-hill.png",
+      "choices": [
+        {"text": "Halt the convoy with flags", "next": "signal-ending"},
+        {"text": "Flash the warning by lamp", "next": "signal-ending"}
+      ]
+    },
+    "road-or-foot": {
+      "text": "The convoy's engines were starting. Elsie reached the last gate with the message safe inside her coat. The lane ahead was firm enough to ride, while a shorter footpath led straight to the clerk's hut.",
+      "image": "scene-road.png",
+      "choices": [
+        {"text": "Ride through the gate", "next": "rider-ending"},
+        {"text": "Run down the footpath", "next": "rider-ending"}
+      ]
+    },
+    "telephone-ending": {
+      "text": "The convoy stopped before leaving its yard. Engineers went to the cracked bridge and built a safe way around it. Ben and Cole had followed the wire, found the break and made the electric path whole again.",
+      "image": "scene-wire.png",
+      "ending": "TELEPHONE TAMER — You repaired the talking wire!"
+    },
+    "signal-ending": {
+      "text": "Bright flashes and bold flags carried the warning across the hill. The convoy stopped, and the broken bridge was marked closed. Ben smiled when the far team sent back one last signal: MESSAGE RECEIVED.",
+      "image": "scene-hill.png",
+      "ending": "SIGNAL MASTER — You sent the warning through the mist!"
+    },
+    "rider-ending": {
+      "text": "Elsie reached the convoy office before the first lorry moved onto the road. The clerk blew a whistle, and every engine stopped. Her motorcycle, careful checks and brave dash had carried the warning in time.",
+      "image": "scene-road.png",
+      "ending": "DISPATCH RIDER — You beat the convoy to the bridge!"
+    },
+    "pigeon-ending": {
+      "text": "Blue landed at his home loft beside the convoy office. The keeper found the tiny tube and ran to the clerk. A whistle stopped the lorries. Blue received water, grain and a very proud stroke.",
+      "image": "scene-pigeon.png",
+      "ending": "PIGEON PARTNER — Small wings carried the big warning!"
+    }
+  }
+}
