@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What shape did Eagle Trail make up the hill?",
+      "choices": ["A zigzag", "A circle"],
+      "correct": 1
+    },
+    {
+      "text": "Where did Tom look during the turn?",
+      "choices": ["At his back wheel", "Towards the trail ahead"],
+      "correct": 2
+    },
+    {
+      "text": "Why did the trail have a shallow dip?",
+      "choices": ["To guide rainwater away", "To hide a bicycle"],
+      "correct": 1
+    }
+  ]
+}
