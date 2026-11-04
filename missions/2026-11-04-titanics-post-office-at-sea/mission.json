@@ -1,0 +1,12 @@
+{
+  "title": "Titanic's Post Office at Sea",
+  "type": "Fact",
+  "subtitle": "The true story of five sea post clerks",
+  "blurb": "Titanic carried more than passengers. Deep inside the ship, five clerks raced to sort thousands of bags of mail before New York.",
+  "tags": [
+    { "icon": "directions_boat", "text": "Titanic" },
+    { "icon": "mail", "text": "Real postal history" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What did the letters RMS mean?",
+      "choices": ["Royal Mail Ship", "Really Mighty Ship"],
+      "correct": 1
+    },
+    {
+      "text": "Why did the clerks sort mail during the voyage?",
+      "choices": ["To decorate the room", "So it could leave quickly in New York"],
+      "correct": 2
+    },
+    {
+      "text": "How many sea post clerks worked on Titanic?",
+      "choices": ["Five", "Fifty"],
+      "correct": 1
+    }
+  ]
+}
