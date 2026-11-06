@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What did the Bobbin unroll?",
+      "choices": ["A wide trackway", "A fishing net"],
+      "correct": 1
+    },
+    {
+      "text": "Why was the trackway useful?",
+      "choices": ["It played music", "It stopped vehicles sinking"],
+      "correct": 2
+    },
+    {
+      "text": "About how wide was the trackway?",
+      "choices": ["Three metres", "Three centimetres"],
+      "correct": 1
+    }
+  ]
+}
