@@ -1,0 +1,12 @@
+{
+  "title": "The Last Truck on the Storm Ferry",
+  "type": "Fiction",
+  "subtitle": "A cargo crossing with Tom and Scout",
+  "blurb": "A lighthouse needs power before the storm arrives. Can Ranger Mia secure her heavy cargo truck aboard the final ferry to Gull Island?",
+  "tags": [
+    { "icon": "local_shipping", "text": "Cargo hauling" },
+    { "icon": "directions_boat", "text": "Roll-on ferry" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
