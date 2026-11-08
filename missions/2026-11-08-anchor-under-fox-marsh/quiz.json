@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "Why did Mia stop turning the wheels?",
+      "choices": ["They could dig deeper", "She wanted a nap"],
+      "correct": 1
+    },
+    {
+      "text": "What gave the winch a firm pulling point?",
+      "choices": ["A little puddle", "A ground anchor"],
+      "correct": 2
+    },
+    {
+      "text": "What helped the tyres climb out?",
+      "choices": ["Wide traction boards", "A pile of leaves"],
+      "correct": 1
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "The Anchor Under Fox Marsh",
+  "type": "Fiction",
+  "subtitle": "A 4x4 recovery adventure",
+  "blurb": "A ranger truck is stuck in deep mud, with no tree nearby. Tom, Scout and the recovery team must make a strong pulling point under the marsh.",
+  "tags": [
+    {"icon": "terrain", "text": "4x4 recovery"},
+    {"icon": "wrench", "text": "Ground anchor"},
+    {"icon": "book", "text": "~5 min read"},
+    {"icon": "star", "text": "3 challenge questions"}
+  ]
+}
