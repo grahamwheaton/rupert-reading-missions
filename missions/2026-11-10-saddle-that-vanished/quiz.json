@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What made the saddle slide down?",
+      "choices": ["A handlebar lever", "A gust of wind"],
+      "correct": 1
+    },
+    {
+      "text": "Why did Tom lower the saddle?",
+      "choices": ["To make the bike louder", "To make room to move"],
+      "correct": 2
+    },
+    {
+      "text": "How did Tom hold his pedals?",
+      "choices": ["Level with each other", "Both on the ground"],
+      "correct": 1
+    }
+  ]
+}

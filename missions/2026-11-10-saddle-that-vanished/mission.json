@@ -1,0 +1,12 @@
+{
+  "title": "The Saddle That Vanished",
+  "type": "Fiction",
+  "subtitle": "A mountain bike adventure",
+  "blurb": "Dragon Steps are short, rocky and steep. Tom learns that a tiny handlebar lever can make space for a much bigger adventure.",
+  "tags": [
+    {"icon": "directions_bike", "text": "Mountain biking"},
+    {"icon": "build", "text": "Dropper post"},
+    {"icon": "book", "text": "~5 min read"},
+    {"icon": "star", "text": "3 challenge questions"}
+  ]
+}
