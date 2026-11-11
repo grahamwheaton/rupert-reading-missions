@@ -1,0 +1,12 @@
+{
+  "title": "The Giant Anchor’s Journey to Titanic",
+  "type": "Fact",
+  "subtitle": "A true Titanic transport adventure",
+  "blurb": "Titanic’s enormous centre anchor must travel from a Black Country ironworks to Belfast. Moving a 16-ton giant will take twenty horses and a huge team.",
+  "tags": [
+    {"icon": "anchor", "text": "Titanic"},
+    {"icon": "local_shipping", "text": "Heavy haul"},
+    {"icon": "book", "text": "~5 min read"},
+    {"icon": "star", "text": "3 challenge questions"}
+  ]
+}
