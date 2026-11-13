@@ -1,0 +1,12 @@
+{
+  "title": "The Army Buffalo That Swam to Town",
+  "type": "Fact",
+  "subtitle": "A true World War Two army-vehicle mission",
+  "blurb": "Walcheren’s roads have vanished beneath floodwater. Eleven tracked Buffaloes must swim, climb through mud and carry the Royal Scots into Middelburg.",
+  "tags": [
+    {"icon": "directions_boat", "text": "LVT-4 Buffalo"},
+    {"icon": "military_tech", "text": "Army vehicles"},
+    {"icon": "book", "text": "~5 min read"},
+    {"icon": "star", "text": "3 challenge questions"}
+  ]
+}

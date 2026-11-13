@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "Why could ordinary lorries not cross the island?",
+      "choices": ["The roads were flooded", "Their horns were broken"],
+      "correct": 1
+    },
+    {
+      "text": "How much cargo could a Buffalo carry?",
+      "choices": ["About 200 kilograms", "About 2,000 kilograms"],
+      "correct": 2
+    },
+    {
+      "text": "Which town did the eleven Buffaloes reach?",
+      "choices": ["Middelburg", "London"],
+      "correct": 1
+    }
+  ]
+}
