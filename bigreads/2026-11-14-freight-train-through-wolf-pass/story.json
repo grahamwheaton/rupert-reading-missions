@@ -1,0 +1,233 @@
+{
+  "title": "The Freight Train Through Wolf Pass",
+  "subtitle": "A cargo railway adventure with Tom and Scout",
+  "cover": "cover.png",
+  "start": "freight-yard",
+  "nodes": {
+    "freight-yard": {
+      "text": "Rain drummed on Wolf Pass freight yard. A storm had cut off Snowcap village.\n\nDriver Mia had one train to take through. It carried food, a radio battery and steel beams for the broken footbridge. Tom and Scout watched from the cab.",
+      "image": "scene-yard.png",
+      "choices": [
+        { "text": "Check the cargo", "next": "check-load" },
+        { "text": "Study the route", "next": "study-map" }
+      ]
+    },
+    "check-load": {
+      "text": "Tom walked beside Mia on the safe yard path. Wide straps crossed every beam. Wooden blocks stopped the load sliding.\n\nScout sniffed a crate, but Tom checked the labels with Mia. Everything for Snowcap was aboard.",
+      "choices": [
+        { "text": "Inspect the flat wagon", "next": "flat-wagon" },
+        { "text": "Visit the brake van", "next": "brake-van" }
+      ]
+    },
+    "study-map": {
+      "text": "Mia opened the railway map inside the cab. One line climbed through wet forest. The other followed the roaring river.\n\nBoth joined again below Snowcap, but the storm might have left trouble on either track.",
+      "choices": [
+        { "text": "Choose the forest line", "next": "forest-route" },
+        { "text": "Choose the river line", "next": "river-route" }
+      ]
+    },
+    "flat-wagon": {
+      "text": "The beams rested on a low flat wagon. Mia showed Tom the crossed straps and strong wooden blocks.\n\nA heavy load must not slide forwards, backwards or sideways. Tom found one loose strap. A worker tightened it before the train moved.",
+      "choices": [
+        { "text": "Check the points ahead", "next": "points-ahead" },
+        { "text": "Call the signal box", "next": "signal-box" }
+      ]
+    },
+    "brake-van": {
+      "text": "At the rear, guard Jo tested the brake pipe. Air hissed along the whole train. Each wagon brake gripped, then released.\n\nFreight trains are heavy. They need a long distance to stop, so every brake must work.",
+      "choices": [
+        { "text": "Check the points ahead", "next": "points-ahead" },
+        { "text": "Call the signal box", "next": "signal-box" }
+      ]
+    },
+    "forest-route": {
+      "text": "The forest line was shorter, but thousands of wet leaves covered its rails. Crushed leaves can make steel rails slippery.\n\nMia would have to move slowly and brake early. Beyond the trees waited Raven Tunnel.",
+      "choices": [
+        { "text": "Prepare for fallen trees", "next": "fallen-tree" },
+        { "text": "Check Raven Tunnel", "next": "tunnel-mouth" }
+      ]
+    },
+    "river-route": {
+      "text": "The river line was flatter, but it crossed an old stone bridge. Brown water rushed below its arches.\n\nA flood board beside the track showed that the river had risen. Mia called the bridge team before moving.",
+      "choices": [
+        { "text": "Inspect the old bridge", "next": "old-bridge" },
+        { "text": "Read the flood marker", "next": "flood-marker" }
+      ]
+    },
+    "points-ahead": {
+      "text": "Movable rails called points guide a train from one track to another. A yard worker checked that the points were locked.\n\nThe left track entered the forest. The right track ran beside the river.",
+      "choices": [
+        { "text": "Take the forest line", "next": "forest-line" },
+        { "text": "Take the riverside line", "next": "riverside-line" }
+      ]
+    },
+    "signal-box": {
+      "text": "The signal worker could see where every train was. She checked that both routes were clear.\n\nSignals keep trains safely apart because trains cannot turn away and need a long distance to stop. Two green route lights became ready.",
+      "choices": [
+        { "text": "Ask for the forest route", "next": "forest-line" },
+        { "text": "Ask for the river route", "next": "riverside-line" }
+      ]
+    },
+    "fallen-tree": {
+      "text": "A pine tree lay across the forest line. Mia stopped well before it and called the railway team.\n\nThe small crane wagon could lift the trunk. A saw team could cut it into safe pieces. Tom kept Scout inside the cab.",
+      "choices": [
+        { "text": "Use the crane wagon", "next": "use-crane" },
+        { "text": "Bring the saw team", "next": "use-saw" }
+      ]
+    },
+    "tunnel-mouth": {
+      "text": "Raven Tunnel opened like a dark stone mouth. Water dripped from its roof.\n\nMia stopped at the signal. Railway workers had to make sure the track was clear and the tunnel wall was safe before the freight train entered.",
+      "image": "scene-tunnel.png",
+      "choices": [
+        { "text": "Inspect the tunnel first", "next": "inspect-tunnel" },
+        { "text": "Light the work lamps", "next": "light-lamps" }
+      ]
+    },
+    "old-bridge": {
+      "text": "The stone bridge stood high above the river. Spray curled around its pillars.\n\nA bridge keeper checked the rails, stones and drainage holes. The bridge was strong, but the train must cross slowly and smoothly.",
+      "image": "scene-bridge.png",
+      "choices": [
+        { "text": "Walk the safe inspection path", "next": "inspect-bridge" },
+        { "text": "Call the bridge keeper", "next": "call-keeper" }
+      ]
+    },
+    "flood-marker": {
+      "text": "Tom read the black lines on the flood board from the cab. The water was high, but still below the railway limit.\n\nMia could use the higher loop, or creep along the stone causeway after the flood team checked it.",
+      "choices": [
+        { "text": "Use the higher loop", "next": "higher-track" },
+        { "text": "Check the stone causeway", "next": "slow-causeway" }
+      ]
+    },
+    "forest-line": {
+      "text": "The train rolled beneath dripping branches. Wet leaves had been crushed into a dark, slippery film on the rails.\n\nMia used gentle power. A treatment wagon spread sand for grip. Scout watched the forest slide past the cab window.",
+      "image": "scene-forest.png",
+      "choices": [
+        { "text": "Watch for fallen trees", "next": "fallen-tree" },
+        { "text": "Head towards the tunnel", "next": "tunnel-mouth" }
+      ]
+    },
+    "riverside-line": {
+      "text": "The freight train followed the foaming river. Tom saw branches spinning in the brown water.\n\nAhead, the line split. One track crossed the old stone bridge. The other ran along a low causeway beside the flood.",
+      "image": "scene-bridge.png",
+      "choices": [
+        { "text": "Approach the old bridge", "next": "old-bridge" },
+        { "text": "Stop at the flood marker", "next": "flood-marker" }
+      ]
+    },
+    "use-crane": {
+      "text": "The crane wagon unfolded its yellow arm. Everyone stood inside the safe work area.\n\nChains tightened around the trunk. The crane lifted it clear and placed it beyond the fence. The rails were checked before Mia moved again.",
+      "choices": [
+        { "text": "Climb towards Snowcap", "next": "hill-foot" },
+        { "text": "Take the tunnel shortcut", "next": "tunnel-cleared" }
+      ]
+    },
+    "use-saw": {
+      "text": "The saw team worked from the safe side of the line. Soon the trunk was in short pieces.\n\nThe small crane lifted each piece away. Workers swept the rails and checked for damage. The signal changed when the track was safe.",
+      "choices": [
+        { "text": "Climb towards Snowcap", "next": "hill-foot" },
+        { "text": "Take the tunnel shortcut", "next": "tunnel-cleared" }
+      ]
+    },
+    "inspect-tunnel": {
+      "text": "Two workers walked along the protected side path. Their lamps shone on the rails and stone walls.\n\nThey found a heap of wet leaves near the entrance, but no fallen rock. The leaves were cleared and the track was ready.",
+      "choices": [
+        { "text": "Enter Raven Tunnel", "next": "tunnel-cleared" },
+        { "text": "Use the high loop instead", "next": "higher-track" }
+      ]
+    },
+    "light-lamps": {
+      "text": "Workers switched on bright lamps along the side path. The tunnel roof, drains and rails came into view.\n\nOne drain was blocked by leaves. The team cleared it, and rainwater ran safely away from the track.",
+      "choices": [
+        { "text": "Enter Raven Tunnel", "next": "tunnel-cleared" },
+        { "text": "Use the high loop instead", "next": "higher-track" }
+      ]
+    },
+    "inspect-bridge": {
+      "text": "The bridge keeper used the fenced inspection path. He checked the stone arches and looked beneath the rails.\n\nNo stones had moved. The river was fierce, but the bridge was sound. He raised a green hand lamp.",
+      "choices": [
+        { "text": "Cross and climb the hill", "next": "hill-foot" },
+        { "text": "Cross by the slow line", "next": "slow-causeway" }
+      ]
+    },
+    "call-keeper": {
+      "text": "Mia spoke to the bridge keeper by radio. He had already checked the water level and the stone pillars.\n\nHe gave the train a slow crossing order. Mia eased the heavy wagons onto the bridge without any sudden pull.",
+      "choices": [
+        { "text": "Climb after the bridge", "next": "hill-foot" },
+        { "text": "Follow the slow river line", "next": "slow-causeway" }
+      ]
+    },
+    "higher-track": {
+      "text": "The high loop wound above the flooded valley. It was longer, yet dry and firm.\n\nMia kept the train slow around each curve. Tom counted the wagons as they followed like a steel snake through the hills.",
+      "choices": [
+        { "text": "Tackle the final hill", "next": "hill-foot" },
+        { "text": "Call Snowcap signal", "next": "final-signal" }
+      ]
+    },
+    "slow-causeway": {
+      "text": "The flood team checked the stone causeway. Water lapped far below the rail top.\n\nMia entered at walking speed. She used smooth power so the heavy wagons would not tug at one another. Soon the train reached higher ground.",
+      "choices": [
+        { "text": "Tackle the final hill", "next": "hill-foot" },
+        { "text": "Call Snowcap signal", "next": "final-signal" }
+      ]
+    },
+    "tunnel-cleared": {
+      "text": "The headlamp lit Raven Tunnel. Wheels clicked against the rails, and the diesel engine hummed between the stone walls.\n\nTom saw the bright exit grow larger. Every wagon came safely through. Scout wagged when daylight filled the cab again.",
+      "image": "scene-tunnel.png",
+      "choices": [
+        { "text": "Tackle the final hill", "next": "hill-foot" },
+        { "text": "Call Snowcap signal", "next": "final-signal" }
+      ]
+    },
+    "hill-foot": {
+      "text": "The final hill rose steeply towards Snowcap. Wet leaves shone on the rails. The wheels might slip under the heavy load.\n\nMia could ask for sand on the rails, or call a helper engine from the station above.",
+      "choices": [
+        { "text": "Spread sand for grip", "next": "sand-rails" },
+        { "text": "Call the helper engine", "next": "helper-engine" }
+      ]
+    },
+    "final-signal": {
+      "text": "Snowcap signal box answered. The platform was clear and workers were ready to unload.\n\nThe main signal showed green. A side signal led to the radio depot, where the village battery was needed first.",
+      "image": "scene-station.png",
+      "choices": [
+        { "text": "Take the main platform", "next": "ending-on-time" },
+        { "text": "Serve the radio depot first", "next": "ending-radio" }
+      ]
+    },
+    "sand-rails": {
+      "text": "The treatment wagon dropped a thin stream of dry sand onto the rail. Sand helped the steel wheels grip.\n\nMia added power gently. The train climbed without spinning. At the top, Snowcap station lights gleamed through the mist.",
+      "image": "scene-forest.png",
+      "choices": [
+        { "text": "Deliver the bridge beams", "next": "ending-grip" },
+        { "text": "Unload every crate safely", "next": "ending-safe" }
+      ]
+    },
+    "helper-engine": {
+      "text": "A small helper engine rolled down from Snowcap. Railway workers coupled it to the rear.\n\nOne engine pulled while the other pushed gently. Together they moved the heavy train up the wet hill. Tom called it railway teamwork.",
+      "image": "scene-station.png",
+      "choices": [
+        { "text": "Deliver the bridge beams", "next": "ending-grip" },
+        { "text": "Deliver the radio battery", "next": "ending-radio" }
+      ]
+    },
+    "ending-on-time": {
+      "text": "The freight train rolled beside Snowcap platform exactly when the village clock chimed. Food crates came off first. Then the radio battery and steel beams were unloaded.\n\nTom hugged Scout. Every careful choice had helped the whole train arrive on time.",
+      "image": "scene-station.png",
+      "ending": "ON-TIME ENDING: Wolf Pass was conquered!"
+    },
+    "ending-radio": {
+      "text": "The train stopped beside the radio depot. Workers connected the new battery, and the mountain radio crackled back to life. Snowcap could call the valley again.\n\nScout barked at the first cheerful message. The cargo train had restored the village voice.",
+      "image": "scene-station.png",
+      "ending": "RADIO ENDING: Snowcap can call again!"
+    },
+    "ending-grip": {
+      "text": "The steel beams reached the bridge team. By afternoon, workers had begun rebuilding the village footbridge.\n\nMia showed Tom the sandy rail behind the train. A small stream of grit had helped a very heavy load climb the mountain.",
+      "image": "scene-station.png",
+      "ending": "BRIDGE ENDING: The beams reached Snowcap!"
+    },
+    "ending-safe": {
+      "text": "Workers unloaded every crate slowly and checked each item. Nothing had shifted. Nothing was damaged.\n\nThe village had food, tools and warm blankets before nightfall. Tom gave Scout a proud pat. Safe and steady had won the day.",
+      "image": "scene-station.png",
+      "ending": "SAFE CARGO ENDING: Every crate arrived!"
+    }
+  }
+}
