@@ -1,0 +1,12 @@
+{
+  "title": "The Wheel in the Air at Crow Rock",
+  "type": "Fiction",
+  "subtitle": "A careful 4x4 recovery adventure with Tom and Scout",
+  "blurb": "One wheel lifts over Crow Rock and Mia's 4x4 stops moving. Can a special lock help the wheel on the ground push them safely through?",
+  "tags": [
+    {"icon": "terrain", "text": "4x4 recovery"},
+    {"icon": "settings", "text": "Differential lock"},
+    {"icon": "book", "text": "~5 min read"},
+    {"icon": "star", "text": "3 challenge questions"}
+  ]
+}
