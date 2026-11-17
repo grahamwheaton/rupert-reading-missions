@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What did Mia's truck carry?",
+      "choices": ["A generator", "A boat"],
+      "correct": 1
+    },
+    {
+      "text": "Why did Mia choose a low gear?",
+      "choices": ["To make snow", "To help control speed"],
+      "correct": 2
+    },
+    {
+      "text": "When did Mia choose the low gear?",
+      "choices": ["Before the hill", "Halfway down"],
+      "correct": 1
+    }
+  ]
+}
