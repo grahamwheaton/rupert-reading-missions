@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What did the rubber ring measure?",
+      "choices": ["How far the fork sank", "How loud the bell was"],
+      "correct": 1
+    },
+    {
+      "text": "Who adjusted the fork air?",
+      "choices": ["Scout", "Coach Sam"],
+      "correct": 2
+    },
+    {
+      "text": "Where did Tom test the new setting?",
+      "choices": ["On the easy loop", "On a busy road"],
+      "correct": 1
+    }
+  ]
+}
