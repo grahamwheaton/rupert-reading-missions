@@ -1,0 +1,12 @@
+{
+  "title": "Titanic's Hidden Electric City",
+  "type": "Fact",
+  "subtitle": "The steam-powered generators deep inside Titanic",
+  "blurb": "Four large generating sets made electricity for Titanic's lights, lifts, fans, cranes, kitchen machines and wireless equipment.",
+  "tags": [
+    {"icon": "directions_boat", "text": "Titanic history"},
+    {"icon": "electric_bolt", "text": "Electric power"},
+    {"icon": "book", "text": "~5 min read"},
+    {"icon": "star", "text": "3 challenge questions"}
+  ]
+}

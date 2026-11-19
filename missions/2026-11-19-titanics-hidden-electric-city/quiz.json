@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "How many main generating sets did Titanic have?",
+      "choices": ["Four", "Fourteen"],
+      "correct": 1
+    },
+    {
+      "text": "What drove the main dynamos?",
+      "choices": ["Wind over the deck", "Steam engines"],
+      "correct": 2
+    },
+    {
+      "text": "Which kitchen machine used electricity?",
+      "choices": ["A potato peeler", "A wooden spoon"],
+      "correct": 1
+    }
+  ]
+}
