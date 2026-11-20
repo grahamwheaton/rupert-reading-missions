@@ -1,0 +1,12 @@
+{
+  "title": "The Secret Pipe Beneath the Sea",
+  "type": "Fact",
+  "subtitle": "The World War Two pipeline hidden under the English Channel",
+  "blurb": "British engineers built PLUTO, a secret undersea pipeline that carried fuel from England to France.",
+  "tags": [
+    {"icon": "history_edu", "text": "World War Two history"},
+    {"icon": "engineering", "text": "Secret engineering"},
+    {"icon": "book", "text": "~5 min read"},
+    {"icon": "star", "text": "3 challenge questions"}
+  ]
+}
