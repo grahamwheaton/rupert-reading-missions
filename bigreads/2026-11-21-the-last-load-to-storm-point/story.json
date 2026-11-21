@@ -1,0 +1,225 @@
+{
+  "title": "The Last Load to Storm Point",
+  "subtitle": "A choose-your-route lighthouse cargo adventure",
+  "cover": "cover.png",
+  "start": "storm-depot",
+  "nodes": {
+    "storm-depot": {
+      "text": "Rain rattled on the roof of Storm Point depot. The lighthouse lamp had failed, and fog was coming.\n\nMia's six-wheel truck carried a new lamp, a heavy battery and repair tools. Tom climbed into the cab. Black Labrador Scout settled on his mat.",
+      "image": "scene-depot.png",
+      "choices": [
+        {"text": "Check the cargo first", "next": "cargo-check"},
+        {"text": "Read the storm board", "next": "weather-board"}
+      ]
+    },
+    "cargo-check": {
+      "text": "The lamp sat inside a padded wooden crate. Four crossed straps held it to the truck bed. The battery box was lower and heavier.\n\nHeavy cargo must be kept low. This helps a truck stay steady when the road tilts.",
+      "image": "scene-depot.png",
+      "choices": [
+        {"text": "Inspect the lamp crate", "next": "lens-crate"},
+        {"text": "Inspect the battery box", "next": "battery-crate"}
+      ]
+    },
+    "weather-board": {
+      "text": "The board showed wind, rain and tide times. The harbour ferry could sail before the wind grew stronger. The old causeway would stay above water for one hour.\n\nA forest road also crossed the hills, but fallen branches might block it.",
+      "choices": [
+        {"text": "Head for the ferry port", "next": "ferry-port"},
+        {"text": "Study the tide chart", "next": "tide-chart"}
+      ]
+    },
+    "lens-crate": {
+      "text": "Tom checked the arrows painted on the crate. The lamp had to stay upright. Soft blocks protected its thick glass lens.\n\nMia could test the depot crane before leaving, or drive onto the weigh platform to check the load on each axle.",
+      "choices": [
+        {"text": "Test the depot crane", "next": "test-crane"},
+        {"text": "Weigh the loaded truck", "next": "weigh-truck"}
+      ]
+    },
+    "battery-crate": {
+      "text": "The battery stored power for the lighthouse. Its box had a rubber seal to keep rain out. Beside it stood a case of cables and tools.\n\nScout sniffed the case. Tom spotted one loose catch before it could shake open.",
+      "choices": [
+        {"text": "Seal the battery box", "next": "seal-crate"},
+        {"text": "Pack the repair tools", "next": "pack-tools"}
+      ]
+    },
+    "ferry-port": {
+      "text": "At the harbour, waves slapped the stone wall. A high-deck ferry waited behind the breakwater. The causeway road began farther along the bay.\n\nThe ferry was direct. The causeway was quicker, but only while the tide stayed low.",
+      "image": "scene-ferry.png",
+      "choices": [
+        {"text": "Board the high-deck ferry", "next": "high-ferry"},
+        {"text": "Try the old causeway", "next": "old-causeway"}
+      ]
+    },
+    "tide-chart": {
+      "text": "Tom traced the curved tide line with one finger. The sea would soon cover the lowest stones.\n\nMia could use the causeway before the water rose, or turn inland to the longer forest road. Both routes reached Storm Point from different sides.",
+      "choices": [
+        {"text": "Use the causeway now", "next": "old-causeway"},
+        {"text": "Take the forest road", "next": "forest-road"}
+      ]
+    },
+    "test-crane": {
+      "text": "The crane lifted the lamp crate a hand's width. Its straps stayed tight and the crate remained level.\n\nMia lowered it gently. The crane test proved the harbour could unload it. A quarry crane offered another route if the ferry became too rough.",
+      "choices": [
+        {"text": "Use the harbour ferry", "next": "high-ferry"},
+        {"text": "Drive towards the quarry", "next": "quarry-road"}
+      ]
+    },
+    "weigh-truck": {
+      "text": "Numbers glowed on the weigh platform. The truck was heavy, but no axle carried too much. Mia checked the tyres as well.\n\nThe load was ready for either the wet forest road or the firm stone track through Grey Quarry.",
+      "choices": [
+        {"text": "Choose the forest road", "next": "forest-road"},
+        {"text": "Choose the quarry road", "next": "quarry-road"}
+      ]
+    },
+    "seal-crate": {
+      "text": "Tom pressed the waterproof seal into its groove. Mia closed every latch. Rain drummed on the box but could not reach the battery.\n\nThey could climb through the sheltered forest, or follow the open coast track where the ground was flatter.",
+      "choices": [
+        {"text": "Climb through the forest", "next": "forest-road"},
+        {"text": "Follow the coast track", "next": "coast-track"}
+      ]
+    },
+    "pack-tools": {
+      "text": "Tom sorted the tools into padded slots. Nothing could roll about when the truck leaned. Mia added spare cable and a bright work lamp.\n\nThe quarry road was rough but strong. The coast track was smoother but close to the rising sea.",
+      "choices": [
+        {"text": "Take the quarry road", "next": "quarry-road"},
+        {"text": "Take the coast track", "next": "coast-track"}
+      ]
+    },
+    "high-ferry": {
+      "text": "The truck rolled onto the ferry and stopped between steel guides. Thick chains held its wheels. Scout stayed safely in the cab with Tom.\n\nBeyond the harbour wall, white waves crossed the bay. The captain could use the sheltered channel or aim straight for the island dock.",
+      "image": "scene-ferry.png",
+      "choices": [
+        {"text": "Use the sheltered channel", "next": "storm-sea"},
+        {"text": "Sail for the island dock", "next": "island-dock"}
+      ]
+    },
+    "old-causeway": {
+      "text": "Black and white posts marked the causeway. Wet stones shone between shallow pools. Mia stopped beside the tide gauge.\n\nThe centre road was still clear. A higher coast track curved around the bay, but it ended near a strip of soft beach.",
+      "image": "scene-causeway.png",
+      "choices": [
+        {"text": "Cross between the posts", "next": "causeway-water"},
+        {"text": "Use the higher coast track", "next": "coast-track"}
+      ]
+    },
+    "forest-road": {
+      "text": "The forest road climbed beneath bending trees. The truck's low gears helped it crawl without rushing. Scout's ears lifted at every crack of a branch.\n\nAhead, a fallen pine blocked one bend. A narrow side road continued towards the lighthouse gate.",
+      "image": "scene-forest.png",
+      "choices": [
+        {"text": "Clear the fallen pine", "next": "fallen-tree"},
+        {"text": "Use the narrow side road", "next": "lighthouse-gate"}
+      ]
+    },
+    "quarry-road": {
+      "text": "Grey Quarry rang with dripping water. The old stone road could carry great weight, but one slope was steep.\n\nA parked quarry crane stood near a shorter track. The main road climbed safely around the long way to the lighthouse gate.",
+      "image": "scene-forest.png",
+      "choices": [
+        {"text": "Climb the stone slope", "next": "stone-slope"},
+        {"text": "Use the long safe road", "next": "lighthouse-gate"}
+      ]
+    },
+    "coast-track": {
+      "text": "Wind pushed spray across the coast track. The lighthouse flashed weakly through the fog.\n\nOne route crossed firm beach sand below the cliffs. The other climbed a narrow shelf above the waves. Mia stopped to choose before the track divided.",
+      "image": "scene-causeway.png",
+      "choices": [
+        {"text": "Cross the beach sand", "next": "beach-sand"},
+        {"text": "Climb the cliff shelf", "next": "cliff-shelf"}
+      ]
+    },
+    "storm-sea": {
+      "text": "The ferry followed the sheltered channel. The cliffs blocked the strongest wind, but floating branches bumped against the bow.\n\nThe island dock was close. The captain could enter its narrow harbour, or lower the truck onto the broad landing beach nearby.",
+      "image": "scene-ferry.png",
+      "choices": [
+        {"text": "Enter the island dock", "next": "island-dock"},
+        {"text": "Use the landing beach", "next": "beach-sand"}
+      ]
+    },
+    "causeway-water": {
+      "text": "Mia drove slowly between the posts. Water washed over one low patch, but it stayed below the wheel hubs. The engine's air intake remained high and dry.\n\nNear the far end, a ramp led straight uphill. A side track joined the cliff shelf.",
+      "image": "scene-causeway.png",
+      "choices": [
+        {"text": "Climb straight to the light", "next": "causeway-finish"},
+        {"text": "Join the cliff shelf", "next": "cliff-shelf"}
+      ]
+    },
+    "fallen-tree": {
+      "text": "Mia fixed the winch rope around the fallen pine. Everyone stood well away from the tight line. The winch pulled slowly until the trunk slid clear.\n\nA muddy shortcut led towards the lamp tower. The firm main road continued to the lighthouse gate.",
+      "image": "scene-forest.png",
+      "choices": [
+        {"text": "Take the muddy shortcut", "next": "forest-finish"},
+        {"text": "Stay on the firm road", "next": "lighthouse-gate"}
+      ]
+    },
+    "stone-slope": {
+      "text": "Loose stones rolled under the tyres. Mia selected the lowest gear before the climb. The truck moved at walking speed, with the lamp crate steady behind it.\n\nAt the top stood the quarry crane. A level track also ran to the lighthouse gate.",
+      "image": "scene-forest.png",
+      "choices": [
+        {"text": "Unload with the quarry crane", "next": "quarry-finish"},
+        {"text": "Drive to the lighthouse gate", "next": "lighthouse-gate"}
+      ]
+    },
+    "beach-sand": {
+      "text": "Mia followed the darker, firmer sand. The truck kept moving gently so its tyres did not dig holes. Scout watched gulls lift from the shore.\n\nA beach winch stood below the lighthouse. A rocky ramp joined the cliff shelf farther on.",
+      "image": "scene-causeway.png",
+      "choices": [
+        {"text": "Use the beach winch", "next": "beach-finish"},
+        {"text": "Climb the rocky ramp", "next": "cliff-shelf"}
+      ]
+    },
+    "cliff-shelf": {
+      "text": "The shelf road was narrow, so Mia checked it on foot before driving. The outer edge was marked by strong stone posts.\n\nThe road reached the lighthouse gate. A second ramp dropped to the beach winch below the tower.",
+      "image": "scene-lighthouse.png",
+      "choices": [
+        {"text": "Continue to the main gate", "next": "lighthouse-gate"},
+        {"text": "Drop down to the beach winch", "next": "beach-finish"}
+      ]
+    },
+    "island-dock": {
+      "text": "The ferry touched the dock without a bump. A dock crane could lift the lamp crate onto a small trailer. The truck could also leave the ferry and climb the old service road.\n\nAbove them, the lighthouse beam faded again.",
+      "image": "scene-ferry.png",
+      "choices": [
+        {"text": "Use the dock crane", "next": "crane-finish"},
+        {"text": "Climb the service road", "next": "lighthouse-gate"}
+      ]
+    },
+    "lighthouse-gate": {
+      "text": "Keeper Jo opened the iron gate. The truck had reached Storm Point, but the last yard was steep.\n\nThey could use the lighthouse's small lifting crane, or roll the battery trolley through the sheltered service tunnel beneath the tower.",
+      "image": "scene-lighthouse.png",
+      "choices": [
+        {"text": "Use the lighthouse crane", "next": "emergency-choice"},
+        {"text": "Use the service tunnel", "next": "causeway-finish"}
+      ]
+    },
+    "emergency-choice": {
+      "text": "The lamp crate hung level beneath the crane. The battery still had to reach the power room.\n\nTom could guide its trolley along the marked floor, or help Jo pull the padded lamp case into the lens room first.",
+      "image": "scene-lighthouse.png",
+      "choices": [
+        {"text": "Guide the battery trolley", "next": "crane-finish"},
+        {"text": "Help fit the new lamp", "next": "forest-finish"}
+      ]
+    },
+    "crane-finish": {
+      "text": "The crane placed the lamp beside the lens room. Tom guided the battery trolley over its yellow floor marks. Mia connected the thick cable, and Keeper Jo pressed the start button.\n\nA bright beam swept across the bay. Scout barked once at the moving light.",
+      "image": "scene-lighthouse.png",
+      "ending": "HARBOUR HERO — You delivered the last load by crane!"
+    },
+    "causeway-finish": {
+      "text": "The service tunnel led straight beneath the lamp room. Its smooth floor made the heavy battery easy to roll. Soon the new lamp glowed above them.\n\nOutside, the rising tide covered the old road, but Storm Point's beam shone safely over the water.",
+      "image": "scene-lighthouse.png",
+      "ending": "TIDE TRACKER — You beat the rising sea!"
+    },
+    "forest-finish": {
+      "text": "Tom and Jo carried the padded lamp case into the lens room. Mia connected the battery below. The great glass lens turned, sending one bright flash across the wet forest and another over the sea.\n\nScout found a dry mat and fell asleep at once.",
+      "image": "scene-lighthouse.png",
+      "ending": "FOREST GUIDE — You found the sheltered way!"
+    },
+    "quarry-finish": {
+      "text": "The quarry crane lifted the lamp onto a small rail trolley. It rolled along an old level track to the lighthouse. The route looked forgotten, but it carried the load perfectly.\n\nAt dusk, the repaired lamp flashed over Grey Quarry and out across the bay.",
+      "image": "scene-lighthouse.png",
+      "ending": "STONE ROAD MASTER — You used the quarry route!"
+    },
+    "beach-finish": {
+      "text": "The beach winch pulled the cargo trolley up its steel rails. Mia kept the truck on firm sand while Tom watched from the safe path.\n\nThe new lamp reached the tower before the fog. Its first beam made a silver road across the dark water.",
+      "image": "scene-lighthouse.png",
+      "ending": "BEACH RESCUER — You hauled the light from the shore!"
+    }
+  }
+}
