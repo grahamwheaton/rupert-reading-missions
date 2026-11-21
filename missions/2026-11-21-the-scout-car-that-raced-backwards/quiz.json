@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "text": "What was the Dingo built to do?",
+      "choices": ["Scout ahead", "Carry a bridge"],
+      "correct": 1
+    },
+    {
+      "text": "Why was the driver's seat angled?",
+      "choices": ["To reach the roof", "To look behind"],
+      "correct": 2
+    },
+    {
+      "text": "What helped the Dingo cross bumps?",
+      "choices": ["Independent suspension", "A ship's anchor"],
+      "correct": 1
+    }
+  ]
+}

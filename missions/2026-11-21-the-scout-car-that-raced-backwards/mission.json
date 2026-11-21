@@ -1,0 +1,12 @@
+{
+  "title": "The Scout Car That Raced Backwards",
+  "type": "Fact",
+  "subtitle": "The tiny army vehicle with five reverse gears",
+  "blurb": "The Daimler Dingo was low, quick and clever. Its unusual gearbox let a two-person crew drive away as fast as they had arrived.",
+  "tags": [
+    {"icon": "military_tech", "text": "Army vehicles"},
+    {"icon": "swap_horiz", "text": "Dingo scout-car facts"},
+    {"icon": "book", "text": "~5 min read"},
+    {"icon": "star", "text": "3 challenge questions"}
+  ]
+}
