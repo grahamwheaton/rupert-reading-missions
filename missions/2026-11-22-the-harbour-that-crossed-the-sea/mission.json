@@ -1,0 +1,12 @@
+{
+  "title": "The Harbour That Crossed the Sea",
+  "type": "Fact",
+  "subtitle": "The giant harbour kit built during World War Two",
+  "blurb": "Engineers built two temporary harbours in pieces, then tugboats pulled them across the English Channel to Normandy.",
+  "tags": [
+    {"icon": "terrain", "text": "World War Two engineering"},
+    {"icon": "wrench", "text": "Ships, cranes and floating roads"},
+    {"icon": "book", "text": "~5 min read"},
+    {"icon": "star", "text": "3 challenge questions"}
+  ]
+}
