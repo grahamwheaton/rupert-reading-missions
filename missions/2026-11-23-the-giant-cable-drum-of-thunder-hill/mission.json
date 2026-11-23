@@ -1,0 +1,12 @@
+{
+  "title": "The Giant Cable Drum of Thunder Hill",
+  "type": "Fiction",
+  "subtitle": "A six-wheel cargo haul through the flooded quarry",
+  "blurb": "A huge cable drum must reach a dark hill village. One loose chock and one low tunnel stand in the way.",
+  "tags": [
+    {"icon": "terrain", "text": "Quarry cargo route"},
+    {"icon": "wrench", "text": "Real load safety facts"},
+    {"icon": "book", "text": "~5 min read"},
+    {"icon": "star", "text": "3 challenge questions"}
+  ]
+}
