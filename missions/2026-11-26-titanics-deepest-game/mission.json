@@ -1,0 +1,12 @@
+{
+  "title": "Titanic's Deepest Game",
+  "type": "Fact",
+  "subtitle": "The squash court hidden low inside the great ship",
+  "blurb": "Far below Titanic's grand rooms, a tiny black ball bounced around a secret court. Discover the real game hidden deep inside the ship.",
+  "tags": [
+    { "icon": "terrain", "text": "Titanic" },
+    { "icon": "wrench", "text": "Real history" },
+    { "icon": "book", "text": "~5 min read" },
+    { "icon": "star", "text": "3 challenge questions" }
+  ]
+}
