@@ -1,0 +1,249 @@
+{
+  "title": "The Convoy Across Red Dust Canyon",
+  "subtitle": "A choose-your-route desert hauling adventure",
+  "cover": "cover.png",
+  "start": "desert-depot",
+  "nodes": {
+    "desert-depot": {
+      "text": "At sunrise, Mia's six-wheel truck waited at Red Dust Depot. It carried a folded weather mast, solar panels and a box of tools. Tom checked the map while black Labrador Scout sniffed the warm wind. The weather station needed the load before night.",
+      "image": "scene-depot.png",
+      "choices": [
+        { "text": "Take the dry river", "next": "dry-river" },
+        { "text": "Climb the ridge road", "next": "ridge-road" }
+      ]
+    },
+    "dry-river": {
+      "text": "The dry river was wide and pale. Its bed looked flat, but wind had piled loose sand across it. Mia knew a useful desert trick: softer tyres can spread a truck's weight over more sand. Ahead were ripples on the left and white stones on the right.",
+      "choices": [
+        { "text": "Cross the sand ripples", "next": "soft-sand" },
+        { "text": "Follow the white stones", "next": "stone-markers" }
+      ]
+    },
+    "ridge-road": {
+      "text": "Low gear carried the truck up the ridge. The view was huge. Far below, the dry river curled like a rope. The road split beside a black rock. One branch hugged the cliff. The other followed the line of an old desert railway.",
+      "image": "scene-depot.png",
+      "choices": [
+        { "text": "Use the cliff turns", "next": "cliff-turns" },
+        { "text": "Follow the old railway", "next": "old-rail-cut" }
+      ]
+    },
+    "soft-sand": {
+      "text": "The first ripples were firm. Then the rear wheels sank with a soft crunch. Mia stopped before they dug deeper. Scout stayed in the cab while Tom fetched the recovery bag. They could lower the tyre pressure or place the broad traction boards.",
+      "image": "scene-sand.png",
+      "choices": [
+        { "text": "Let some air out", "next": "air-down" },
+        { "text": "Lay the traction boards", "next": "traction-boards" }
+      ]
+    },
+    "stone-markers": {
+      "text": "The white stones formed little heaps called cairns. Travellers use cairns to mark a safe way where there is no clear road. Some led toward a dark hill. Tom's compass pointed past a patch of old tyre tracks.",
+      "choices": [
+        { "text": "Trust the cairns", "next": "follow-cairns" },
+        { "text": "Check the compass", "next": "check-compass" }
+      ]
+    },
+    "cliff-turns": {
+      "text": "The cliff road twisted above the canyon. Mia kept the truck slow and steady. At a sharp bend, one route dropped through a stone gate. A second route crossed a flat shelf where Tom could walk ahead with Ranger Sal on the radio.",
+      "choices": [
+        { "text": "Crawl down in low gear", "next": "low-gear" },
+        { "text": "Check the shelf first", "next": "scout-ahead" }
+      ]
+    },
+    "old-rail-cut": {
+      "text": "The railway had closed long ago, but its level track bed was still easy to follow. Rusty rails ended beside a cutting. Ahead stood a short stone tunnel. Above it, a rough service path climbed through loose rocks.",
+      "choices": [
+        { "text": "Inspect the tunnel", "next": "tunnel-mouth" },
+        { "text": "Climb the high cutting", "next": "high-cutting" }
+      ]
+    },
+    "air-down": {
+      "text": "Mia used a small gauge and let out a little air. The tyres became wider where they touched the sand. The truck eased free without spinning. Tom marked the pressure in the log so they would remember to pump the tyres up later.",
+      "image": "scene-sand.png",
+      "choices": [
+        { "text": "Keep to the dune edge", "next": "dune-edge" },
+        { "text": "Aim for the rock shelf", "next": "winch-rock" }
+      ]
+    },
+    "traction-boards": {
+      "text": "Tom and Mia pushed the broad boards under the tyres. Their raised grips bit into the sand. The truck rolled out in one slow pull. Mia tied the boards back on the side rack, and Scout gave them a happy bark from the cab.",
+      "image": "scene-sand.png",
+      "choices": [
+        { "text": "Follow the dune edge", "next": "dune-edge" },
+        { "text": "Winch toward the rocks", "next": "winch-rock" }
+      ]
+    },
+    "follow-cairns": {
+      "text": "The cairns led around the dark hill. Behind it stood an old stone well with a metal shade roof. A fresh set of truck tracks continued west. A smoother path curved north along the last line of dunes.",
+      "choices": [
+        { "text": "Stop at the old well", "next": "old-well" },
+        { "text": "Take the dune path", "next": "dune-edge" }
+      ]
+    },
+    "check-compass": {
+      "text": "Tom held the compass flat. The old tyre tracks turned away from the tower, but the needle showed the true direction. A wall of dust was growing on the plain. They could steer for a rocky shelf or pause to study the squall.",
+      "choices": [
+        { "text": "Head for the rocks", "next": "old-well" },
+        { "text": "Watch the dust squall", "next": "dust-squall" }
+      ]
+    },
+    "low-gear": {
+      "text": "The engine hummed as the truck crept downhill. Low gear helped hold it back without hot brakes. At the canyon bottom, an old stone causeway crossed the wash. Beside it, a wide track followed the sandy floor.",
+      "choices": [
+        { "text": "Test the stone causeway", "next": "stone-causeway" },
+        { "text": "Use the canyon floor", "next": "canyon-floor" }
+      ]
+    },
+    "scout-ahead": {
+      "text": "Ranger Sal walked the shelf while Mia waited. Tom watched from a safe spot, and Scout stayed on his lead. Sal found firm ground but also saw a low stone causeway below. Both routes could carry the truck onward.",
+      "choices": [
+        { "text": "Drop to the causeway", "next": "stone-causeway" },
+        { "text": "Continue along the shelf", "next": "canyon-floor" }
+      ]
+    },
+    "tunnel-mouth": {
+      "text": "Mia stopped well before the tunnel. Tom shone a torch inside. The roof looked sound, but the folded mast might be too tall near the far end. The high cutting was still close enough to reach.",
+      "image": "scene-canyon.png",
+      "choices": [
+        { "text": "Measure the tunnel", "next": "tunnel-chamber" },
+        { "text": "Turn to the cutting", "next": "high-cutting" }
+      ]
+    },
+    "high-cutting": {
+      "text": "The service path climbed above the tunnel. Small stones had rolled across it. Mia could drive slowly around the edge of the rockfall, or the crew could clear a safe tyre-width path with shovels.",
+      "choices": [
+        { "text": "Clear the loose stones", "next": "rockfall" },
+        { "text": "Use the lower ledge", "next": "canyon-floor" }
+      ]
+    },
+    "dune-edge": {
+      "text": "Firm sand ran along the foot of the dunes. Soon the weather tower appeared on a far mesa. A track climbed toward it, but Tom also spotted green palms at a small ranger camp. The convoy had enough time for either route.",
+      "image": "scene-depot.png",
+      "choices": [
+        { "text": "Drive toward the mesa", "next": "tower-fork" },
+        { "text": "Visit the green palms", "next": "oasis-camp" }
+      ]
+    },
+    "winch-rock": {
+      "text": "The rock shelf was firm, but a short bank blocked the way. Mia fixed the winch cable to a solid boulder with a tree strap. The winch pulled; the truck climbed without spinning. From the top, they saw the mesa road and a signal ridge.",
+      "image": "scene-sand.png",
+      "choices": [
+        { "text": "Join the mesa road", "next": "tower-fork" },
+        { "text": "Climb the signal ridge", "next": "signal-ridge" }
+      ]
+    },
+    "old-well": {
+      "text": "The old well was sealed, but its shade roof made a cool rest place. Scout drank from his bowl. A ranger's map under glass showed an oasis camp nearby and a direct track to the tower fork.",
+      "choices": [
+        { "text": "Check the oasis camp", "next": "oasis-camp" },
+        { "text": "Take the direct track", "next": "tower-fork" }
+      ]
+    },
+    "dust-squall": {
+      "text": "The squall was small but fast. Mia did not race it. She pointed to a rocky overhang where the truck could wait. Tom saw a marker pole leading up to a radio ridge. Both choices kept the convoy away from the open plain.",
+      "choices": [
+        { "text": "Shelter by the overhang", "next": "overhang" },
+        { "text": "Follow the marker poles", "next": "signal-ridge" }
+      ]
+    },
+    "stone-causeway": {
+      "text": "Ranger Sal checked the old causeway on foot. Its wide stone blocks were firm. Mia crossed at walking speed, keeping the wheels in the centre. On the far side, one track rose toward the tower and another stayed in the canyon.",
+      "image": "scene-canyon.png",
+      "choices": [
+        { "text": "Climb toward the tower", "next": "tower-fork" },
+        { "text": "Stay in the canyon", "next": "canyon-floor" }
+      ]
+    },
+    "canyon-floor": {
+      "text": "Tall striped cliffs made the truck look tiny. Scout's ears lifted at the echo of the engine. Sunlight showed a ramp out of the canyon. A second path climbed to a ridge with an old radio mast.",
+      "image": "scene-canyon.png",
+      "choices": [
+        { "text": "Take the sunlit ramp", "next": "tower-fork" },
+        { "text": "Climb to the radio mast", "next": "signal-ridge" }
+      ]
+    },
+    "tunnel-chamber": {
+      "text": "The height pole fitted under the tunnel roof with room to spare. Halfway through, Tom found an old railway store room. Inside were sealed water cans and a working emergency radio left for desert travellers.",
+      "choices": [
+        { "text": "Open the emergency store", "next": "ending-rail-cache" },
+        { "text": "Continue through", "next": "rockfall" }
+      ]
+    },
+    "rockfall": {
+      "text": "The crew moved only the loose stones that blocked the tyres. They left the big rocks alone. Beyond the cutting, the track joined the open desert. The tower fork lay ahead, while the radio ridge rose to the right.",
+      "choices": [
+        { "text": "Go to the tower fork", "next": "tower-fork" },
+        { "text": "Call from the ridge", "next": "signal-ridge" }
+      ]
+    },
+    "tower-fork": {
+      "text": "A wooden post marked the final fork. The steep track went straight to the weather station. The gentler road reached a signal ridge first, where Mia could ask the rangers about the safest last climb.",
+      "choices": [
+        { "text": "Take the steep track", "next": "mesa-track" },
+        { "text": "Call from the ridge", "next": "signal-ridge" }
+      ]
+    },
+    "oasis-camp": {
+      "text": "Two rangers at the oasis camp had a problem. Wind had torn the roof from their water store. The convoy carried a spare sheet, but using it would take time. The weather tower was visible above the palms.",
+      "image": "scene-depot.png",
+      "choices": [
+        { "text": "Help the oasis rangers", "next": "ending-oasis" },
+        { "text": "Head for the tower", "next": "tower-base" }
+      ]
+    },
+    "overhang": {
+      "text": "The truck fitted beneath the rock overhang. Dust whispered past outside. On the radio came a weak call from a ranger with a puncture. Mia could answer the call or wait ten minutes and continue to the tower.",
+      "choices": [
+        { "text": "Answer the ranger", "next": "ending-ranger-rescue" },
+        { "text": "Wait, then move on", "next": "tower-fork" }
+      ]
+    },
+    "signal-ridge": {
+      "text": "The radio worked clearly on the ridge. The station crew said the mesa track was open. Then another ranger called from a broken-down survey buggy nearby. The convoy could help first or carry on with the mast.",
+      "image": "scene-canyon.png",
+      "choices": [
+        { "text": "Help the survey buggy", "next": "ending-ranger-rescue" },
+        { "text": "Continue to the mesa", "next": "mesa-track" }
+      ]
+    },
+    "mesa-track": {
+      "text": "The last climb was steep but firm. Mia chose low gear and kept a steady speed. Near the top, a side track dropped toward the oasis. The main track ended at the weather station gate.",
+      "choices": [
+        { "text": "Reach the station gate", "next": "tower-base" },
+        { "text": "Check the oasis first", "next": "oasis-camp" }
+      ]
+    },
+    "tower-base": {
+      "text": "The convoy reached the weather station with the cargo safe. The old mast leaned in the yard. The crew could raise the new mast first, while the light was good, or fit the solar panels before the sun slipped behind the canyon.",
+      "image": "scene-tower.png",
+      "choices": [
+        { "text": "Raise the weather mast", "next": "ending-tower-wind" },
+        { "text": "Fit the solar panels", "next": "ending-tower-solar" }
+      ]
+    },
+    "ending-tower-wind": {
+      "text": "Mia used the truck's small crane while the rangers held guide ropes. The mast rose straight and true. Soon its cups spun in the evening wind. The station sent a fresh weather report across the desert, and Scout barked at the turning vane.",
+      "image": "scene-tower.png",
+      "ending": "WIND WATCHER — The new weather mast is working!"
+    },
+    "ending-tower-solar": {
+      "text": "Tom passed safe clips to the rangers as they fixed the solar panels in rows. The last plug clicked into place. Lights glowed inside the station. There was still time to raise the mast tomorrow, and the batteries charged all night.",
+      "image": "scene-tower.png",
+      "ending": "SUN POWER — The desert station has power again!"
+    },
+    "ending-oasis": {
+      "text": "The crew used the spare sheet to mend the water-store roof. Then the station sent a smaller truck to collect the mast at dawn. The oasis water stayed clean, the tower still got its cargo, and Tom learned that a good convoy helps the whole route.",
+      "image": "scene-depot.png",
+      "ending": "OASIS HELPER — You protected the desert water supply!"
+    },
+    "ending-rail-cache": {
+      "text": "The emergency store held water, a first-aid box and a radio. Tom called the rangers, who asked the convoy to mark the forgotten cache on the new map. The truck delivered the mast later that day, and future travellers gained a safe shelter too.",
+      "image": "scene-canyon.png",
+      "ending": "RAILWAY FIND — You found a life-saving desert store!"
+    },
+    "ending-ranger-rescue": {
+      "text": "The convoy found the ranger beside the survey buggy. Mia used the air hose to fill its spare tyre, and Tom fetched cold water. Together the two vehicles reached the weather station before sunset. No one travelled alone across Red Dust Canyon.",
+      "image": "scene-sand.png",
+      "ending": "RESCUE CONVOY — You brought everyone home safely!"
+    }
+  }
+}
